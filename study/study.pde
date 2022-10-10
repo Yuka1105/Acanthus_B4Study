@@ -1,10 +1,13 @@
 import controlP5.*;
 ControlP5 slider;
+
+//スライダー
 Slider slider_Lr;
 Slider slider_s1;
 Slider slider_s3;
 
-float STEP = 2 * PI * 0.01;//曲線の精度
+//曲線の精度
+float STEP = 2 * PI * 0.01;
 //左側の渦巻き
 float Ltheta = 4 * PI;
 float origin_Ltheta = 4 * PI;
@@ -13,27 +16,28 @@ int Lspiral;
 float La= 1.1;
 float Lb;
 float Lr;
-float Lrr;//直径を制御するためだけの変数
+float Lrr;//直径を制御
 float Latranslate;
-float Lx , Ly;
+float Lx, Ly;
 float last_Lspiral;
 float last_Lb;
 float last_Lr;
 float last_Lrr;
+float origin_Lrr;
 float last_Latranslate;
-float origin_Lrr; //ランダム後追記
-int draw = 1; //ランダム後追記
-float maxR; //ランダム後変更
-int maxR_abc = 0; //ランダム後追記
+int draw = 1;
+float maxR;
+int maxR_abc = 0;
+
 //ベジェ
-int count;//ベジェの終点を定めるための変数
+int count;//ベジェの終点を定める
 float bezierXl;
 float bezierYl;
 float bezierXr;
 float bezierYr;
 float s1, s3;
-float origin_s1; //ランダム後追記
-float origin_s3; //ランダム後追記
+float origin_s1;
+float origin_s3;
 
 void setup(){
   size(800,800);
@@ -47,15 +51,15 @@ void setup(){
    .setPosition(width/2+50,660)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0, 30)  //最小値と最大値
-   .setValue(1)  //初期値
+   .setValue(1.5)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Lspiralの値を動かすスライダー
   slider.addSlider("Lspiral")
    .setPosition(10,10)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
-   .setRange(1,3)  //最小値と最大値
-   .setValue(int(random(1,4)))  //初期値
+   .setRange(1,2)  //最小値と最大値
+   .setValue(int(random(1,3)))  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Lbの値を動かすスライダー
@@ -66,35 +70,28 @@ void setup(){
    .setValue(random(0,10))  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
+  //Latranslateの値を動かすスライダー
+  slider.addSlider("Latranslate")
+   .setPosition(10,70)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setRange(0, 0.5)  //最小値と最大値
+   .setValue(random(0,0.2))  //初期値
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
+   
   //渦巻きの大きさとベジェのバランス調整
   if(int(slider.getController("Lspiral").getValue()) == 1){
-    //Latranslate：比率
-    slider.addSlider("Latranslate")
-     .setPosition(10,70)  //スライダーの位置
-     .setSize(100,20)  //スライダーのサイズ
-     .setRange(0, 0.5)  //最小値と最大値
-     .setValue(random(0,0.2))  //初期値
-     .setColorCaptionLabel(0)  //スライダーの文字の色
-     ;
     //Lrrの値を動かすスライダー
     slider.addSlider("Lrr")
      .setPosition(10,100)  //スライダーの位置
      .setSize(100,20)  //スライダーのサイズ
-     .setRange(4,7)  //最小値と最大値
-     .setValue(random(4,7))  //初期値
+     .setRange(3,5.5)  //最小値と最大値
+     .setValue(random(3,5.5))  //初期値
      .setColorCaptionLabel(0)  //スライダーの文字の色
      ;
     maxR= Lrr * Lr * (pow(La+0.1*Latranslate,4*PI+100*STEP)+Lb);
   }
   else if(int(slider.getController("Lspiral").getValue()) == 2){
-    //Latranslate：比率
-    slider.addSlider("Latranslate")
-     .setPosition(10,70)  //スライダーの位置
-     .setSize(100,20)  //スライダーのサイズ
-     .setRange(0, 0.5)  //最小値と最大値
-     .setValue(random(0,0.3))  //初期値
-     .setColorCaptionLabel(0)  //スライダーの文字の色
-     ;
     //Lrrの値を動かすスライダー
     slider.addSlider("Lrr")
      .setPosition(10,100)  //スライダーの位置
@@ -105,34 +102,18 @@ void setup(){
      ;
     maxR= Lrr * Lr * (pow(La+0.2*Latranslate,4*PI+200*STEP)+Lb);
   }
-  else if(int(slider.getController("Lspiral").getValue()) == 3){
-    //Latranslate：比率
-    slider.addSlider("Latranslate")
-     .setPosition(10,70)  //スライダーの位置
-     .setSize(100,20)  //スライダーのサイズ
-     .setRange(0, 0.5)  //最小値と最大値
-     .setValue(random(0,0.2))  //初期値
-     .setColorCaptionLabel(0)  //スライダーの文字の色
-     ;
-    //Lrrの値を動かすスライダー
-    slider.addSlider("Lrr")
-     .setPosition(10,100)  //スライダーの位置
-     .setSize(100,20)  //スライダーのサイズ
-     .setRange(1,4)  //最小値と最大値
-     .setValue(random(1,1.5))  //初期値
-     .setColorCaptionLabel(0)  //スライダーの文字の色
-     ;
-    maxR= Lrr * Lr * (pow(La+0.3*Latranslate,4*PI+300*STEP)+Lb);
-  }
   println(maxR);
+  
   //maxRの値でベジェの位置を決める
   if(maxR > 20 && maxR < 50){
+    //ベジェ
+    bezierXr = 390;
     //s1の値を動かすスライダー
     slider_s1 = slider.addSlider("s1")
      .setPosition(width/2+50,600)  //スライダーの位置
      .setSize(100,20)  //スライダーのサイズ
      .setRange(0,500)  //最小値と最大値
-     .setValue(240)  //初期値
+     .setValue(247)  //初期値
      .setColorCaptionLabel(0)  //スライダーの文字の色
      ;
     //s3の値を動かすスライダー
@@ -147,12 +128,14 @@ void setup(){
     println("小さい");
   }
   else if(maxR >= 50 && maxR < 80){
+    //ベジェ
+    bezierXr = 440;
     //s1の値を動かすスライダー
     slider_s1 = slider.addSlider("s1")
      .setPosition(width/2+50,600)  //スライダーの位置
      .setSize(100,20)  //スライダーのサイズ
      .setRange(0,500)  //最小値と最大値
-     .setValue(270)  //初期値
+     .setValue(0.22*maxR + 260)  //初期値
      .setColorCaptionLabel(0)  //スライダーの文字の色
      ;
     //s3の値を動かすスライダー
@@ -167,12 +150,14 @@ void setup(){
     println("中くらい");
   }
   else if(maxR >= 80 && maxR < 130){
+    //ベジェ
+    bezierXr = 500;
     //s1の値を動かすスライダー
     slider_s1 = slider.addSlider("s1")
      .setPosition(width/2+50,600)  //スライダーの位置
      .setSize(100,20)  //スライダーのサイズ
      .setRange(0,500)  //最小値と最大値
-     .setValue(325)  //初期値
+     .setValue(0.28*maxR + 295)  //初期値
      .setColorCaptionLabel(0)  //スライダーの文字の色
      ;
     //s3の値を動かすスライダー
@@ -185,26 +170,6 @@ void setup(){
      ;
     maxR_abc=3;
     println("大きい");
-  }
-  else{
-    //s1の値を動かすスライダー
-    slider_s1 = slider.addSlider("s1")
-     .setPosition(width/2+50,600)  //スライダーの位置
-     .setSize(100,20)  //スライダーのサイズ
-     .setRange(0,500)  //最小値と最大値
-     .setValue(390)  //初期値
-     .setColorCaptionLabel(0)  //スライダーの文字の色
-     ;
-    //s3の値を動かすスライダー
-    slider_s3 = slider.addSlider("s3")
-     .setPosition(width/2+50,630)  //スライダーの位置
-     .setSize(100,20)  //スライダーのサイズ
-     .setRange(0,500)  //最小値と最大値
-     .setValue(395)  //初期値
-     .setColorCaptionLabel(0)  //スライダーの文字の色
-     ;
-     maxR_abc=4;
-     println("超でかい");
   }
 
   //Lxの値を動かすスライダー
@@ -226,11 +191,11 @@ void setup(){
 
   last_Lspiral = int(slider.getController("Lspiral").getValue());
   last_Lb = slider.getController("Lb").getValue();
-  last_Lrr = slider.getController("Lrr").getValue();
-  last_Latranslate = slider.getController("Latranslate").getValue();
   last_Lr = 1;
+  last_Lrr = slider.getController("Lrr").getValue();
   origin_Lrr = slider.getController("Lrr").getValue();
   println(origin_Lrr);
+  last_Latranslate = slider.getController("Latranslate").getValue();
   origin_s1 = slider.getController("s1").getValue();
   origin_s3 = slider.getController("s3").getValue();
 }

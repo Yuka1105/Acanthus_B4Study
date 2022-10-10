@@ -51,11 +51,11 @@ void draw(){
    }
    //ベジェの終点
    if(Ltheta > 4.5*PI+(Lspiral-1)*2*PI && count == 0){
-     bezierXr = Lrad(Ltheta)*cos(Ltheta)+width/2 + Lx;
+     float greenX = Lrad(Ltheta)*cos(Ltheta)+width/2 + Lx;
      bezierYr = Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly;
      fill(0,255,0);
      noStroke();
-     ellipse(bezierXr,bezierYr,7,7);
+     ellipse(greenX,bezierYr,7,7);
      count ++;
    }
    //直径Lrrを変えた時maxRが更新される
@@ -82,9 +82,9 @@ void draw(){
   stroke(255, 102, 0);
   strokeWeight(1);
   line(bezierXl,bezierYl,s1,bezierYl);
-  line(s3,bezierYr,400,bezierYr);
+  line(s3,bezierYr,bezierXr,bezierYr);
   stroke(0);
-  bezier(bezierXl, bezierYl, s1, bezierYl, s3, bezierYr, 400, bezierYr);
+  bezier(bezierXl, bezierYl, s1, bezierYl, s3, bezierYr, bezierXr, bezierYr);
   
   //一番高い点の描画（青）
   fill(0,0,255);
