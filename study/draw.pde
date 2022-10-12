@@ -1,26 +1,24 @@
 void draw(){
   
-  //直径Lrrを変化させたときベジェs1,s3の値も変化させる
+  //直径Lrrを変化させたときベジェs1,s3,bezierXrの値も変化させる
   if(last_Lrr > Lrr || last_Lrr < Lrr){
-    if(maxR_abc == 1){
-      //10*origin_Lrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
-      slider_s1.setValue(origin_s1 + 15*Lrr- 15*origin_Lrr);
+    if(maxR_abc == 1){//渦巻きが小さい
+      //X*origin_Lrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
+      slider_s1.setValue(origin_s1 + 16*Lrr- 16*origin_Lrr);
       slider_s3.setValue(origin_s3 + 10*Lrr - 10*origin_Lrr);
+      bezierXr = 390 + 25*Lrr- 25*origin_Lrr;
     }
-    if(maxR_abc == 2){
-      //10*origin_Lrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
-      slider_s1.setValue(origin_s1 + 20*Lrr- 20*origin_Lrr);
+    if(maxR_abc == 2){//渦巻きが中くらい
+      //X*origin_Lrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
+      slider_s1.setValue(origin_s1 + 18*Lrr- 18*origin_Lrr);
       slider_s3.setValue(origin_s3 + 15*Lrr - 15*origin_Lrr);
+      bezierXr = 440 + 23*Lrr- 23*origin_Lrr;
     }
-    if(maxR_abc == 3){
-      //10*origin_Lrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
-      slider_s1.setValue(origin_s1 + 30*Lrr- 30*origin_Lrr);
+    if(maxR_abc == 3){//渦巻きが大きい
+      //X*origin_Lrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
+      slider_s1.setValue(origin_s1 + 24*Lrr- 24*origin_Lrr);
       slider_s3.setValue(origin_s3 + 20*Lrr - 20*origin_Lrr);
-    }
-    else{
-      //10*origin_Lrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
-      slider_s1.setValue(origin_s1 + 25*Lrr- 25*origin_Lrr);
-      slider_s3.setValue(origin_s3 + 15*Lrr - 15*origin_Lrr);
+      bezierXr = 500 + 20*Lrr- 20*origin_Lrr;
     }
   }
   
