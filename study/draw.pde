@@ -1,5 +1,9 @@
 void draw(){
   
+  //背景
+  fill(255);
+  rect(0,0,width,height);
+  
   //直径Lrrを変化させたときベジェs1,s3,bezierXrの値も変化させる
   if(last_Lrr > Lrr || last_Lrr < Lrr){
     if(maxR_abc == 1){//渦巻きが小さい
@@ -22,17 +26,62 @@ void draw(){
     }
   }
   
-  origin_Ltheta = Ltheta;
   min_height = height/2 - Ly + 10; // +10はLr=0の時でもbezierXl、bezierYlが更新されるようにするため
-  //直径を変えずに巻き数や内径や比率を変える
+  
+  //直径は一定で、巻き数、内径、比率を変える
   if(last_Lspiral > Lspiral || last_Lspiral < Lspiral || last_Lb > Lb || last_Lb < Lb || last_Latranslate > Latranslate || last_Latranslate < Latranslate){
-    slider_Lr.setValue(maxR/((pow(La+(Latranslate*0.001*(Lspiral*2*PI+4*PI-origin_Ltheta))/STEP,Lspiral*2*PI+4*PI)+Lb)*Lrr));
+    slider_Lr.setValue(maxR/((pow(La+(Latranslate*0.001*(Lspiral*2*PI-PI))/STEP,(Lspiral*2*PI-PI)+5*PI)+Lb)*Lrr));
   }
-  //背景
-  fill(255);
-  rect(0,0,width,height);
-  //左側の渦巻き
-  for(int i = 0; i<(Lspiral*2*PI+4*PI - origin_Ltheta)/STEP; i++){
+  
+  //最初に渦巻きの最高点を求めておいて、その後その点まで描画する（なのでfor文2つ必要になる）
+  for(int i = 0; i<(Lspiral*2*PI-PI)/STEP; i++){
+   //ベジェの始点
+   if(Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly < min_height){
+     min_height = Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly;
+     bezierXl = Lrad(Ltheta)*cos(Ltheta)+width/2 + Lx;
+     bezierYl = Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly;
+     topLtheta = Ltheta;
+   }
+   //ベジェの終点
+   if(Ltheta > 5*PI+(Lspiral-1)* 1.5*PI && count == 0){
+     if(Lspiral == 1){
+       greenX = Lrad(Ltheta)*cos(Ltheta)+width/2 + Lx;
+       bezierYr = height/2 - Ly + maxR/2;
+     }
+     else if(Lspiral == 2){
+       greenX = Lrad(Ltheta)*cos(Ltheta)+width/2 + Lx;
+       bezierYr = Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly;
+     }
+     //fill(0,255,0);
+     //noStroke();
+     //ellipse(greenX,bezierYr,7,7);
+     count ++;
+   }
+   //直径Lrrを変えた時maxRが更新される(変わりゆくLaをそのまま使える)
+   if(Lspiral == 1){
+     if(i == 49){
+       if(last_Lrr> Lrr || last_Lrr < Lrr){
+           maxR =Lradnext(Ltheta + STEP);
+       }
+     }
+   }
+   else{
+     if(i == (Lspiral*2*PI-PI)/STEP - 1){
+       if(last_Lrr> Lrr || last_Lrr < Lrr){
+           maxR =Lradnext(Ltheta + STEP);
+       }
+     }
+   }
+   Ltheta += STEP;
+   La += Latranslate * 0.001;
+  }
+  
+  //一旦初期値に戻す
+  Ltheta = 5 * PI;
+  La = 1.1;
+  
+  //左側の渦巻き　最高点まで描画
+  for(int i = 0; i<(topLtheta-5*PI)/STEP; i++){
    noFill();
    stroke(0);
    strokeWeight(1);
@@ -41,69 +90,38 @@ void draw(){
     Lradnext(Ltheta + STEP)*cos(Ltheta + STEP)+width/2 + Lx,
     Lradnext(Ltheta + STEP)*sin(Ltheta + STEP)+height/2 - Ly
     );
-   //ベジェの始点
-   if(Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly < min_height){
-     min_height = Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly;
-     bezierXl = Lrad(Ltheta)*cos(Ltheta)+width/2 + Lx;
-     bezierYl = Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly;
-   }
-   //ベジェの終点
-   if(Ltheta > 4.5*PI+(Lspiral-1)*2*PI && count == 0){
-     float greenX = Lrad(Ltheta)*cos(Ltheta)+width/2 + Lx;
-     bezierYr = Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly;
-     fill(0,255,0);
-     noStroke();
-     ellipse(greenX,bezierYr,7,7);
-     count ++;
-   }
-   //直径Lrrを変えた時maxRが更新される
-   if(Lspiral == 1){
-     if(i == 99){
-       if(last_Lrr> Lrr || last_Lrr < Lrr){
-           maxR =Lradnext(Ltheta + STEP);
-       }
-     }
-   }
-   else{
-     if(i == (Lspiral*2*PI+4*PI - origin_Ltheta)/STEP - 1){
-       if(last_Lrr> Lrr || last_Lrr < Lrr){
-           maxR =Lradnext(Ltheta + STEP);
-       }
-     }
-   }
-   
    Ltheta += STEP;
    La += Latranslate * 0.001;
   }
   
-  //間の曲線
-  stroke(255, 102, 0);
+  //ベジェ
+  //stroke(255, 102, 0);
   strokeWeight(1);
-  line(bezierXl,bezierYl,s1,bezierYl);
-  line(s3,bezierYr,bezierXr,bezierYr);
+  //line(bezierXl,bezierYl,s1,bezierYl);
+  //line(s3,bezierYr,bezierXr,bezierYr);
   stroke(0);
   bezier(bezierXl, bezierYl, s1, bezierYl, s3, bezierYr, bezierXr, bezierYr);
   
   //一番高い点の描画（青）
-  fill(0,0,255);
-  noStroke();
-  ellipse(bezierXl,bezierYl,7,7);
+  //fill(0,0,255);
+  //noStroke();
+  //ellipse(bezierXl,bezierYl,7,7);
   
   //値をリセットまたはスライダーの値に
-  Ltheta = 4 * PI;
+  Ltheta = 5 * PI;
   Lspiral = int(slider.getController("Lspiral").getValue());
+  La = 1.1;
   Lb = slider.getController("Lb").getValue();
+  Lr = slider.getController("Lr").getValue();
   Lrr = slider.getController("Lrr").getValue();
   Latranslate = slider.getController("Latranslate").getValue();
   Lx = slider.getController("Lx").getValue();
   Ly = slider.getController("Ly").getValue();
-  Lr = slider.getController("Lr").getValue();
-  La = 1.1;
   count = 0;
-  
   last_Lspiral = Lspiral;
   last_Lb = Lb;
+  last_Lr = Lr;
   last_Lrr = Lrr;
   last_Latranslate = Latranslate;
-  last_Lr = Lr;
+  
 }

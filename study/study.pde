@@ -9,8 +9,8 @@ Slider slider_s3;
 //曲線の精度
 float STEP = 2 * PI * 0.01;
 //左側の渦巻き
-float Ltheta = 4 * PI;
-float origin_Ltheta = 4 * PI;
+float Ltheta = 5 * PI;
+float topLtheta;//渦巻の最高点の時のθ
 float min_height = 0;
 int Lspiral;
 float La= 1.1;
@@ -35,6 +35,7 @@ float bezierXl;
 float bezierYl;
 float bezierXr;
 float bezierYr;
+float greenX;
 float s1, s3;
 float origin_s1;
 float origin_s3;
@@ -89,7 +90,7 @@ void setup(){
      .setValue(random(3,5.5))  //初期値
      .setColorCaptionLabel(0)  //スライダーの文字の色
      ;
-    maxR= Lrr * Lr * (pow(La+0.1*Latranslate,4*PI+100*STEP)+Lb);
+    maxR= Lrr * Lr * (pow(La+0.049*Latranslate,6*PI-2*STEP)+Lb);
   }
   else if(int(slider.getController("Lspiral").getValue()) == 2){
     //Lrrの値を動かすスライダー
@@ -100,7 +101,7 @@ void setup(){
      .setValue(random(1,3.5))  //初期値
      .setColorCaptionLabel(0)  //スライダーの文字の色
      ;
-    maxR= Lrr * Lr * (pow(La+0.2*Latranslate,4*PI+200*STEP)+Lb);
+    maxR= Lrr * Lr * (pow(La+0.149*Latranslate,8*PI-2*STEP)+Lb);
   }
   println(maxR);
   
@@ -194,7 +195,6 @@ void setup(){
   last_Lr = 1;
   last_Lrr = slider.getController("Lrr").getValue();
   origin_Lrr = slider.getController("Lrr").getValue();
-  println(origin_Lrr);
   last_Latranslate = slider.getController("Latranslate").getValue();
   origin_s1 = slider.getController("s1").getValue();
   origin_s3 = slider.getController("s3").getValue();
