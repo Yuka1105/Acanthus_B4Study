@@ -128,7 +128,7 @@ void setup(){
   //maxRの値でベジェの位置を決める
   if(maxR > 20 && maxR < 50){
     //ベジェ
-    bezierXr = 390;
+    //bezierXr = 390;
     //s1の値を動かすスライダー
     slider_s1 = slider.addSlider("s1")
      .setPosition(width/2+50,600)  //スライダーの位置
@@ -150,7 +150,7 @@ void setup(){
   }
   else if(maxR >= 50 && maxR < 80){
     //ベジェ
-    bezierXr = 440;
+    //bezierXr = 440;
     //s1の値を動かすスライダー
     slider_s1 = slider.addSlider("s1")
      .setPosition(width/2+50,600)  //スライダーの位置
@@ -172,7 +172,7 @@ void setup(){
   }
   else if(maxR >= 80 && maxR < 130){
     //ベジェ
-    bezierXr = 500;
+    //bezierXr = 500;
     //s1の値を動かすスライダー
     slider_s1 = slider.addSlider("s1")
      .setPosition(width/2+50,600)  //スライダーの位置
@@ -250,23 +250,26 @@ void setup(){
     slider.addSlider("Rrr")
      .setPosition(170,100)  //スライダーの位置
      .setSize(100,20)  //スライダーのサイズ
-     .setRange(3,5.5)  //最小値と最大値
-     .setValue(random(3,5.5))  //初期値
+     .setRange(2,4)  //最小値と最大値
+     .setValue(random(2,4))  //初期値
      .setColorCaptionLabel(0)  //スライダーの文字の色
      ;
-    RmaxR= Rrr * Rr * (pow(Ra+0.049*Ratranslate,4.5*PI-2*STEP)+Rb);
+    RmaxR= Rrr * Rr * (pow(Ra+0.074*Ratranslate,5*PI-2*STEP)+Rb);
+    println(RmaxR);
   }
   else if(int(slider.getController("Rspiral").getValue()) == 2){
     //Rrrの値を動かすスライダー
     slider.addSlider("Rrr")
      .setPosition(170,100)  //スライダーの位置
      .setSize(100,20)  //スライダーのサイズ
-     .setRange(1,4)  //最小値と最大値
-     .setValue(random(1,3.5))  //初期値
+     .setRange(1,3)  //最小値と最大値
+     .setValue(random(1,3))  //初期値
      .setColorCaptionLabel(0)  //スライダーの文字の色
      ;
-    RmaxR= Rrr * Rr * (pow(Ra+0.049*Ratranslate,6.5*PI-2*STEP)+Rb);
+    RmaxR= Rrr * Rr * (pow(Ra+0.174*Ratranslate,7*PI-2*STEP)+Rb);
+    println(RmaxR);
   }
+
   //Rxの値を動かすスライダー
   slider.addSlider("Rx")
    .setPosition(680,70)  //スライダーの位置

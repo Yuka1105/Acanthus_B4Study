@@ -36,8 +36,7 @@ void draw(){
   
   //右側の渦巻き：直径は一定で、巻き数、内径、比率を変える
   if(last_Rspiral > Rspiral || last_Rspiral < Rspiral || last_Rb > Rb || last_Rb < Rb || last_Ratranslate > Ratranslate || last_Ratranslate < Ratranslate){
-    slider_Rr.setValue(RmaxR/((pow(Ra+(Ratranslate*0.001*(Rspiral*2*PI-PI))/STEP,(Rspiral*2*PI-PI)+5*PI)+Rb)*Rrr));
-    println("a");
+    slider_Rr.setValue(RmaxR/((pow(Ra+Ratranslate*0.001*((Rspiral*2*PI-0.5*PI)/STEP-1),(Rspiral*2*PI-0.5*PI)+3.5*PI-2*STEP)+Rb)*Rrr));
   }
   
   //左側の渦巻き：最初に渦巻きの最高点を求めておいて、その後その点まで描画する（なのでfor文2つ必要になる）
@@ -98,18 +97,18 @@ void draw(){
    }
    //直径Rrrを変えた時RmaxRが更新される(変わりゆくRaをそのまま使える)
    if(Rspiral == 1){
-     if(i == 49){
+     if(i == 74){
        if(last_Rrr> Rrr || last_Rrr < Rrr){
            RmaxR =Rradnext(Rtheta + STEP);
-           println(RmaxR);
+           println(RmaxR+"R");
        }
      }
    }
    else{
-     if(i == (Rspiral*2*PI-PI)/STEP - 1){
+     if(i == (Rspiral*2*PI-0.5*PI)/STEP - 1){
        if(last_Rrr> Rrr || last_Rrr < Rrr){
            RmaxR =Rradnext(Rtheta + STEP);
-           println(RmaxR);
+           println(RmaxR+"R");
        }
      }
    }
