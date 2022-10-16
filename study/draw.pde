@@ -108,6 +108,7 @@ void draw(){
   //ellipse(bezierXl,bezierYl,7,7);
   
   //値をリセットまたはスライダーの値に
+  //左側の渦巻き
   Ltheta = 5 * PI;
   Lspiral = int(slider.getController("Lspiral").getValue());
   La = 1.1;
@@ -117,11 +118,10 @@ void draw(){
   Latranslate = slider.getController("Latranslate").getValue();
   Lx = slider.getController("Lx").getValue();
   Ly = slider.getController("Ly").getValue();
-  count = 0;
   last_Lspiral = Lspiral;
   last_Lb = Lb;
   last_Lr = Lr;
   last_Lrr = Lrr;
   last_Latranslate = Latranslate;
-  
+  count = 0;
 }

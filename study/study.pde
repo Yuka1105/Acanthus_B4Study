@@ -1,13 +1,6 @@
 import controlP5.*;
 ControlP5 slider;
 
-//スライダー
-Slider slider_Lr;
-Slider slider_s1;
-Slider slider_s3;
-
-//曲線の精度
-float STEP = 2 * PI * 0.01;
 //左側の渦巻き
 float Ltheta = 5 * PI;
 float topLtheta;//渦巻の最高点の時のθ
@@ -16,6 +9,7 @@ int Lspiral;
 float La= 1.1;
 float Lb;
 float Lr;
+Slider slider_Lr;
 float Lrr;//直径を制御
 float Latranslate;
 float Lx, Ly;
@@ -25,7 +19,6 @@ float last_Lr;
 float last_Lrr;
 float origin_Lrr;
 float last_Latranslate;
-int draw = 1;
 float maxR;
 int maxR_abc = 0;
 
@@ -39,6 +32,11 @@ float greenX;
 float s1, s3;
 float origin_s1;
 float origin_s3;
+Slider slider_s1;
+Slider slider_s3;
+
+//曲線の精度
+float STEP = 2 * PI * 0.01;
 
 void setup(){
   size(800,800);
@@ -47,6 +45,8 @@ void setup(){
   
   //コントローラを生成
   slider = new ControlP5(this);
+  
+  //左側の渦巻き
   //Lr：直径
   slider_Lr = slider.addSlider("Lr")
    .setPosition(width/2+50,660)  //スライダーの位置
@@ -192,7 +192,7 @@ void setup(){
 
   last_Lspiral = int(slider.getController("Lspiral").getValue());
   last_Lb = slider.getController("Lb").getValue();
-  last_Lr = 1;
+  last_Lr = 1.5;
   last_Lrr = slider.getController("Lrr").getValue();
   origin_Lrr = slider.getController("Lrr").getValue();
   last_Latranslate = slider.getController("Latranslate").getValue();
