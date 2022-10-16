@@ -22,6 +22,26 @@ float last_Latranslate;
 float maxR;
 int maxR_abc = 0;
 
+//右側の渦巻き
+float Rtheta = 3.5 * PI;
+float bottomRtheta;//渦巻の最下点の時のθ
+float max_height = 0;
+int Rspiral;
+float Ra= 1.1;
+float Rb;
+float Rr;
+Slider slider_Rr;
+float Rrr;//直径を制御
+float Ratranslate;
+float Rx, Ry;
+float last_Rspiral;
+float last_Rb;
+float last_Rr;
+float last_Rrr;
+float origin_Rrr;
+float last_Ratranslate;
+float RmaxR;
+
 //ベジェ
 int count;//ベジェの終点を定める
 float bezierXl;
@@ -189,13 +209,96 @@ void setup(){
    .setValue(-42)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
-
+  
+  //右側の渦巻き
+  //Rr：直径
+  slider_Rr = slider.addSlider("Rr")
+   .setPosition(width/2+210,660)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setRange(0, 30)  //最小値と最大値
+   .setValue(1.5)  //初期値
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
+  //Rspiralの値を動かすスライダー
+  slider.addSlider("Rspiral")
+   .setPosition(170,10)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setRange(1,2)  //最小値と最大値
+   .setValue(int(random(1,3)))  //初期値
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
+  //Rbの値を動かすスライダー
+  slider.addSlider("Rb")
+   .setPosition(170,40)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setRange(0,10)  //最小値と最大値
+   .setValue(random(0,10))  //初期値
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
+  //Ratranslateの値を動かすスライダー
+  slider.addSlider("Ratranslate")
+   .setPosition(170,70)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setRange(0, 0.5)  //最小値と最大値
+   .setValue(random(0,0.2))  //初期値
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
+   
+  //渦巻きの大きさとベジェのバランス調整
+  if(int(slider.getController("Rspiral").getValue()) == 1){
+    //Rrrの値を動かすスライダー
+    slider.addSlider("Rrr")
+     .setPosition(170,100)  //スライダーの位置
+     .setSize(100,20)  //スライダーのサイズ
+     .setRange(3,5.5)  //最小値と最大値
+     .setValue(random(3,5.5))  //初期値
+     .setColorCaptionLabel(0)  //スライダーの文字の色
+     ;
+    RmaxR= Rrr * Rr * (pow(Ra+0.049*Ratranslate,4.5*PI-2*STEP)+Rb);
+  }
+  else if(int(slider.getController("Rspiral").getValue()) == 2){
+    //Rrrの値を動かすスライダー
+    slider.addSlider("Rrr")
+     .setPosition(170,100)  //スライダーの位置
+     .setSize(100,20)  //スライダーのサイズ
+     .setRange(1,4)  //最小値と最大値
+     .setValue(random(1,3.5))  //初期値
+     .setColorCaptionLabel(0)  //スライダーの文字の色
+     ;
+    RmaxR= Rrr * Rr * (pow(Ra+0.049*Ratranslate,6.5*PI-2*STEP)+Rb);
+  }
+  //Rxの値を動かすスライダー
+  slider.addSlider("Rx")
+   .setPosition(680,70)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setRange(-width/2, width/2)  //最小値と最大値
+   .setValue(100)  //初期値
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
+  //Ryの値を動かすスライダー
+  slider.addSlider("Ry")
+   .setPosition(680,100)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setRange(-height/2, height/2)  //最小値と最大値
+   .setValue(-42)  //初期値
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
+  
+  //左側の渦巻き
   last_Lspiral = int(slider.getController("Lspiral").getValue());
   last_Lb = slider.getController("Lb").getValue();
   last_Lr = 1.5;
   last_Lrr = slider.getController("Lrr").getValue();
   origin_Lrr = slider.getController("Lrr").getValue();
   last_Latranslate = slider.getController("Latranslate").getValue();
+  //右側の渦巻き
+  last_Rspiral = int(slider.getController("Rspiral").getValue());
+  last_Rb = slider.getController("Rb").getValue();
+  last_Rr = 1.5;
+  last_Rrr = slider.getController("Rrr").getValue();
+  origin_Rrr = slider.getController("Rrr").getValue();
+  last_Ratranslate = slider.getController("Ratranslate").getValue();
+  //ベジェ
   origin_s1 = slider.getController("s1").getValue();
   origin_s3 = slider.getController("s3").getValue();
 }

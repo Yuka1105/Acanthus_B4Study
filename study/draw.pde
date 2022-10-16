@@ -27,13 +27,20 @@ void draw(){
   }
   
   min_height = height/2 - Ly + 10; // +10はLr=0の時でもbezierXl、bezierYlが更新されるようにするため
+  max_height = height/2 - Ry - 10;
   
-  //直径は一定で、巻き数、内径、比率を変える
+  //左側の渦巻き：直径は一定で、巻き数、内径、比率を変える
   if(last_Lspiral > Lspiral || last_Lspiral < Lspiral || last_Lb > Lb || last_Lb < Lb || last_Latranslate > Latranslate || last_Latranslate < Latranslate){
     slider_Lr.setValue(maxR/((pow(La+(Latranslate*0.001*(Lspiral*2*PI-PI))/STEP,(Lspiral*2*PI-PI)+5*PI)+Lb)*Lrr));
   }
   
-  //最初に渦巻きの最高点を求めておいて、その後その点まで描画する（なのでfor文2つ必要になる）
+  //右側の渦巻き：直径は一定で、巻き数、内径、比率を変える
+  if(last_Rspiral > Rspiral || last_Rspiral < Rspiral || last_Rb > Rb || last_Rb < Rb || last_Ratranslate > Ratranslate || last_Ratranslate < Ratranslate){
+    slider_Rr.setValue(RmaxR/((pow(Ra+(Ratranslate*0.001*(Rspiral*2*PI-PI))/STEP,(Rspiral*2*PI-PI)+5*PI)+Rb)*Rrr));
+    println("a");
+  }
+  
+  //左側の渦巻き：最初に渦巻きの最高点を求めておいて、その後その点まで描画する（なのでfor文2つ必要になる）
   for(int i = 0; i<(Lspiral*2*PI-PI)/STEP; i++){
    //ベジェの始点
    if(Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly < min_height){
@@ -80,6 +87,38 @@ void draw(){
   Ltheta = 5 * PI;
   La = 1.1;
   
+  //右側の渦巻き：for文2つ必要
+  for(int i = 0; i<(Rspiral*2*PI-0.5*PI)/STEP; i++){
+   //最下点を求める
+   if(Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry > max_height){
+     max_height = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
+     bottomRtheta = Rtheta;
+   }
+   //直径Rrrを変えた時RmaxRが更新される(変わりゆくRaをそのまま使える)
+   if(Rspiral == 1){
+     if(i == 49){
+       if(last_Rrr> Rrr || last_Rrr < Rrr){
+           RmaxR =Rradnext(Rtheta + STEP);
+           println(RmaxR);
+       }
+     }
+   }
+   else{
+     if(i == (Rspiral*2*PI-PI)/STEP - 1){
+       if(last_Rrr> Rrr || last_Rrr < Rrr){
+           RmaxR =Rradnext(Rtheta + STEP);
+           println(RmaxR);
+       }
+     }
+   }
+   Rtheta += STEP;
+   Ra += Ratranslate * 0.001;
+  }
+  
+  //一旦初期値に戻す
+  Rtheta = 3.5 * PI;
+  Ra = 1.1;
+  
   //左側の渦巻き　最高点まで描画
   for(int i = 0; i<(topLtheta-5*PI)/STEP; i++){
    noFill();
@@ -92,6 +131,20 @@ void draw(){
     );
    Ltheta += STEP;
    La += Latranslate * 0.001;
+  }
+  
+  //右側の渦巻き　最下点まで描画
+  for(int i = 0; i<(bottomRtheta-3.5*PI)/STEP; i++){
+   noFill();
+   stroke(0);
+   strokeWeight(1);
+   line(Rrad(Rtheta)*cos(Rtheta)+width/2 + Rx,
+    Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry,
+    Rradnext(Rtheta + STEP)*cos(Rtheta + STEP)+width/2 + Rx,
+    Rradnext(Rtheta + STEP)*sin(Rtheta + STEP)+height/2 - Ry
+    );
+   Rtheta += STEP;
+   Ra += Ratranslate * 0.001;
   }
   
   //ベジェ
@@ -124,4 +177,19 @@ void draw(){
   last_Lrr = Lrr;
   last_Latranslate = Latranslate;
   count = 0;
+  //右側の渦巻き
+  Rtheta = 3.5 * PI;
+  Rspiral = int(slider.getController("Rspiral").getValue());
+  Ra = 1.1;
+  Rb = slider.getController("Rb").getValue();
+  Rr = slider.getController("Rr").getValue();
+  Rrr = slider.getController("Rrr").getValue();
+  Ratranslate = slider.getController("Ratranslate").getValue();
+  Rx = slider.getController("Rx").getValue();
+  Ry = slider.getController("Ry").getValue();
+  last_Rspiral = Rspiral;
+  last_Rb = Rb;
+  last_Rr = Rr;
+  last_Rrr = Rrr;
+  last_Ratranslate = Ratranslate;
 }
