@@ -10,19 +10,19 @@ void draw(){
       //X*origin_Lrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
       slider_s1.setValue(origin_s1 + 16*Lrr- 16*origin_Lrr);
       slider_s3.setValue(origin_s3 + 10*Lrr - 10*origin_Lrr);
-      bezierXr = 390 + 25*Lrr- 25*origin_Lrr;
+      //bezierXr = 390 + 25*Lrr- 25*origin_Lrr;
     }
     if(maxR_abc == 2){//渦巻きが中くらい
       //X*origin_Lrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
       slider_s1.setValue(origin_s1 + 18*Lrr- 18*origin_Lrr);
       slider_s3.setValue(origin_s3 + 15*Lrr - 15*origin_Lrr);
-      bezierXr = 440 + 23*Lrr- 23*origin_Lrr;
+      //bezierXr = 440 + 23*Lrr- 23*origin_Lrr;
     }
     if(maxR_abc == 3){//渦巻きが大きい
       //X*origin_Lrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
       slider_s1.setValue(origin_s1 + 24*Lrr- 24*origin_Lrr);
       slider_s3.setValue(origin_s3 + 20*Lrr - 20*origin_Lrr);
-      bezierXr = 500 + 20*Lrr- 20*origin_Lrr;
+      //bezierXr = 500 + 20*Lrr- 20*origin_Lrr;
     }
   }
   
@@ -53,11 +53,11 @@ void draw(){
    if(Ltheta > 5*PI+(Lspiral-1)* 1.5*PI && count == 0){
      if(Lspiral == 1){
        greenX = Lrad(Ltheta)*cos(Ltheta)+width/2 + Lx;
-       bezierYr = height/2 - Ly + maxR/2;
+       //bezierYr = height/2 - Ly + maxR/2;
      }
      else if(Lspiral == 2){
        greenX = Lrad(Ltheta)*cos(Ltheta)+width/2 + Lx;
-       bezierYr = Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly;
+       //bezierYr = Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly;
      }
      //fill(0,255,0);
      //noStroke();
@@ -93,6 +93,8 @@ void draw(){
    if(Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry > max_height){
      max_height = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
      bottomRtheta = Rtheta;
+     bezierXr = Rrad(Rtheta)*cos(Rtheta)+width/2 + Rx;
+     bezierYr = max_height;
    }
    //直径Rrrを変えた時RmaxRが更新される(変わりゆくRaをそのまま使える)
    if(Rspiral == 1){
@@ -148,10 +150,10 @@ void draw(){
   }
   
   //ベジェ
-  //stroke(255, 102, 0);
+  stroke(255, 102, 0);
   strokeWeight(1);
-  //line(bezierXl,bezierYl,s1,bezierYl);
-  //line(s3,bezierYr,bezierXr,bezierYr);
+  line(bezierXl,bezierYl,s1,bezierYl);
+  line(s3,bezierYr,bezierXr,bezierYr);
   stroke(0);
   bezier(bezierXl, bezierYl, s1, bezierYl, s3, bezierYr, bezierXr, bezierYr);
   

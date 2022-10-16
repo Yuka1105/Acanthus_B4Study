@@ -272,7 +272,7 @@ void setup(){
    .setPosition(680,70)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-width/2, width/2)  //最小値と最大値
-   .setValue(100)  //初期値
+   .setValue(-16)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Ryの値を動かすスライダー
@@ -280,7 +280,7 @@ void setup(){
    .setPosition(680,100)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-height/2, height/2)  //最小値と最大値
-   .setValue(-42)  //初期値
+   .setValue(-56)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   
