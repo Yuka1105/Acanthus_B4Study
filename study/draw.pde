@@ -4,41 +4,17 @@ void draw(){
   fill(255);
   rect(0,0,width,height);
   
-  //直径Lrrを変化させたときベジェs1,s3,bezierXr,Rxの値も変化させる
+  //直径Lrrを変化させたときベジェs1,s3,Rxの値も変化させる
   if(last_Lrr > Lrr || last_Lrr < Lrr){
-    if(maxR_abc == 1){//渦巻きが小さい
-      //X*origin_Lrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
-      slider_s1.setValue(origin_s1 + 16*Lrr- 16*origin_Lrr);
-      slider_s3.setValue(origin_s3 + 10*Lrr - 10*origin_Lrr);
-      slider_Rx.setValue(origin_Rx + 15*Lrr - 15*origin_Lrr);
-    }
-    if(maxR_abc == 2){//渦巻きが中くらい
-      //X*origin_Lrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
-      slider_s1.setValue(origin_s1 + 20*Lrr- 20*origin_Lrr);
-      slider_s3.setValue(origin_s3 + 15*Lrr - 15*origin_Lrr);
-      slider_Rx.setValue(origin_Rx + 18*Lrr - 18*origin_Lrr);
-    }
-    if(maxR_abc == 3){//渦巻きが大きい
-      //X*origin_Lrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
-      slider_s1.setValue(origin_s1 + 45*Lrr- 45*origin_Lrr);
-      slider_s3.setValue(origin_s3 + 20*Lrr - 20*origin_Lrr);
-      slider_Rx.setValue(origin_Rx + 20*Lrr - 20*origin_Lrr);
-    }
+    slider_s1.setValue(origin_s1 + maxR*0.4*Lrr- maxR*0.4*origin_Lrr);
+    slider_s3.setValue(origin_s3 + maxR*0.1*Lrr - maxR*0.1*origin_Lrr);
+    slider_Rx.setValue(origin_Rx + maxR*0.1*Lrr - maxR*0.1*origin_Lrr);
   }
-  //直径Rrrを変化させたときRxの値も変化させる
+  //直径Rrrを変化させたときベジェs3,Rxの値も変化させる
   if(last_Rrr > Rrr || last_Rrr < Rrr){
-    if(RmaxR_abc == 1){//渦巻きが小さい
-      //X*origin_Rrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
-      slider_Rx.setValue(origin_Rx + 15*Rrr - 15*origin_Rrr);
-    }
-    if(RmaxR_abc == 2){//渦巻きが中くらい
-      //X*origin_Rrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
-      slider_Rx.setValue(origin_Rx + 18*Rrr - 18*origin_Rrr);
-    }
-    if(RmaxR_abc == 3){//渦巻きが大きい
-      //X*origin_Rrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
-      slider_Rx.setValue(origin_Rx + 20*Rrr - 20*origin_Rrr);
-    }
+    //X*origin_Rrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
+    slider_s3.setValue(origin_s3 - maxR*0.2*Rrr + maxR*0.2*origin_Rrr);
+    slider_Rx.setValue(origin_Rx + maxR*0.1*Rrr - maxR*0.1*origin_Rrr);
   }
   
   min_height = height/2 - Ly + 10; // +10はLr=0の時でもbezierXl、bezierYlが更新されるようにするため
@@ -95,6 +71,7 @@ void draw(){
      if(i == 49){
        if(last_Lrr> Lrr || last_Lrr < Lrr){
            maxR =Lradnext(Ltheta + STEP);
+           println(maxR);
        }
      }
    }
@@ -102,6 +79,7 @@ void draw(){
      if(i == (Lspiral*2*PI-PI)/STEP - 1){
        if(last_Lrr> Lrr || last_Lrr < Lrr){
            maxR =Lradnext(Ltheta + STEP);
+           println(maxR);
        }
      }
    }
