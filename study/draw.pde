@@ -11,21 +11,18 @@ void draw(){
       slider_s1.setValue(origin_s1 + 16*Lrr- 16*origin_Lrr);
       slider_s3.setValue(origin_s3 + 10*Lrr - 10*origin_Lrr);
       slider_Rx.setValue(origin_Rx + 15*Lrr - 15*origin_Lrr);
-      //bezierXr = 390 + 25*Lrr- 25*origin_Lrr;
     }
     if(maxR_abc == 2){//渦巻きが中くらい
       //X*origin_Lrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
-      slider_s1.setValue(origin_s1 + 18*Lrr- 18*origin_Lrr);
+      slider_s1.setValue(origin_s1 + 20*Lrr- 20*origin_Lrr);
       slider_s3.setValue(origin_s3 + 15*Lrr - 15*origin_Lrr);
       slider_Rx.setValue(origin_Rx + 18*Lrr - 18*origin_Lrr);
-      //bezierXr = 440 + 23*Lrr- 23*origin_Lrr;
     }
     if(maxR_abc == 3){//渦巻きが大きい
       //X*origin_Lrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
-      slider_s1.setValue(origin_s1 + 24*Lrr- 24*origin_Lrr);
+      slider_s1.setValue(origin_s1 + 45*Lrr- 45*origin_Lrr);
       slider_s3.setValue(origin_s3 + 20*Lrr - 20*origin_Lrr);
       slider_Rx.setValue(origin_Rx + 20*Lrr - 20*origin_Lrr);
-      //bezierXr = 500 + 20*Lrr- 20*origin_Lrr;
     }
   }
   //直径Rrrを変化させたときRxの値も変化させる
@@ -59,6 +56,18 @@ void draw(){
   
   //左側の渦巻き：最初に渦巻きの最高点を求めておいて、その後その点まで描画する（なのでfor文2つ必要になる）
   for(int i = 0; i<(Lspiral*2*PI-PI)/STEP; i++){
+   
+   //下書き
+   noFill();
+   stroke(0,255,0);
+   strokeWeight(1);
+   line(Lrad(Ltheta)*cos(Ltheta)+width/2 + Lx,
+    Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly,
+    Lradnext(Ltheta + STEP)*cos(Ltheta + STEP)+width/2 + Lx,
+    Lradnext(Ltheta + STEP)*sin(Ltheta + STEP)+height/2 - Ly
+    );
+   
+   stroke(0);
    //ベジェの始点
    if(Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly < min_height){
      min_height = Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly;
@@ -106,6 +115,17 @@ void draw(){
   
   //右側の渦巻き：for文2つ必要
   for(int i = 0; i<(Rspiral*2*PI-0.5*PI)/STEP; i++){
+   
+    //下書き
+   noFill();
+   stroke(0,255,0);
+   strokeWeight(1);
+   line(Rrad(Rtheta)*cos(Rtheta)+width/2 + Rx,
+    Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry,
+    Rradnext(Rtheta + STEP)*cos(Rtheta + STEP)+width/2 + Rx,
+    Rradnext(Rtheta + STEP)*sin(Rtheta + STEP)+height/2 - Ry
+    );
+   
    //最下点を求める
    if(Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry > max_height){
      max_height = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
@@ -142,7 +162,7 @@ void draw(){
   for(int i = 0; i<(topLtheta-5*PI)/STEP; i++){
    noFill();
    stroke(0);
-   strokeWeight(1);
+   strokeWeight(3);
    line(Lrad(Ltheta)*cos(Ltheta)+width/2 + Lx,
     Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly,
     Lradnext(Ltheta + STEP)*cos(Ltheta + STEP)+width/2 + Lx,
@@ -156,7 +176,7 @@ void draw(){
   for(int i = 0; i<(bottomRtheta-3.5*PI)/STEP; i++){
    noFill();
    stroke(0);
-   strokeWeight(1);
+   strokeWeight(3);
    line(Rrad(Rtheta)*cos(Rtheta)+width/2 + Rx,
     Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry,
     Rradnext(Rtheta + STEP)*cos(Rtheta + STEP)+width/2 + Rx,
@@ -167,10 +187,10 @@ void draw(){
   }
   
   //ベジェ
-  //stroke(255, 102, 0);
-  //strokeWeight(1);
-  //line(bezierXl,bezierYl,s1,bezierYl);
-  //line(s3,bezierYr,bezierXr,bezierYr);
+  stroke(255, 102, 0);
+  strokeWeight(3);
+  line(bezierXl,bezierYl,s1,bezierYl);
+  line(s3,bezierYr,bezierXr,bezierYr);
   stroke(0);
   bezier(bezierXl, bezierYl, s1, bezierYl, s3, bezierYr, bezierXr, bezierYr);
   
