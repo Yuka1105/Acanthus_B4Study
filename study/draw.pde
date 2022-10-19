@@ -6,15 +6,15 @@ void draw(){
   
   //直径Lrrを変化させたときベジェs1,s3,Rxの値も変化させる
   if(last_Lrr > Lrr || last_Lrr < Lrr){
-    slider_s1.setValue(origin_s1 + maxR*0.4*Lrr- maxR*0.4*origin_Lrr);
-    slider_s3.setValue(origin_s3 + maxR*0.1*Lrr - maxR*0.1*origin_Lrr);
-    slider_Rx.setValue(origin_Rx + maxR*0.1*Lrr - maxR*0.1*origin_Lrr);
+    slider_s1.setValue(origin_s1 + LmaxR*0.4*Lrr- LmaxR*0.4*origin_Lrr);
+    slider_s3.setValue(origin_s3 + LmaxR*0.1*Lrr - LmaxR*0.1*origin_Lrr);
+    slider_Rx.setValue(origin_Rx + LmaxR*0.1*Lrr - LmaxR*0.1*origin_Lrr);
   }
   //直径Rrrを変化させたときベジェs3,Rxの値も変化させる
   if(last_Rrr > Rrr || last_Rrr < Rrr){
     //X*origin_Rrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
-    slider_s3.setValue(origin_s3 - maxR*0.2*Rrr + maxR*0.2*origin_Rrr);
-    slider_Rx.setValue(origin_Rx + maxR*0.1*Rrr - maxR*0.1*origin_Rrr);
+    slider_s3.setValue(origin_s3 - LmaxR*0.2*Rrr + LmaxR*0.2*origin_Rrr);
+    slider_Rx.setValue(origin_Rx + LmaxR*0.1*Rrr - LmaxR*0.1*origin_Rrr);
   }
   
   min_height = height/2 - Ly + 10; // +10はLr=0の時でもbezierXl、bezierYlが更新されるようにするため
@@ -22,12 +22,12 @@ void draw(){
   
   //左側の渦巻き：直径は一定で、巻き数、内径、比率を変える
   if(last_Lspiral > Lspiral || last_Lspiral < Lspiral || last_Lb > Lb || last_Lb < Lb || last_Latranslate > Latranslate || last_Latranslate < Latranslate){
-    slider_Lr.setValue(maxR/((pow(La+(Latranslate*0.001*(Lspiral*2*PI-PI))/STEP,(Lspiral*2*PI-PI)+5*PI)+Lb)*Lrr));
+    slider_Lr.setValue(LmaxR/((pow(La+(Latranslate*0.001*(Lspiral*2*PI-PI))/STEP,(Lspiral*2*PI-PI)+5*PI)+Lb)*Lrr));
   }
   
   //右側の渦巻き：直径は一定で、巻き数、内径、比率を変える
   if(last_Rspiral > Rspiral || last_Rspiral < Rspiral || last_Rb > Rb || last_Rb < Rb || last_Ratranslate > Ratranslate || last_Ratranslate < Ratranslate){
-    slider_Rr.setValue(RmaxR/((pow(Ra+Ratranslate*0.001*((Rspiral*2*PI-0.5*PI)/STEP-1),(Rspiral*2*PI-0.5*PI)+3.5*PI-2*STEP)+Rb)*Rrr));
+    slider_Rr.setValue(RLmaxR/((pow(Ra+Ratranslate*0.001*((Rspiral*2*PI-0.5*PI)/STEP-1),(Rspiral*2*PI-0.5*PI)+3.5*PI-2*STEP)+Rb)*Rrr));
   }
   
   //左側の渦巻き：最初に渦巻きの最高点を求めておいて、その後その点まで描画する（なのでfor文2つ必要になる）
@@ -55,7 +55,7 @@ void draw(){
    if(Ltheta > 5*PI+(Lspiral-1)* 1.5*PI && count == 0){
      if(Lspiral == 1){
        greenX = Lrad(Ltheta)*cos(Ltheta)+width/2 + Lx;
-       //bezierYr = height/2 - Ly + maxR/2;
+       //bezierYr = height/2 - Ly + LmaxR/2;
      }
      else if(Lspiral == 2){
        greenX = Lrad(Ltheta)*cos(Ltheta)+width/2 + Lx;
@@ -66,20 +66,20 @@ void draw(){
      //ellipse(greenX,bezierYr,7,7);
      count ++;
    }
-   //直径Lrrを変えた時maxRが更新される(変わりゆくLaをそのまま使える)
+   //直径Lrrを変えた時LmaxRが更新される(変わりゆくLaをそのまま使える)
    if(Lspiral == 1){
      if(i == 49){
        if(last_Lrr> Lrr || last_Lrr < Lrr){
-           maxR =Lradnext(Ltheta + STEP);
-           println(maxR);
+           LmaxR =Lradnext(Ltheta + STEP);
+           println(LmaxR);
        }
      }
    }
    else{
      if(i == (Lspiral*2*PI-PI)/STEP - 1){
        if(last_Lrr> Lrr || last_Lrr < Lrr){
-           maxR =Lradnext(Ltheta + STEP);
-           println(maxR);
+           LmaxR =Lradnext(Ltheta + STEP);
+           println(LmaxR);
        }
      }
    }
@@ -111,20 +111,20 @@ void draw(){
      bezierXr = Rrad(Rtheta)*cos(Rtheta)+width/2 + Rx;
      bezierYr = max_height;
    }
-   //直径Rrrを変えた時RmaxRが更新される(変わりゆくRaをそのまま使える)
+   //直径Rrrを変えた時RLmaxRが更新される(変わりゆくRaをそのまま使える)
    if(Rspiral == 1){
      if(i == 74){
        if(last_Rrr> Rrr || last_Rrr < Rrr){
-           RmaxR =Rradnext(Rtheta + STEP);
-           println(RmaxR+"R");
+           RLmaxR =Rradnext(Rtheta + STEP);
+           println(RLmaxR+"R");
        }
      }
    }
    else{
      if(i == (Rspiral*2*PI-0.5*PI)/STEP - 1){
        if(last_Rrr> Rrr || last_Rrr < Rrr){
-           RmaxR =Rradnext(Rtheta + STEP);
-           println(RmaxR+"R");
+           RLmaxR =Rradnext(Rtheta + STEP);
+           println(RLmaxR+"R");
        }
      }
    }

@@ -11,6 +11,7 @@ float Lb;
 float Lr;
 Slider slider_Lr;
 float Lrr;//直径を制御
+Slider slider_Lrr;
 float Latranslate;
 float Lx, Ly;
 float last_Lspiral;
@@ -19,7 +20,7 @@ float last_Lr;
 float last_Lrr;
 float origin_Lrr;
 float last_Latranslate;
-float maxR;
+float LmaxR;
 
 //右側の渦巻き
 float Rtheta = 3.5 * PI;
@@ -31,6 +32,7 @@ float Rb;
 float Rr;
 Slider slider_Rr;
 float Rrr;//直径を制御
+Slider slider_Rrr;
 float Ratranslate;
 float Rx, Ry;
 float origin_Rx;
@@ -41,9 +43,9 @@ float last_Rr;
 float last_Rrr;
 float origin_Rrr;
 float last_Ratranslate;
-float RmaxR;
+float RLmaxR;
 
-//maxRとRmaxRの和　これでRxを場合分け
+//LmaxRとRLmaxRの和　これでRxを場合分け
 float max;
 
 //ベジェ
@@ -106,77 +108,73 @@ void setup(){
    
   //渦巻きの大きさとベジェのバランス調整
   if(int(slider.getController("Lspiral").getValue()) == 1){
-    //とりあえずのLrrを決める、とりあえずのmaxRを求める
+    //とりあえずのLrrを決める、とりあえずのLmaxRを求める
     Lrr = 2.5;
-    maxR = Lrr * Lr * (pow(La+0.049*Latranslate,6*PI-2*STEP)+Lb);
-    println("仮のmaxR:" + maxR);
+    LmaxR = Lrr * Lr * (pow(La+0.049*Latranslate,6*PI-2*STEP)+Lb);
+    println("仮のLmaxR:" + LmaxR);
   }
   else if(int(slider.getController("Lspiral").getValue()) == 2){
-    //とりあえずのLrrを決める、とりあえずのmaxRを求める
+    //とりあえずのLrrを決める、とりあえずのLmaxRを求める
     Lrr = 2;
-    maxR = Lrr * Lr * (pow(La+0.149*Latranslate,8*PI-2*STEP)+Lb);
-    println("仮のmaxR:" + maxR);
+    LmaxR = Lrr * Lr * (pow(La+0.149*Latranslate,8*PI-2*STEP)+Lb);
+    println("仮のLmaxR:" + LmaxR);
   }
   
-  //maxRの値でLrrの可動域を決める
-  if(maxR > 0 && maxR < 50){
-    //maxRが小さいならLrrの可動域を大きくする
-    //Lrrの値を動かすスライダー
-    slider.addSlider("Lrr")
-     .setPosition(10,100)  //スライダーの位置
-     .setSize(100,20)  //スライダーのサイズ
+  //Lrrスライダーの不変部分だけ作ってしまう
+  slider_Lrr = slider.addSlider("Lrr")
+   .setPosition(10,100)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
+   
+  //LmaxRの値でLrrの可動域を決める
+  if(LmaxR > 0 && LmaxR < 50){
+    //LmaxRが小さいならLrrの可動域を大きくする
+    slider_Lrr
      .setRange(1,4)  //最小値と最大値
      .setValue(random(1,4))  //初期値
-     .setColorCaptionLabel(0)  //スライダーの文字の色
      ;
-    //ほんとのmaxR
-    maxR = Lrr * Lr * (pow(La+((Lspiral-1)*0.1+0.049)*Latranslate,((Lspiral-1)*2+6)*PI-2*STEP)+Lb);
-    println("L:" + maxR);
+    //ほんとのLmaxR
+    LmaxR = Lrr * Lr * (pow(La+((Lspiral-1)*0.1+0.049)*Latranslate,((Lspiral-1)*2+6)*PI-2*STEP)+Lb);
+    println("L:" + LmaxR);
   }
-  else if(maxR >= 50 && maxR < 80){
-    //maxRが中くらいならLrrの可動域を中くらいにする
-    //Lrrの値を動かすスライダー
-    slider.addSlider("Lrr")
-     .setPosition(10,100)  //スライダーの位置
-     .setSize(100,20)  //スライダーのサイズ
+  else if(LmaxR >= 50 && LmaxR < 80){
+    //LmaxRが中くらいならLrrの可動域を中くらいにする
+    slider_Lrr
      .setRange(1,3)  //最小値と最大値
      .setValue(random(1,3))  //初期値
-     .setColorCaptionLabel(0)  //スライダーの文字の色
      ;
-    //ほんとのmaxR
-    maxR = Lrr * Lr * (pow(La+((Lspiral-1)*0.1+0.049)*Latranslate,((Lspiral-1)*2+6)*PI-2*STEP)+Lb);
-    println("L:" + maxR);
+    //ほんとのLmaxR
+    LmaxR = Lrr * Lr * (pow(La+((Lspiral-1)*0.1+0.049)*Latranslate,((Lspiral-1)*2+6)*PI-2*STEP)+Lb);
+    println("L:" + LmaxR);
   }
-  else if(maxR >= 80 && maxR < 210){
-    //maxRが大きいならLrrの可動域を小さくする
-    //Lrrの値を動かすスライダー
-    slider.addSlider("Lrr")
-     .setPosition(10,100)  //スライダーの位置
-     .setSize(100,20)  //スライダーのサイズ
+  else if(LmaxR >= 80 && LmaxR < 210){
+    //LmaxRが大きいならLrrの可動域を小さくする
+    slider_Lrr
      .setRange(1,2)  //最小値と最大値
      .setValue(random(1,2))  //初期値
-     .setColorCaptionLabel(0)  //スライダーの文字の色
      ;
-    //ほんとのmaxR
-    maxR = Lrr * Lr * (pow(La+((Lspiral-1)*0.1+0.049)*Latranslate,((Lspiral-1)*2+6)*PI-2*STEP)+Lb);
-    println("L:" + maxR);
+    //ほんとのLmaxR
+    LmaxR = Lrr * Lr * (pow(La+((Lspiral-1)*0.1+0.049)*Latranslate,((Lspiral-1)*2+6)*PI-2*STEP)+Lb);
+    println("L:" + LmaxR);
   }
   
+  //s1の値を動かすスライダー
   slider_s1 = slider.addSlider("s1")
-     .setPosition(width/2+50,600)  //スライダーの位置
-     .setSize(100,20)  //スライダーのサイズ
-     .setRange(0,500)  //最小値と最大値
-     .setValue(0.5*maxR + 245)  //初期値
-     .setColorCaptionLabel(0)  //スライダーの文字の色
-     ;
-    //s3の値を動かすスライダー
-    slider_s3 = slider.addSlider("s3")
-     .setPosition(width/2+50,630)  //スライダーの位置
-     .setSize(100,20)  //スライダーのサイズ
-     .setRange(0,500)  //最小値と最大値
-     .setValue(0.69*maxR + 310)  //初期値
-     .setColorCaptionLabel(0)  //スライダーの文字の色
-     ;
+   .setPosition(width/2+50,600)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setRange(0,500)  //最小値と最大値
+   .setValue(0.5*LmaxR + 245)  //初期値
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
+  //s3の値を動かすスライダー
+  slider_s3 = slider.addSlider("s3")
+   .setPosition(width/2+50,630)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setRange(0,500)  //最小値と最大値
+   .setValue(0.69*LmaxR + 310)  //初期値
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
 
   //Lxの値を動かすスライダー
   slider.addSlider("Lx")
@@ -231,63 +229,58 @@ void setup(){
    
   //渦巻きの大きさとベジェのバランス調整
   if(int(slider.getController("Rspiral").getValue()) == 1){
-    //とりあえずのRrrを決める、とりあえずのRmaxRを求める
+    //とりあえずのRrrを決める、とりあえずのRLmaxRを求める
     Rrr = 2.5;
-    RmaxR = Rrr * Rr * (pow(Ra+0.074*Ratranslate,5*PI-2*STEP)+Rb);
-    println("仮のRmaxR:" + RmaxR);
+    RLmaxR = Rrr * Rr * (pow(Ra+0.074*Ratranslate,5*PI-2*STEP)+Rb);
+    println("仮のRLmaxR:" + RLmaxR);
   }
   else if(int(slider.getController("Rspiral").getValue()) == 2){
-    //とりあえずのRrrを決める、とりあえずのRmaxRを求める
+    //とりあえずのRrrを決める、とりあえずのRLmaxRを求める
     Rrr = 2;
-    RmaxR = Rrr * Rr * (pow(Ra+0.174*Ratranslate,7*PI-2*STEP)+Rb);
-    println("仮のRmaxR:" + RmaxR);
+    RLmaxR = Rrr * Rr * (pow(Ra+0.174*Ratranslate,7*PI-2*STEP)+Rb);
+    println("仮のRLmaxR:" + RLmaxR);
   }
   
-  //RmaxRの値でRrrの可動域を決める
-  if(RmaxR > 0 && RmaxR < 50){
-    //RmaxRが小さいならRrrの可動域を大きくする
-    //Rrrの値を動かすスライダー
-    slider.addSlider("Rrr")
-     .setPosition(170,100)  //スライダーの位置
-     .setSize(100,20)  //スライダーのサイズ
+  //Rrrスライダーの不変部分だけ作ってしまう
+  slider_Rrr = slider.addSlider("Rrr")
+   .setPosition(170,100)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
+  
+  //RLmaxRの値でRrrの可動域を決める
+  if(RLmaxR > 0 && RLmaxR < 50){
+    //RLmaxRが小さいならRrrの可動域を大きくする
+    slider_Rrr
      .setRange(1,4)  //最小値と最大値
      .setValue(random(1,4))  //初期値
-     .setColorCaptionLabel(0)  //スライダーの文字の色
      ;
-    //ほんとのRmaxR
-    RmaxR = Rrr * Rr * (pow(Ra+(0.074+0.1*(Rspiral-1))*Ratranslate,(5+2*(Rspiral-1))*PI-2*STEP)+Rb);
-    println("R:" + RmaxR);
+    //ほんとのRLmaxR
+    RLmaxR = Rrr * Rr * (pow(Ra+(0.074+0.1*(Rspiral-1))*Ratranslate,(5+2*(Rspiral-1))*PI-2*STEP)+Rb);
+    println("R:" + RLmaxR);
   }
-  else if(RmaxR >= 50 && RmaxR < 80){
-    //RmaxRが中くらいならRrrの可動域を中くらいにする
-    //Rrrの値を動かすスライダー
-    slider.addSlider("Rrr")
-     .setPosition(170,100)  //スライダーの位置
-     .setSize(100,20)  //スライダーのサイズ
+  else if(RLmaxR >= 50 && RLmaxR < 80){
+    //RLmaxRが中くらいならRrrの可動域を中くらいにする
+    slider_Rrr
      .setRange(1,3)  //最小値と最大値
      .setValue(random(1,3))  //初期値
-     .setColorCaptionLabel(0)  //スライダーの文字の色
      ;
-    //ほんとのRmaxR
-    RmaxR = Rrr * Rr * (pow(Ra+(0.074+0.1*(Rspiral-1))*Ratranslate,(5+2*(Rspiral-1))*PI-2*STEP)+Rb);
-    println("R:" + RmaxR);
+    //ほんとのRLmaxR
+    RLmaxR = Rrr * Rr * (pow(Ra+(0.074+0.1*(Rspiral-1))*Ratranslate,(5+2*(Rspiral-1))*PI-2*STEP)+Rb);
+    println("R:" + RLmaxR);
   }
-  else if(RmaxR >= 80 && RmaxR < 210){
-    //RmaxRが大きいならRrrの可動域を小さくする
-    //Rrrの値を動かすスライダー
-    slider.addSlider("Rrr")
-     .setPosition(170,100)  //スライダーの位置
-     .setSize(100,20)  //スライダーのサイズ
+  else if(RLmaxR >= 80 && RLmaxR < 210){
+    //RLmaxRが大きいならRrrの可動域を小さくする
+    slider_Rrr
      .setRange(1,2)  //最小値と最大値
      .setValue(random(1,2))  //初期値
-     .setColorCaptionLabel(0)  //スライダーの文字の色
      ;
-    //ほんとのRmaxR
-    RmaxR = Rrr * Rr * (pow(Ra+(0.074+0.1*(Rspiral-1))*Ratranslate,(5+2*(Rspiral-1))*PI-2*STEP)+Rb);
-    println("R:" + RmaxR);
+    //ほんとのRLmaxR
+    RLmaxR = Rrr * Rr * (pow(Ra+(0.074+0.1*(Rspiral-1))*Ratranslate,(5+2*(Rspiral-1))*PI-2*STEP)+Rb);
+    println("R:" + RLmaxR);
   }
   
-  max = maxR + RmaxR;
+  max = LmaxR + RLmaxR;
   println("渦巻の大きさの和：" + max);
   
   //左右の渦巻きの大きさの和(max)でベジェの長さとなるRxを場合分け
