@@ -6,12 +6,31 @@ void draw(){
   
   //直径Lrrを変化させたときベジェs1,s3,Rxの値も変化させる
   if(last_Lrr > Lrr || last_Lrr < Lrr){
+    rr = 1;
+    //RrrからLrrに切り替わった時、つまりrrが2から1になった時の1回だけorigin_s3, origin_Rx, origin_Rrrを更新
+    //Rrrのみの変化の時はorigin_s3, origin_Rxを更新し続けない
+    if(last_rr > rr){
+      //origin_s3, origin_Rxの値を更新することでLrr, Rrr間でs3, Rxの値が飛ぶことを防げる
+      origin_s3 = origin_s3 - LmaxR*0.2*Rrr + LmaxR*0.2*origin_Rrr;
+      origin_Rx = origin_Rx + LmaxR*0.1*Rrr - LmaxR*0.1*origin_Rrr;
+      origin_Rrr = Rrr;
+    }
+    //X*origin_Rrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
     slider_s1.setValue(origin_s1 + LmaxR*0.4*Lrr- LmaxR*0.4*origin_Lrr);
     slider_s3.setValue(origin_s3 + LmaxR*0.1*Lrr - LmaxR*0.1*origin_Lrr);
     slider_Rx.setValue(origin_Rx + LmaxR*0.1*Lrr - LmaxR*0.1*origin_Lrr);
   }
   //直径Rrrを変化させたときベジェs3,Rxの値も変化させる
   if(last_Rrr > Rrr || last_Rrr < Rrr){
+    rr = 2;
+    //LrrからRrrに切り替わった時、つまりrrが1から2になった時の1回だけorigin_s3, origin_Rx, origin_Lrrを更新
+    //Lrrのみの変化の時はorigin_s3, origin_Rxを更新し続けない
+    if(last_rr < rr && last_rr  != 0){//last_rr  != 0を書かないと、最初に更新されてしまう
+      //origin_s3, origin_Rxの値を更新することでLrr, Rrr間でs3, Rxの値が飛ぶことを防げる
+      origin_s3 = origin_s3 + LmaxR*0.1*Lrr - LmaxR*0.1*origin_Lrr;
+      origin_Rx = origin_Rx + LmaxR*0.1*Lrr - LmaxR*0.1*origin_Lrr;
+      origin_Lrr = Lrr;
+    }
     //X*origin_Rrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
     slider_s3.setValue(origin_s3 - LmaxR*0.2*Rrr + LmaxR*0.2*origin_Rrr);
     slider_Rx.setValue(origin_Rx + LmaxR*0.1*Rrr - LmaxR*0.1*origin_Rrr);
@@ -71,7 +90,6 @@ void draw(){
      if(i == 49){
        if(last_Lrr> Lrr || last_Lrr < Lrr){
            LmaxR =Lradnext(Ltheta + STEP);
-           println(LmaxR);
        }
      }
    }
@@ -79,7 +97,6 @@ void draw(){
      if(i == (Lspiral*2*PI-PI)/STEP - 1){
        if(last_Lrr> Lrr || last_Lrr < Lrr){
            LmaxR =Lradnext(Ltheta + STEP);
-           println(LmaxR);
        }
      }
    }
@@ -116,7 +133,6 @@ void draw(){
      if(i == 74){
        if(last_Rrr> Rrr || last_Rrr < Rrr){
            RLmaxR =Rradnext(Rtheta + STEP);
-           println(RLmaxR+"R");
        }
      }
    }
@@ -124,7 +140,6 @@ void draw(){
      if(i == (Rspiral*2*PI-0.5*PI)/STEP - 1){
        if(last_Rrr> Rrr || last_Rrr < Rrr){
            RLmaxR =Rradnext(Rtheta + STEP);
-           println(RLmaxR+"R");
        }
      }
    }
@@ -208,5 +223,6 @@ void draw(){
   last_Rb = Rb;
   last_Rr = Rr;
   last_Rrr = Rrr;
+  last_rr = rr;
   last_Ratranslate = Ratranslate;
 }

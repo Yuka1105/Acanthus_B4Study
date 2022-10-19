@@ -64,6 +64,11 @@ Slider slider_s3;
 //曲線の精度
 float STEP = 2 * PI * 0.01;
 
+//直径Lrr, Rrrのどちらを変化させたかの指標
+//rr = 1の時はLrrを変化させた後ということを表し、rr = 2の時はRrrを変化させた後ということを表す
+int rr = 0;
+int last_rr = 0;
+
 void setup(){
   size(800,800);
   colorMode(RGB,255);
@@ -163,7 +168,7 @@ void setup(){
   slider_s1 = slider.addSlider("s1")
    .setPosition(width/2+50,600)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
-   .setRange(0,500)  //最小値と最大値
+   .setRange(-1000,1000)  //最小値と最大値
    .setValue(0.5*LmaxR + 245)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
@@ -171,7 +176,7 @@ void setup(){
   slider_s3 = slider.addSlider("s3")
    .setPosition(width/2+50,630)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
-   .setRange(0,500)  //最小値と最大値
+   .setRange(-1000,1000)  //最小値と最大値
    .setValue(0.69*LmaxR + 310)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
