@@ -16,7 +16,9 @@ void draw(){
       origin_Rrr = Rrr;
     }
     //X*origin_Rrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
-    slider_s1.setValue(origin_s1 + LmaxR*0.4*Lrr- LmaxR*0.4*origin_Lrr);
+    //origin_Lrrが変化するので急遽origin_Lrr_fors1で不変のorigin_Lrrを作った
+    //これでs1の値が飛んでしまうのを防げる
+    slider_s1.setValue(origin_s1 + LmaxR*0.4*Lrr- LmaxR*0.4*origin_Lrr_fors1);
     slider_s3.setValue(origin_s3 + LmaxR*0.1*Lrr - LmaxR*0.1*origin_Lrr);
     slider_Rx.setValue(origin_Rx + LmaxR*0.1*Lrr - LmaxR*0.1*origin_Lrr);
   }
