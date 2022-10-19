@@ -80,7 +80,7 @@ void setup(){
   //左側の渦巻き
   //Lr：直径
   slider_Lr = slider.addSlider("Lr")
-   .setPosition(width/2+50,660)  //スライダーの位置
+   .setPosition(680,height-60)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0, 30)  //最小値と最大値
    .setValue(1.5)  //初期値
@@ -166,7 +166,7 @@ void setup(){
   
   //s1の値を動かすスライダー
   slider_s1 = slider.addSlider("s1")
-   .setPosition(width/2+50,600)  //スライダーの位置
+   .setPosition(680,height-120)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-1000,1000)  //最小値と最大値
    .setValue(0.5*LmaxR + 245)  //初期値
@@ -174,7 +174,7 @@ void setup(){
    ;
   //s3の値を動かすスライダー
   slider_s3 = slider.addSlider("s3")
-   .setPosition(width/2+50,630)  //スライダーの位置
+   .setPosition(680,height-90)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-1000,1000)  //最小値と最大値
    .setValue(0.69*LmaxR + 310)  //初期値
@@ -201,7 +201,7 @@ void setup(){
   //右側の渦巻き
   //Rr：直径
   slider_Rr = slider.addSlider("Rr")
-   .setPosition(width/2+210,660)  //スライダーの位置
+   .setPosition(680, height-30)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0, 30)  //最小値と最大値
    .setValue(1.5)  //初期値
