@@ -12,6 +12,7 @@ float Lr;
 Slider slider_Lr;
 float Lrr;//直径を制御
 Slider slider_Lrr;
+int slider_Lrr_range = 0;
 float Latranslate;
 float Lx, Ly;
 float last_Lspiral;
@@ -44,7 +45,7 @@ float last_Rr;
 float last_Rrr;
 float origin_Rrr;
 float last_Ratranslate;
-float RLmaxR;
+float RmaxR;
 
 //LmaxRとRLmaxRの和　これでRxを場合分け
 float max;
@@ -145,6 +146,7 @@ void setup(){
   //LmaxRの値でLrrの可動域を決める
   if(LmaxR > 0 && LmaxR < 90){
     //LmaxRが小さいならLrrの可動域を大きくする
+    slider_Lrr_range = 4;
     slider_Lrr
      .setRange(1,4)  //最小値と最大値
      .setValue(random(1,4))  //初期値
@@ -155,10 +157,11 @@ void setup(){
     
     //s1の値を動かすスライダー
     slider_s1
-     .setValue(0.45*LmaxR + 245 + Lrr*Lrr);  //初期値
+     .setValue(0.4*LmaxR + 240 + Lrr*Lrr);  //初期値
   }
   else if(LmaxR >= 90 && LmaxR < 140){
     //LmaxRが中くらいならLrrの可動域を中くらいにする
+    slider_Lrr_range = 3;
     slider_Lrr
      .setRange(1,3)  //最小値と最大値
      .setValue(random(1,3))  //初期値
@@ -169,10 +172,11 @@ void setup(){
     
     //s1の値を動かすスライダー
     slider_s1
-     .setValue(0.47*LmaxR + 250 + Lrr*Lrr*Lrr);  //初期値
+     .setValue(0.43*LmaxR + 248 + Lrr*Lrr*Lrr);  //初期値
   }
   else if(LmaxR >= 140){
     //LmaxRが大きいならLrrの可動域を小さくする
+    slider_Lrr_range = 2;
     slider_Lrr
      .setRange(1,2)  //最小値と最大値
      .setValue(random(1,2))  //初期値
@@ -183,7 +187,7 @@ void setup(){
     
     //s1の値を動かすスライダー
     slider_s1
-     .setValue(0.6*LmaxR + 270 + Lrr*Lrr*Lrr*Lrr*Lrr);  //初期値
+     .setValue(0.53*LmaxR + 258 + Lrr*Lrr*Lrr*Lrr*Lrr);  //初期値
   }
   //s3の値を動かすスライダー
   slider_s3 = slider.addSlider("s3")
@@ -249,14 +253,14 @@ void setup(){
   if(int(slider.getController("Rspiral").getValue()) == 1){
     //とりあえずのRrrを決める、とりあえずのRLmaxRを求める
     Rrr = 2.5;
-    RLmaxR = Rrr * Rr * (pow(Ra+0.074*Ratranslate,5*PI-2*STEP)+Rb);
-    println("仮のRLmaxR:" + RLmaxR);
+   RmaxR = Rrr * Rr * (pow(Ra+0.074*Ratranslate,5*PI-2*STEP)+Rb);
+    println("仮のRLmaxR:" +RmaxR);
   }
   else if(int(slider.getController("Rspiral").getValue()) == 2){
     //とりあえずのRrrを決める、とりあえずのRLmaxRを求める
     Rrr = 2;
-    RLmaxR = Rrr * Rr * (pow(Ra+0.174*Ratranslate,7*PI-2*STEP)+Rb);
-    println("仮のRLmaxR:" + RLmaxR);
+   RmaxR = Rrr * Rr * (pow(Ra+0.174*Ratranslate,7*PI-2*STEP)+Rb);
+    println("仮のRLmaxR:" +RmaxR);
   }
   
   //Rrrスライダーの不変部分だけ作ってしまう
@@ -268,41 +272,41 @@ void setup(){
    ;
   
   //RLmaxRの値でRrrの可動域を決める
-  if(RLmaxR > 0 && RLmaxR < 90){
+  if(RmaxR > 0 &&RmaxR < 90){
     //RLmaxRが小さいならRrrの可動域を大きくする
     slider_Rrr
-     .setRange(1,4)  //最小値と最大値
+     .setRange(1.8,4)  //最小値と最大値
      .setValue(random(1,4))  //初期値
      ;
     //ほんとのRLmaxR
-    RLmaxR = Rrr * Rr * (pow(Ra+(0.074+0.1*(Rspiral-1))*Ratranslate,(5+2*(Rspiral-1))*PI-2*STEP)+Rb);
-    println("R:" + RLmaxR);
+   RmaxR = Rrr * Rr * (pow(Ra+(0.074+0.1*(Rspiral-1))*Ratranslate,(5+2*(Rspiral-1))*PI-2*STEP)+Rb);
+    println("R:" +RmaxR);
   }
-  else if(RLmaxR >= 90 && RLmaxR < 140){
+  else if(RmaxR >= 90 && RmaxR < 140){
     //RLmaxRが中くらいならRrrの可動域を中くらいにする
     slider_Rrr
      .setRange(1,3)  //最小値と最大値
      .setValue(random(1,3))  //初期値
      ;
     //ほんとのRLmaxR
-    RLmaxR = Rrr * Rr * (pow(Ra+(0.074+0.1*(Rspiral-1))*Ratranslate,(5+2*(Rspiral-1))*PI-2*STEP)+Rb);
-    println("R:" + RLmaxR);
+   RmaxR = Rrr * Rr * (pow(Ra+(0.074+0.1*(Rspiral-1))*Ratranslate,(5+2*(Rspiral-1))*PI-2*STEP)+Rb);
+    println("R:" +RmaxR);
   }
-  else if(RLmaxR >= 140){
+  else if(RmaxR >= 140){
     //RLmaxRが大きいならRrrの可動域を小さくする
     slider_Rrr
      .setRange(1,2)  //最小値と最大値
      .setValue(random(1,2))  //初期値
      ;
     //ほんとのRLmaxR
-    RLmaxR = Rrr * Rr * (pow(Ra+(0.074+0.1*(Rspiral-1))*Ratranslate,(5+2*(Rspiral-1))*PI-2*STEP)+Rb);
-    println("R:" + RLmaxR);
+   RmaxR = Rrr * Rr * (pow(Ra+(0.074+0.1*(Rspiral-1))*Ratranslate,(5+2*(Rspiral-1))*PI-2*STEP)+Rb);
+    println("R:" +RmaxR);
   }
   
-  max = LmaxR + RLmaxR;
+  max = LmaxR +RmaxR;
   println("渦巻の大きさの和：" + max);
   
-  //左右の渦巻きの大きさの和(max)でベジェの長さとなるRxを場合分け
+  //左右の渦巻きの大きさの和(max)でベジェの長さとなるRxを決める
   //Rxの値を動かすスライダー
   slider_Rx = slider.addSlider("Rx")
    .setPosition(680,70)  //スライダーの位置

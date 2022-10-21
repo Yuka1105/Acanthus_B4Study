@@ -11,15 +11,23 @@ void draw(){
     //Rrrのみの変化の時はorigin_s3, origin_Rxを更新し続けない
     if(last_rr > rr){
       //origin_s3, origin_Rxの値を更新することでLrr, Rrr間でs3, Rxの値が飛ぶことを防げる
-      origin_s3 = origin_s3 - LmaxR*0.2*Rrr + LmaxR*0.2*origin_Rrr;
-      origin_Rx = origin_Rx + LmaxR*0.1*Rrr - LmaxR*0.1*origin_Rrr;
+      origin_s3 = origin_s3 - RmaxR*0.2*Rrr + RmaxR*0.2*origin_Rrr;
+      origin_Rx = origin_Rx + RmaxR*0.1*Rrr - RmaxR*0.1*origin_Rrr;
       origin_Rrr = Rrr;
     }
     //X*origin_Rrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
     //origin_Lrrが変化するので急遽origin_Lrr_fors1で不変のorigin_Lrrを作った
     //これでs1の値が飛んでしまうのを防げる
-    slider_s1.setValue(origin_s1 + LmaxR*0.4*Lrr- LmaxR*0.4*origin_Lrr_fors1);
-    slider_s3.setValue(origin_s3 + LmaxR*0.1*Lrr - LmaxR*0.1*origin_Lrr);
+    if(slider_Lrr_range == 2){
+      slider_s1.setValue(origin_s1 + LmaxR*0.63*Lrr- LmaxR*0.63*origin_Lrr_fors1);
+    }
+    else if(slider_Lrr_range == 3){
+      slider_s1.setValue(origin_s1 + LmaxR*0.38*Lrr- LmaxR*0.38*origin_Lrr_fors1);
+    }
+    else if(slider_Lrr_range == 4){
+      slider_s1.setValue(origin_s1 + LmaxR*0.26*Lrr- LmaxR*0.26*origin_Lrr_fors1);
+    }
+    slider_s3.setValue(origin_s3 + LmaxR*0.05*Lrr - LmaxR*0.05*origin_Lrr);
     slider_Rx.setValue(origin_Rx + LmaxR*0.1*Lrr - LmaxR*0.1*origin_Lrr);
   }
   //直径Rrrを変化させたときベジェs3,Rxの値も変化させる
@@ -29,13 +37,13 @@ void draw(){
     //Lrrのみの変化の時はorigin_s3, origin_Rxを更新し続けない
     if(last_rr < rr && last_rr  != 0){//last_rr  != 0を書かないと、最初に更新されてしまう
       //origin_s3, origin_Rxの値を更新することでLrr, Rrr間でs3, Rxの値が飛ぶことを防げる
-      origin_s3 = origin_s3 + LmaxR*0.1*Lrr - LmaxR*0.1*origin_Lrr;
+      origin_s3 = origin_s3 + LmaxR*0.05*Lrr - LmaxR*0.05*origin_Lrr;
       origin_Rx = origin_Rx + LmaxR*0.1*Lrr - LmaxR*0.1*origin_Lrr;
       origin_Lrr = Lrr;
     }
     //X*origin_Rrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
-    slider_s3.setValue(origin_s3 - LmaxR*0.2*Rrr + LmaxR*0.2*origin_Rrr);
-    slider_Rx.setValue(origin_Rx + LmaxR*0.1*Rrr - LmaxR*0.1*origin_Rrr);
+    slider_s3.setValue(origin_s3 - RmaxR*0.2*Rrr +RmaxR*0.2*origin_Rrr);
+    slider_Rx.setValue(origin_Rx + RmaxR*0.1*Rrr - RmaxR*0.1*origin_Rrr);
   }
   
   min_height = height/2 - Ly + 10; // +10はLr=0の時でもbezierXl、bezierYlが更新されるようにするため
@@ -48,7 +56,7 @@ void draw(){
   
   //右側の渦巻き：直径は一定で、巻き数、内径、比率を変える
   if(last_Rspiral > Rspiral || last_Rspiral < Rspiral || last_Rb > Rb || last_Rb < Rb || last_Ratranslate > Ratranslate || last_Ratranslate < Ratranslate){
-    slider_Rr.setValue(RLmaxR/((pow(Ra+Ratranslate*0.001*((Rspiral*2*PI-0.5*PI)/STEP-1),(Rspiral*2*PI-0.5*PI)+3.5*PI-2*STEP)+Rb)*Rrr));
+    slider_Rr.setValue(RmaxR/((pow(Ra+Ratranslate*0.001*((Rspiral*2*PI-0.5*PI)/STEP-1),(Rspiral*2*PI-0.5*PI)+3.5*PI-2*STEP)+Rb)*Rrr));
   }
   
   //左側の渦巻き：最初に渦巻きの最高点を求めておいて、その後その点まで描画する（なのでfor文2つ必要になる）
@@ -134,14 +142,14 @@ void draw(){
    if(Rspiral == 1){
      if(i == 74){
        if(last_Rrr> Rrr || last_Rrr < Rrr){
-           RLmaxR =Rradnext(Rtheta + STEP);
+          RmaxR =Rradnext(Rtheta + STEP);
        }
      }
    }
    else{
      if(i == (Rspiral*2*PI-0.5*PI)/STEP - 1){
        if(last_Rrr> Rrr || last_Rrr < Rrr){
-           RLmaxR =Rradnext(Rtheta + STEP);
+          RmaxR =Rradnext(Rtheta + STEP);
        }
      }
    }
