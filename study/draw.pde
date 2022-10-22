@@ -66,28 +66,28 @@ void draw(){
    noFill();
    stroke(0,255,0);
    strokeWeight(1);
-   line(Lrad(Ltheta)*cos(Ltheta)+width/2 + Lx,
+   line(Lrad(Ltheta)*cos(Ltheta)+ 400 + Lx,
     Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly,
-    Lradnext(Ltheta + STEP)*cos(Ltheta + STEP)+width/2 + Lx,
-    Lradnext(Ltheta + STEP)*sin(Ltheta + STEP)+height/2 - Ly
-    );
+    Lradnext(Ltheta + STEP)*cos(Ltheta + STEP)+ 400 + Lx,
+    Lradnext(Ltheta + STEP)*sin(Ltheta + STEP)+ height/2 - Ly
+    ); 
    
    stroke(0);
    //ベジェの始点
    if(Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly < min_height){
      min_height = Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly;
-     bezierXl = Lrad(Ltheta)*cos(Ltheta)+width/2 + Lx;
-     bezierYl = Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly;
+     bezierXl = Lrad(Ltheta)*cos(Ltheta)+ 400 + Lx;
+     bezierYl = Lrad(Ltheta)*sin(Ltheta)+ height/2 - Ly;
      topLtheta = Ltheta;
    }
    //ベジェの終点
    if(Ltheta > 5*PI+(Lspiral-1)* 1.5*PI && count == 0){
      if(Lspiral == 1){
-       greenX = Lrad(Ltheta)*cos(Ltheta)+width/2 + Lx;
+       greenX = Lrad(Ltheta)*cos(Ltheta)+ 400 + Lx;
        //bezierYr = height/2 - Ly + LmaxR/2;
      }
      else if(Lspiral == 2){
-       greenX = Lrad(Ltheta)*cos(Ltheta)+width/2 + Lx;
+       greenX = Lrad(Ltheta)*cos(Ltheta)+ 400 + Lx;
        //bezierYr = Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly;
      }
      //fill(0,255,0);
@@ -125,17 +125,17 @@ void draw(){
    noFill();
    stroke(0,255,0);
    strokeWeight(1);
-   line(Rrad(Rtheta)*cos(Rtheta)+width/2 + Rx,
-    Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry,
-    Rradnext(Rtheta + STEP)*cos(Rtheta + STEP)+width/2 + Rx,
-    Rradnext(Rtheta + STEP)*sin(Rtheta + STEP)+height/2 - Ry
+   line(Rrad(Rtheta)*cos(Rtheta) + 400 + Rx,
+    Rrad(Rtheta)*sin(Rtheta) + height/2 - Ry,
+    Rradnext(Rtheta + STEP)*cos(Rtheta + STEP)+ 400 + Rx,
+    Rradnext(Rtheta + STEP)*sin(Rtheta + STEP)+ height/2 - Ry
     );
    
    //最下点を求める
    if(Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry > max_height){
      max_height = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
      bottomRtheta = Rtheta;
-     bezierXr = Rrad(Rtheta)*cos(Rtheta)+width/2 + Rx;
+     bezierXr = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
      bezierYr = max_height;
    }
    //直径Rrrを変えた時RLmaxRが更新される(変わりゆくRaをそのまま使える)
@@ -166,10 +166,10 @@ void draw(){
    noFill();
    stroke(0);
    strokeWeight(3);
-   line(Lrad(Ltheta)*cos(Ltheta)+width/2 + Lx,
-    Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly,
-    Lradnext(Ltheta + STEP)*cos(Ltheta + STEP)+width/2 + Lx,
-    Lradnext(Ltheta + STEP)*sin(Ltheta + STEP)+height/2 - Ly
+   line(Lrad(Ltheta)*cos(Ltheta) + 400 + Lx,
+    Lrad(Ltheta)*sin(Ltheta) + height/2 - Ly,
+    Lradnext(Ltheta + STEP)*cos(Ltheta + STEP) + 400 + Lx,
+    Lradnext(Ltheta + STEP)*sin(Ltheta + STEP) + 400 - Ly
     );
    Ltheta += STEP;
    La += Latranslate * 0.001;
@@ -180,10 +180,10 @@ void draw(){
    noFill();
    stroke(0);
    strokeWeight(3);
-   line(Rrad(Rtheta)*cos(Rtheta)+width/2 + Rx,
-    Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry,
-    Rradnext(Rtheta + STEP)*cos(Rtheta + STEP)+width/2 + Rx,
-    Rradnext(Rtheta + STEP)*sin(Rtheta + STEP)+height/2 - Ry
+   line(Rrad(Rtheta)*cos(Rtheta) + 400 + Rx,
+    Rrad(Rtheta)*sin(Rtheta) + height/2 - Ry,
+    Rradnext(Rtheta + STEP)*cos(Rtheta + STEP) + 400 + Rx,
+    Rradnext(Rtheta + STEP)*sin(Rtheta + STEP) + height/2 - Ry
     );
    Rtheta += STEP;
    Ra += Ratranslate * 0.001;

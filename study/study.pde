@@ -72,7 +72,7 @@ int rr = 0;
 int last_rr = 0;
 
 void setup(){
-  size(800,800);
+  size(900,800);
   colorMode(RGB,255);
   background(255);
   
@@ -82,7 +82,7 @@ void setup(){
   //左側の渦巻き
   //Lr：直径
   slider_Lr = slider.addSlider("Lr")
-   .setPosition(680,height-60)  //スライダーの位置
+   .setPosition(width-120,height-60)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0, 30)  //最小値と最大値
    .setValue(2.3)  //初期値
@@ -137,7 +137,7 @@ void setup(){
    
   //s1の値を動かすスライダー
   slider_s1 = slider.addSlider("s1")
-   .setPosition(680,height-120)  //スライダーの位置
+   .setPosition(width-120,height-120)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-1000,1000)  //最小値と最大値
    .setColorCaptionLabel(0)  //スライダーの文字の色
@@ -191,7 +191,7 @@ void setup(){
   }
   //s3の値を動かすスライダー
   slider_s3 = slider.addSlider("s3")
-   .setPosition(680,height-90)  //スライダーの位置
+   .setPosition(width-120,height-90)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-1000,1000)  //最小値と最大値
    .setValue(0.69*LmaxR + 310)  //初期値
@@ -200,15 +200,15 @@ void setup(){
 
   //Lxの値を動かすスライダー
   slider.addSlider("Lx")
-   .setPosition(680,10)  //スライダーの位置
+   .setPosition(width-120,10)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
-   .setRange(-width/2, width/2)  //最小値と最大値
+   .setRange(-400, 400)  //最小値と最大値
    .setValue(-200)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Lyの値を動かすスライダー
   slider.addSlider("Ly")
-   .setPosition(680,40)  //スライダーの位置
+   .setPosition(width-120,40)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-height/2, height/2)  //最小値と最大値
    .setValue(-42)  //初期値
@@ -218,7 +218,7 @@ void setup(){
   //右側の渦巻き
   //Rr：直径
   slider_Rr = slider.addSlider("Rr")
-   .setPosition(680, height-30)  //スライダーの位置
+   .setPosition(width-120, height-30)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0, 30)  //最小値と最大値
    .setValue(2.3)  //初期値
@@ -309,16 +309,16 @@ void setup(){
   //左右の渦巻きの大きさの和(max)でベジェの長さとなるRxを決める
   //Rxの値を動かすスライダー
   slider_Rx = slider.addSlider("Rx")
-   .setPosition(680,70)  //スライダーの位置
+   .setPosition(width-120,70)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
-   .setRange(-width/2, width/2)  //最小値と最大値
+   .setRange(-400, 400)  //最小値と最大値
    .setValue(-100 + max)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   
   //Ryの値を動かすスライダー
   slider.addSlider("Ry")
-   .setPosition(680,100)  //スライダーの位置
+   .setPosition(width-120,100)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-height/2, height/2)  //最小値と最大値
    .setValue(-42)  //初期値
