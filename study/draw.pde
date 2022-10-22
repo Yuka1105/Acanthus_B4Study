@@ -1,5 +1,4 @@
 void draw(){
-  
   //背景
   fill(255);
   rect(0,0,width,height);
@@ -7,43 +6,54 @@ void draw(){
   //直径Lrrを変化させたときベジェs1,s3,Rxの値も変化させる
   if(last_Lrr > Lrr || last_Lrr < Lrr){
     rr = 1;
+    kind = 1;
+    //Lrrを操作した瞬間のLmaxRをkindLmaxRに代入し、不変のkindLmaxRを使う（Rrrについても同様）
+    //直径が大きいものはs1など大きく変化させる必要があるから
+    if(last_kind > kind || last_kind < kind){
+       kindLmaxR = LmaxR;
+    }
     //RrrからLrrに切り替わった時、つまりrrが2から1になった時の1回だけorigin_s3, origin_Rx, origin_Rrrを更新
     //Rrrのみの変化の時はorigin_s3, origin_Rxを更新し続けない
     if(last_rr > rr){
       //origin_s3, origin_Rxの値を更新することでLrr, Rrr間でs3, Rxの値が飛ぶことを防げる
-      origin_s3 = origin_s3 - 20*Rrr + 20*origin_Rrr;
-      origin_Rx = origin_Rx + 10*Rrr - 10*origin_Rrr;
+      origin_s3 = origin_s3 - 0.1*Rrr*kindRmaxR + 0.1*origin_Rrr*kindRmaxR;
+      origin_Rx = origin_Rx + 0.3*Rrr*kindRmaxR - 0.3*origin_Rrr*kindRmaxR;
       origin_Rrr = Rrr;
     }
     //X*origin_Rrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
     //origin_Lrrが変化するので急遽origin_Lrr_fors1で不変のorigin_Lrrを作った
     //これでs1の値が飛んでしまうのを防げる
     if(slider_Lrr_range == 2){
-      slider_s1.setValue(origin_s1 + 27.5*Lrr*Lrr - 27.5*origin_Lrr_fors1*origin_Lrr_fors1);
+      slider_s1.setValue(origin_s1 + 0.18*Lrr*Lrr*kindLmaxR - 0.18*origin_Lrr_fors1*origin_Lrr_fors1*kindLmaxR);
     }
     else if(slider_Lrr_range == 3){
-      slider_s1.setValue(origin_s1 + 3*Lrr*Lrr*Lrr - 3*origin_Lrr_fors1*origin_Lrr_fors1*origin_Lrr_fors1);
+      slider_s1.setValue(origin_s1 + 2.85*Lrr*Lrr*Lrr - 2.85*origin_Lrr_fors1*origin_Lrr_fors1*origin_Lrr_fors1);
     }
     else if(slider_Lrr_range == 4){
-      slider_s1.setValue(origin_s1 + 4.3*Lrr*Lrr - 4.3*origin_Lrr_fors1*origin_Lrr_fors1);
+      slider_s1.setValue(origin_s1 + 0.05*Lrr*Lrr*kindLmaxR + 0.03*Lrr - 0.05*origin_Lrr_fors1*origin_Lrr_fors1*kindLmaxR - 0.03*origin_Lrr_fors1);
     }
-    slider_s3.setValue(origin_s3 + 5*Lrr - 5*origin_Lrr);
-    slider_Rx.setValue(origin_Rx + 10*Lrr - 10*origin_Lrr);
+    slider_s3.setValue(origin_s3 + 0.18*Lrr*kindLmaxR - 0.18*origin_Lrr*kindLmaxR);
+    slider_Rx.setValue(origin_Rx + 0.14*Lrr*kindLmaxR - 0.14*origin_Lrr*kindLmaxR);
   }
+  
   //直径Rrrを変化させたときベジェs3,Rxの値も変化させる
   if(last_Rrr > Rrr || last_Rrr < Rrr){
     rr = 2;
+    kind = 2;
+    if(last_kind > kind || last_kind < kind){
+       kindRmaxR = RmaxR;
+    }
     //LrrからRrrに切り替わった時、つまりrrが1から2になった時の1回だけorigin_s3, origin_Rx, origin_Lrrを更新
     //Lrrのみの変化の時はorigin_s3, origin_Rxを更新し続けない
     if(last_rr < rr && last_rr  != 0){//last_rr  != 0を書かないと、最初に更新されてしまう
       //origin_s3, origin_Rxの値を更新することでLrr, Rrr間でs3, Rxの値が飛ぶことを防げる
-      origin_s3 = origin_s3 + 5*Lrr - 5*origin_Lrr;
-      origin_Rx = origin_Rx + 10*Lrr - 10*origin_Lrr;
+      origin_s3 = origin_s3 + 0.18*Lrr*kindLmaxR - 0.18*origin_Lrr*kindLmaxR;
+      origin_Rx = origin_Rx + 0.14*Lrr*kindLmaxR - 0.14*origin_Lrr*kindLmaxR;
       origin_Lrr = Lrr;
     }
     //X*origin_Rrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
-    slider_s3.setValue(origin_s3 - 20*Rrr + 20*origin_Rrr);
-    slider_Rx.setValue(origin_Rx + 10*Rrr - 10*origin_Rrr);
+    slider_s3.setValue(origin_s3 - 0.1*Rrr*kindRmaxR + 0.1*origin_Rrr*kindRmaxR);
+    slider_Rx.setValue(origin_Rx + 0.3*Rrr*kindRmaxR - 0.3*origin_Rrr*kindRmaxR);
   }
   
   min_height = height/2 - Ly + 10; // +10はLr=0の時でもbezierXl、bezierYlが更新されるようにするため
@@ -51,11 +61,13 @@ void draw(){
   
   //左側の渦巻き：直径は一定で、巻き数、内径、比率を変える
   if(last_Lspiral > Lspiral || last_Lspiral < Lspiral || last_Lb > Lb || last_Lb < Lb || last_Latranslate > Latranslate || last_Latranslate < Latranslate){
+    kind = 3;
     slider_Lr.setValue(LmaxR/((pow(La+(Latranslate*0.001*(Lspiral*2*PI-PI))/STEP,(Lspiral*2*PI-PI)+5*PI)+Lb)*Lrr));
   }
   
   //右側の渦巻き：直径は一定で、巻き数、内径、比率を変える
   if(last_Rspiral > Rspiral || last_Rspiral < Rspiral || last_Rb > Rb || last_Rb < Rb || last_Ratranslate > Ratranslate || last_Ratranslate < Ratranslate){
+    kind = 3;
     slider_Rr.setValue(RmaxR/((pow(Ra+Ratranslate*0.001*((Rspiral*2*PI-0.5*PI)/STEP-1),(Rspiral*2*PI-0.5*PI)+3.5*PI-2*STEP)+Rb)*Rrr));
   }
   
@@ -234,5 +246,6 @@ void draw(){
   last_Rr = Rr;
   last_Rrr = Rrr;
   last_rr = rr;
+  last_kind = kind;
   last_Ratranslate = Ratranslate;
 }

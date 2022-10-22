@@ -70,6 +70,11 @@ float STEP = 2 * PI * 0.01;
 //rr = 1の時はLrrを変化させた後ということを表し、rr = 2の時はRrrを変化させた後ということを表す
 int rr = 0;
 int last_rr = 0;
+//kind = 1の時はLrr、2の時はRrr、3の時はその他のパラメータを変化させた後ということ
+int kind = 0;
+int last_kind = 0;
+float kindLmaxR = 0;
+float kindRmaxR = 0;
 
 void setup(){
   size(900,800);
@@ -148,8 +153,8 @@ void setup(){
     //LmaxRが小さいならLrrの可動域を大きくする
     slider_Lrr_range = 4;
     slider_Lrr
-     .setRange(1,4)  //最小値と最大値
-     .setValue(random(1,4))  //初期値
+     .setRange(2.5,4)  //最小値と最大値
+     .setValue(random(2.5,4))  //初期値
      ;
     //ほんとのLmaxR
     LmaxR = Lrr * Lr * (pow(La+((Lspiral-1)*0.1+0.049)*Latranslate,((Lspiral-1)*2+6)*PI-2*STEP)+Lb);
@@ -163,8 +168,8 @@ void setup(){
     //LmaxRが中くらいならLrrの可動域を中くらいにする
     slider_Lrr_range = 3;
     slider_Lrr
-     .setRange(1,3)  //最小値と最大値
-     .setValue(random(1,3))  //初期値
+     .setRange(2,3)  //最小値と最大値
+     .setValue(random(2,3))  //初期値
      ;
     //ほんとのLmaxR
     LmaxR = Lrr * Lr * (pow(La+((Lspiral-1)*0.1+0.049)*Latranslate,((Lspiral-1)*2+6)*PI-2*STEP)+Lb);
@@ -172,14 +177,14 @@ void setup(){
     
     //s1の値を動かすスライダー
     slider_s1
-     .setValue(0.46*LmaxR + 248 + Lrr*Lrr*Lrr);  //初期値
+     .setValue(0.43*LmaxR + 244 + Lrr*Lrr*Lrr);  //初期値
   }
   else if(LmaxR >= 140){
     //LmaxRが大きいならLrrの可動域を小さくする
     slider_Lrr_range = 2;
     slider_Lrr
-     .setRange(1,2)  //最小値と最大値
-     .setValue(random(1,2))  //初期値
+     .setRange(1,1.8)  //最小値と最大値
+     .setValue(random(1,1.8))  //初期値
      ;
     //ほんとのLmaxR
     LmaxR = Lrr * Lr * (pow(La+((Lspiral-1)*0.1+0.049)*Latranslate,((Lspiral-1)*2+6)*PI-2*STEP)+Lb);
@@ -187,7 +192,7 @@ void setup(){
     
     //s1の値を動かすスライダー
     slider_s1
-     .setValue(0.51*LmaxR + 254 + Lrr*Lrr*Lrr*Lrr*Lrr);  //初期値
+     .setValue(0.54*LmaxR + 262 + Lrr*Lrr*Lrr*Lrr*Lrr);  //初期値
   }
   //s3の値を動かすスライダー
   slider_s3 = slider.addSlider("s3")
@@ -275,8 +280,8 @@ void setup(){
   if(RmaxR > 0 &&RmaxR < 90){
     //RLmaxRが小さいならRrrの可動域を大きくする
     slider_Rrr
-     .setRange(1.8,4)  //最小値と最大値
-     .setValue(random(1,4))  //初期値
+     .setRange(2.5,4)  //最小値と最大値
+     .setValue(random(2.5,4))  //初期値
      ;
     //ほんとのRLmaxR
    RmaxR = Rrr * Rr * (pow(Ra+(0.074+0.1*(Rspiral-1))*Ratranslate,(5+2*(Rspiral-1))*PI-2*STEP)+Rb);
@@ -285,8 +290,8 @@ void setup(){
   else if(RmaxR >= 90 && RmaxR < 140){
     //RLmaxRが中くらいならRrrの可動域を中くらいにする
     slider_Rrr
-     .setRange(1,3)  //最小値と最大値
-     .setValue(random(1,3))  //初期値
+     .setRange(2,3)  //最小値と最大値
+     .setValue(random(2,3))  //初期値
      ;
     //ほんとのRLmaxR
    RmaxR = Rrr * Rr * (pow(Ra+(0.074+0.1*(Rspiral-1))*Ratranslate,(5+2*(Rspiral-1))*PI-2*STEP)+Rb);
@@ -295,8 +300,8 @@ void setup(){
   else if(RmaxR >= 140){
     //RLmaxRが大きいならRrrの可動域を小さくする
     slider_Rrr
-     .setRange(1,2)  //最小値と最大値
-     .setValue(random(1,2))  //初期値
+     .setRange(1,1.8)  //最小値と最大値
+     .setValue(random(1,1.8))  //初期値
      ;
     //ほんとのRLmaxR
    RmaxR = Rrr * Rr * (pow(Ra+(0.074+0.1*(Rspiral-1))*Ratranslate,(5+2*(Rspiral-1))*PI-2*STEP)+Rb);
