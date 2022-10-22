@@ -157,7 +157,7 @@ void setup(){
     
     //s1の値を動かすスライダー
     slider_s1
-     .setValue(0.4*LmaxR + 240 + Lrr*Lrr);  //初期値
+     .setValue(0.38*LmaxR + 242 + Lrr*Lrr);  //初期値
   }
   else if(LmaxR >= 90 && LmaxR < 140){
     //LmaxRが中くらいならLrrの可動域を中くらいにする
@@ -172,7 +172,7 @@ void setup(){
     
     //s1の値を動かすスライダー
     slider_s1
-     .setValue(0.43*LmaxR + 248 + Lrr*Lrr*Lrr);  //初期値
+     .setValue(0.46*LmaxR + 248 + Lrr*Lrr*Lrr);  //初期値
   }
   else if(LmaxR >= 140){
     //LmaxRが大きいならLrrの可動域を小さくする
@@ -187,7 +187,7 @@ void setup(){
     
     //s1の値を動かすスライダー
     slider_s1
-     .setValue(0.53*LmaxR + 258 + Lrr*Lrr*Lrr*Lrr*Lrr);  //初期値
+     .setValue(0.51*LmaxR + 254 + Lrr*Lrr*Lrr*Lrr*Lrr);  //初期値
   }
   //s3の値を動かすスライダー
   slider_s3 = slider.addSlider("s3")
