@@ -27,13 +27,13 @@ void draw(){
       slider_s1.setValue(origin_s1 + 0.18*Lrr*Lrr*kindLmaxR - 0.18*origin_Lrr_fors1*origin_Lrr_fors1*kindLmaxR);
     }
     else if(slider_Lrr_range == 3){
-      slider_s1.setValue(origin_s1 + 2.85*Lrr*Lrr*Lrr - 2.85*origin_Lrr_fors1*origin_Lrr_fors1*origin_Lrr_fors1);
+      slider_s1.setValue(origin_s1 + 2.83*Lrr*Lrr*Lrr - 2.83*origin_Lrr_fors1*origin_Lrr_fors1*origin_Lrr_fors1);
     }
     else if(slider_Lrr_range == 4){
       slider_s1.setValue(origin_s1 + 0.05*Lrr*Lrr*kindLmaxR + 0.03*Lrr - 0.05*origin_Lrr_fors1*origin_Lrr_fors1*kindLmaxR - 0.03*origin_Lrr_fors1);
     }
     slider_s3.setValue(origin_s3 + 0.18*Lrr*kindLmaxR - 0.18*origin_Lrr*kindLmaxR);
-    slider_Rx.setValue(origin_Rx + 0.14*Lrr*kindLmaxR - 0.14*origin_Lrr*kindLmaxR);
+    slider_Rx.setValue(origin_Rx + 0.3*Lrr*kindLmaxR - 0.3*origin_Lrr*kindLmaxR);
   }
   
   //直径Rrrを変化させたときベジェs3,Rxの値も変化させる
@@ -48,7 +48,7 @@ void draw(){
     if(last_rr < rr && last_rr  != 0){//last_rr  != 0を書かないと、最初に更新されてしまう
       //origin_s3, origin_Rxの値を更新することでLrr, Rrr間でs3, Rxの値が飛ぶことを防げる
       origin_s3 = origin_s3 + 0.18*Lrr*kindLmaxR - 0.18*origin_Lrr*kindLmaxR;
-      origin_Rx = origin_Rx + 0.14*Lrr*kindLmaxR - 0.14*origin_Lrr*kindLmaxR;
+      origin_Rx = origin_Rx + 0.3*Lrr*kindLmaxR - 0.3*origin_Lrr*kindLmaxR;
       origin_Lrr = Lrr;
     }
     //X*origin_Rrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
