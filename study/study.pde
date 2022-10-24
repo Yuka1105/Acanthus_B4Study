@@ -85,21 +85,6 @@ void setup(){
    .setValue(random(0.25,0.5))  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
-   
-  //渦巻きの大きさとベジェのバランス調整
-  if(Lspiral == 1){
-    //仮のLrrを決める、仮のLmaxRを求める
-    Lrr = 2.5;
-    LmaxR = Lrr * Lr * (pow(La+0.049*Latranslate,6*PI-2*STEP)+Lb);
-    println("仮のLmaxR:" + LmaxR);
-  }
-  else if(Lspiral == 2){
-    //仮のLrrを決める、仮のLmaxRを求める
-    Lrr = 2;
-    LmaxR = Lrr * Lr * (pow(La+0.149*Latranslate,8*PI-2*STEP)+Lb);
-    println("仮のLmaxR:" + LmaxR);
-  }
-
   //Lxの値を動かすスライダー
   slider.addSlider("Lx")
    .setPosition(width-120,10)  //スライダーの位置
@@ -164,29 +149,45 @@ void setup(){
     RmaxR = Rrr * Rr * (pow(Ra+0.174*Ratranslate,7*PI-2*STEP)+Rb);
     println("仮のRLmaxR:" +RmaxR);
   }
-  
+ 
+  //渦巻きの大きさとベジェのバランス調整
+  if(Lspiral == 1){
+    //仮のLrrを決める、仮のLmaxRを求める
+    Lrr = 2.5;
+    LmaxR = Lrr * Lr * (pow(La+0.049*Latranslate,6*PI-2*STEP)+Lb);
+    println("仮のLmaxR:" + LmaxR);
+  }
+  else if(Lspiral == 2){
+    //仮のLrrを決める、仮のLmaxRを求める
+    Lrr = 2;
+    LmaxR = Lrr * Lr * (pow(La+0.149*Latranslate,8*PI-2*STEP)+Lb);
+    println("仮のLmaxR:" + LmaxR);
+  }
+
   //仮のLmaxR(RmaxR)の値でLrr(Rrr)の可動域を決める
   //仮のLmaxR、RmaxRが大きいなら衝突を避けるためにLrr(Rrr)の可動域を小さくする
   slider_Lrr = slider.addSlider("Lrr")
    .setPosition(10,100)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setColorCaptionLabel(0)  //スライダーの文字の色
-   .setRange(200/LmaxR, 700/LmaxR -0.02*RmaxR)  //最小値と最大値
-   .setValue(random(200/LmaxR, 400/LmaxR))  //初期値
+   .setRange(170/LmaxR, 220/LmaxR + 100/RmaxR)  //最小値と最大値
+   .setValue(random(170/LmaxR, (220/LmaxR + 100/RmaxR)))  //初期値
    ;
+   println("a:"+ 300/LmaxR);
+   println("b:"+ 100/RmaxR);
   slider_Rrr = slider.addSlider("Rrr")
    .setPosition(170,100)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setColorCaptionLabel(0)  //スライダーの文字の色
-   .setRange(200/RmaxR, 700/RmaxR -0.02*LmaxR)  //最小値と最大値
-   .setValue(random(200/RmaxR, 300/RmaxR))  //初期値
+   .setRange(170/RmaxR, 250/RmaxR + 100/LmaxR)  //最小値と最大値
+   .setValue(random(170/RmaxR, 250/RmaxR + 100/LmaxR))  //初期値
    ;
    
   //ほんとのLmaxR, RmaxR
   LmaxR = Lrr * Lr * (pow(La+((Lspiral-1)*0.1+0.049)*Latranslate,((Lspiral-1)*2+6)*PI-2*STEP)+Lb);
   println("本当のL:" + LmaxR);
   RmaxR = Rrr * Rr * (pow(Ra+(0.074+0.1*(Rspiral-1))*Ratranslate,(5+2*(Rspiral-1))*PI-2*STEP)+Rb);
-  println("本当のR:" +RmaxR);
+  println("本当のR:" + RmaxR);
   max = LmaxR +RmaxR;
   println("渦巻の大きさの和：" + max);
   
