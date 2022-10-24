@@ -16,10 +16,10 @@ void draw(){
     //Rrrのみの変化の時はorigin_s3, origin_Rxを更新し続けない
     if(last_rr > rr){
       //origin_Rxの値を更新することでLrr, Rrr間でRxの値が飛ぶことを防げる
-      origin_Rx = origin_Rx + 0.32*Rrr*kindRmaxR - 0.32*origin_Rrr*kindRmaxR;
+      origin_Rx = origin_Rx + 0.28*Rrr*kindRmaxR - 0.28*origin_Rrr*kindRmaxR;
       origin_Rrr = Rrr;
     }
-    slider_Rx.setValue(origin_Rx + 0.32*Lrr*kindLmaxR - 0.32*origin_Lrr*kindLmaxR);
+    slider_Rx.setValue(origin_Rx + 0.28*Lrr*kindLmaxR - 0.28*origin_Lrr*kindLmaxR);
   }
   
   //直径Rrrを変化させたときRxの値も変化させる
@@ -33,11 +33,11 @@ void draw(){
     //Lrrのみの変化の時はorigin_Rxを更新し続けない
     if(last_rr < rr && last_rr  != 0){//last_rr  != 0を書かないと、最初に更新されてしまう
       //origin_Rxの値を更新することでLrr, Rrr間でRxの値が飛ぶことを防げる
-      origin_Rx = origin_Rx + 0.32*Lrr*kindLmaxR - 0.32*origin_Lrr*kindLmaxR;
+      origin_Rx = origin_Rx + 0.28*Lrr*kindLmaxR - 0.28*origin_Lrr*kindLmaxR;
       origin_Lrr = Lrr;
     }
     //X*origin_Rrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
-    slider_Rx.setValue(origin_Rx + 0.32*Rrr*kindRmaxR - 0.32*origin_Rrr*kindRmaxR);
+    slider_Rx.setValue(origin_Rx + 0.28*Rrr*kindRmaxR - 0.28*origin_Rrr*kindRmaxR);
   }
   
   min_height = height/2 - Ly + 10; // +10はLr=0の時でもbezierXl、bezierYlが更新されるようにするため
@@ -191,10 +191,10 @@ void draw(){
   //ベジェ
   stroke(255, 102, 0);
   strokeWeight(3);
-  line(bezierXl,bezierYl,greenXl,bezierYl);
-  line(greenXr,bezierYr,bezierXr,bezierYr);
+  line(bezierXl,bezierYl,greenXl+2000/LmaxR,bezierYl);
+  line(greenXr-2000/RmaxR,bezierYr,bezierXr,bezierYr);
   stroke(0);
-  bezier(bezierXl, bezierYl, greenXl, bezierYl, greenXr, bezierYr, bezierXr, bezierYr);
+  bezier(bezierXl, bezierYl, greenXl+2000/LmaxR, bezierYl, greenXr-2000/RmaxR, bezierYr, bezierXr, bezierYr);
   
   //一番高い点の描画（青）
   //fill(0,0,255);
