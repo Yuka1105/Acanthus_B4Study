@@ -1,5 +1,6 @@
 void draw(){
   //背景
+  noStroke();
   fill(255);
   rect(0,0,width,height);
   
@@ -8,17 +9,18 @@ void draw(){
     rr = 1;
     kind = 1;
     //Lrrを操作した瞬間のLmaxRをkindLmaxRに代入し、不変のkindLmaxRを使う（Rrrについても同様）
-    //直径が大きいものはs1など大きく変化させる必要があるから
+    //直径が大きいものは大きく変化させる必要がある
     if(last_kind > kind || last_kind < kind){
        kindLmaxR = LmaxR;
     }
     //RrrからLrrに切り替わった時、つまりrrが2から1になった時の1回だけorigin_Rx, origin_Rrrを更新
-    //Rrrのみの変化の時はorigin_s3, origin_Rxを更新し続けない
+    //Rrrのみの変化の時はorigin_Rxを更新し続けない
     if(last_rr > rr){
       //origin_Rxの値を更新することでLrr, Rrr間でRxの値が飛ぶことを防げる
       origin_Rx = origin_Rx + 0.18*Rrr*kindRmaxR - 0.18*origin_Rrr*kindRmaxR;
       origin_Rrr = Rrr;
     }
+    //X*origin_Lrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
     slider_Rx.setValue(origin_Rx + 0.18*Lrr*kindLmaxR - 0.18*origin_Lrr*kindLmaxR);
   }
   
@@ -29,18 +31,14 @@ void draw(){
     if(last_kind > kind || last_kind < kind){
        kindRmaxR = RmaxR;
     }
-    //LrrからRrrに切り替わった時、つまりrrが1から2になった時の1回だけorigin_Rx, origin_Lrrを更新
-    //Lrrのみの変化の時はorigin_Rxを更新し続けない
-    if(last_rr < rr && last_rr  != 0){//last_rr  != 0を書かないと、最初に更新されてしまう
-      //origin_Rxの値を更新することでLrr, Rrr間でRxの値が飛ぶことを防げる
+    if(last_rr < rr && last_rr != 0){//last_rr != 0を書かないと、最初に更新されてしまう
       origin_Rx = origin_Rx + 0.18*Lrr*kindLmaxR - 0.18*origin_Lrr*kindLmaxR;
       origin_Lrr = Lrr;
     }
-    //X*origin_Rrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
     slider_Rx.setValue(origin_Rx + 0.18*Rrr*kindRmaxR - 0.18*origin_Rrr*kindRmaxR);
   }
   
-  min_height = height/2 - Ly + 10; // +10はLr=0の時でもbezierXl、bezierYlが更新されるようにするため
+  min_height = height/2 - Ly + 10;//+10はLr=0の時でもbezierXl、bezierYlが更新されるようにするため
   max_height = height/2 - Ry - 10;
   
   //左側の渦巻き：直径は一定で、巻き数、内径、比率を変える
@@ -55,10 +53,10 @@ void draw(){
     slider_Rr.setValue(RmaxR/((pow(Ra+Ratranslate*0.001*((Rspiral*2*PI-0.5*PI)/STEP-1),(Rspiral*2*PI-0.5*PI)+3.5*PI-2*STEP)+Rb)*Rrr));
   }
   
-  //左側の渦巻き：最初に渦巻きの最高点を求めておいて、その後その点まで描画する（なのでfor文2つ必要になる）
+  //左側の渦巻き：最初に渦巻きの最高点を求めておいて、その後その点まで描画する
   for(int i = 0; i<(Lspiral*2*PI-PI)/STEP; i++){
    
-   //下書き
+   //下書き（緑の線）
    noFill();
    stroke(0,255,0);
    strokeWeight(1);
@@ -67,31 +65,18 @@ void draw(){
     Lradnext(Ltheta + STEP)*cos(Ltheta + STEP)+ 400 + Lx,
     Lradnext(Ltheta + STEP)*sin(Ltheta + STEP)+ height/2 - Ly
     );
+   
+   //緑の線の終点
    greenXl = Lradnext(Ltheta + STEP)*cos(Ltheta + STEP)+ 400 + Lx;
    
-   stroke(0);
-   //ベジェの始点
+   //ベジェの始点(最高点を求める)
    if(Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly < min_height){
      min_height = Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly;
      bezierXl = Lrad(Ltheta)*cos(Ltheta)+ 400 + Lx;
      bezierYl = Lrad(Ltheta)*sin(Ltheta)+ height/2 - Ly;
      topLtheta = Ltheta;
    }
-   //ベジェの終点
-   if(Ltheta > 5*PI+(Lspiral-1)* 1.5*PI && count == 0){
-     if(Lspiral == 1){
-       greenX = Lrad(Ltheta)*cos(Ltheta)+ 400 + Lx;
-       //bezierYr = height/2 - Ly + LmaxR/2;
-     }
-     else if(Lspiral == 2){
-       greenX = Lrad(Ltheta)*cos(Ltheta)+ 400 + Lx;
-       //bezierYr = Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly;
-     }
-     //fill(0,255,0);
-     //noStroke();
-     //ellipse(greenX,bezierYr,7,7);
-     count ++;
-   }
+   
    //直径Lrrを変えた時LmaxRが更新される(変わりゆくLaをそのまま使える)
    if(Lspiral == 1){
      if(i == 49){
@@ -115,12 +100,10 @@ void draw(){
   Ltheta = 5 * PI;
   La = 1.1;
   
-  //右側の渦巻き：for文2つ必要
+  //右側の渦巻き
   for(int i = 0; i<(Rspiral*2*PI-0.5*PI)/STEP; i++){
-    
-   greenXr = Rradnext(Rtheta + STEP)*cos(Rtheta + STEP)+ 400 + Rx;
    
-    //下書き
+   //下書き
    noFill();
    stroke(0,255,0);
    strokeWeight(1);
@@ -129,8 +112,11 @@ void draw(){
     Rradnext(Rtheta + STEP)*cos(Rtheta + STEP)+ 400 + Rx,
     Rradnext(Rtheta + STEP)*sin(Rtheta + STEP)+ height/2 - Ry
     );
+    
+   //緑の線の終点
+   greenXr = Rradnext(Rtheta + STEP)*cos(Rtheta + STEP)+ 400 + Rx;
    
-   //最下点を求める
+   //ベジェの始点(最低点を求める)
    if(Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry > max_height){
      max_height = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
      bottomRtheta = Rtheta;
@@ -160,11 +146,11 @@ void draw(){
   Rtheta = 3.5 * PI;
   Ra = 1.1;
   
+  noFill();
+  stroke(0);
+  strokeWeight(3);
   //左側の渦巻き　最高点まで描画
   for(int i = 0; i<(topLtheta-5*PI)/STEP; i++){
-   noFill();
-   stroke(0);
-   strokeWeight(3);
    line(Lrad(Ltheta)*cos(Ltheta) + 400 + Lx,
     Lrad(Ltheta)*sin(Ltheta) + height/2 - Ly,
     Lradnext(Ltheta + STEP)*cos(Ltheta + STEP) + 400 + Lx,
@@ -173,12 +159,8 @@ void draw(){
    Ltheta += STEP;
    La += Latranslate * 0.001;
   }
-  
-  //右側の渦巻き　最下点まで描画
+  //右側の渦巻き　最低点まで描画
   for(int i = 0; i<(bottomRtheta-3.5*PI)/STEP; i++){
-   noFill();
-   stroke(0);
-   strokeWeight(3);
    line(Rrad(Rtheta)*cos(Rtheta) + 400 + Rx,
     Rrad(Rtheta)*sin(Rtheta) + height/2 - Ry,
     Rradnext(Rtheta + STEP)*cos(Rtheta + STEP) + 400 + Rx,
@@ -189,17 +171,11 @@ void draw(){
   }
   
   //ベジェ
-  stroke(255, 102, 0);
-  strokeWeight(3);
+  stroke(255, 100, 0);
   line(bezierXl,bezierYl,greenXl+2000/LmaxR,bezierYl);
   line(greenXr-2000/RmaxR,bezierYr,bezierXr,bezierYr);
   stroke(0);
   bezier(bezierXl, bezierYl, greenXl+2000/LmaxR, bezierYl, greenXr-2000/RmaxR, bezierYr, bezierXr, bezierYr);
-  
-  //一番高い点の描画（青）
-  //fill(0,0,255);
-  //noStroke();
-  //ellipse(bezierXl,bezierYl,7,7);
   
   //値をリセットまたはスライダーの値に
   //左側の渦巻き
@@ -214,10 +190,8 @@ void draw(){
   Ly = slider.getController("Ly").getValue();
   last_Lspiral = Lspiral;
   last_Lb = Lb;
-  last_Lr = Lr;
   last_Lrr = Lrr;
   last_Latranslate = Latranslate;
-  count = 0;
   //右側の渦巻き
   Rtheta = 3.5 * PI;
   Rspiral = int(slider.getController("Rspiral").getValue());
@@ -230,9 +204,9 @@ void draw(){
   Ry = slider.getController("Ry").getValue();
   last_Rspiral = Rspiral;
   last_Rb = Rb;
-  last_Rr = Rr;
   last_Rrr = Rrr;
+  last_Ratranslate = Ratranslate;
+  
   last_rr = rr;
   last_kind = kind;
-  last_Ratranslate = Ratranslate;
 }

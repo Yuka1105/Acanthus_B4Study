@@ -3,61 +3,34 @@ ControlP5 slider;
 
 //左側の渦巻き
 float Ltheta = 5 * PI;
-float topLtheta;//渦巻の最高点の時のθ
-float min_height = 0;
-int Lspiral;
-float La= 1.1;
-float Lb;
-float Lr;
-Slider slider_Lr;
-float Lrr;//直径を制御
-Slider slider_Lrr;
-int slider_Lrr_range = 0;
-float Latranslate;
-float Lx, Ly;
-float last_Lspiral;
-float last_Lb;
-float last_Lr;
-float last_Lrr;
-float origin_Lrr;
-float last_Latranslate;
-float LmaxR;
-
-//右側の渦巻き
 float Rtheta = 3.5 * PI;
+float topLtheta;//渦巻の最高点の時のθ
 float bottomRtheta;//渦巻の最下点の時のθ
+float min_height = 0;
 float max_height = 0;
-int Rspiral;
+int Lspiral, Rspiral;
+float La= 1.1;
 float Ra= 1.1;
-float Rb;
-float Rr;
-Slider slider_Rr;
-float Rrr;//直径を制御
-Slider slider_Rrr;
-float Ratranslate;
-float Rx, Ry;
+float Lb, Rb;
+float Lr, Rr;
+Slider slider_Lr, slider_Rr;
+float Lrr, Rrr;
+Slider slider_Lrr, slider_Rrr;
+float Latranslate, Ratranslate;
+float Lx, Ly, Rx, Ry;
 float origin_Rx;
 Slider slider_Rx;
-float last_Rspiral;
-float last_Rb;
-float last_Rr;
-float last_Rrr;
-float origin_Rrr;
-float last_Ratranslate;
-float RmaxR;
-
-//LmaxRとRLmaxRの和　これでRxを場合分け
-float max;
+float last_Lspiral, last_Rspiral;
+float last_Lb, last_Rb;
+float last_Lrr, last_Rrr;
+float origin_Lrr, origin_Rrr;
+float last_Latranslate, last_Ratranslate;
+float LmaxR, RmaxR;
+float max;//LmaxRとRLmaxRの和(これでRxを決定)
 
 //ベジェ
-int count;//ベジェの終点を定める
-float bezierXl;
-float bezierYl;
-float bezierXr;
-float bezierYr;
-float greenX;
-float greenXl;
-float greenXr;
+float bezierXl, bezierYl, bezierXr, bezierYr;
+float greenXl, greenXr;
 
 //曲線の精度
 float STEP = 2 * PI * 0.01;
@@ -69,8 +42,7 @@ int last_rr = 0;
 //kind = 1の時はLrr、2の時はRrr、3の時はその他のパラメータを変化させた後ということ
 int kind = 0;
 int last_kind = 0;
-float kindLmaxR = 0;
-float kindRmaxR = 0;
+float kindLmaxR, kindRmaxR;
 
 void setup(){
   size(1000,800);
@@ -115,14 +87,14 @@ void setup(){
    ;
    
   //渦巻きの大きさとベジェのバランス調整
-  if(int(slider.getController("Lspiral").getValue()) == 1){
-    //とりあえずのLrrを決める、とりあえずのLmaxRを求める
+  if(Lspiral == 1){
+    //仮のLrrを決める、仮のLmaxRを求める
     Lrr = 2.5;
     LmaxR = Lrr * Lr * (pow(La+0.049*Latranslate,6*PI-2*STEP)+Lb);
     println("仮のLmaxR:" + LmaxR);
   }
-  else if(int(slider.getController("Lspiral").getValue()) == 2){
-    //とりあえずのLrrを決める、とりあえずのLmaxRを求める
+  else if(Lspiral == 2){
+    //仮のLrrを決める、仮のLmaxRを求める
     Lrr = 2;
     LmaxR = Lrr * Lr * (pow(La+0.149*Latranslate,8*PI-2*STEP)+Lb);
     println("仮のLmaxR:" + LmaxR);
@@ -180,22 +152,21 @@ void setup(){
    ;
    
   //渦巻きの大きさとベジェのバランス調整
-  if(int(slider.getController("Rspiral").getValue()) == 1){
-    //とりあえずのRrrを決める、とりあえずのRLmaxRを求める
+  if(Rspiral == 1){
+    //仮のRrrを決める、仮のRmaxRを求める
     Rrr = 2.5;
     RmaxR = Rrr * Rr * (pow(Ra+0.074*Ratranslate,5*PI-2*STEP)+Rb);
     println("仮のRLmaxR:" +RmaxR);
   }
-  else if(int(slider.getController("Rspiral").getValue()) == 2){
-    //とりあえずのRrrを決める、とりあえずのRLmaxRを求める
+  else if(Rspiral == 2){
+    //仮のRrrを決める、仮のRmaxRを求める
     Rrr = 2;
     RmaxR = Rrr * Rr * (pow(Ra+0.174*Ratranslate,7*PI-2*STEP)+Rb);
     println("仮のRLmaxR:" +RmaxR);
   }
   
-  //LmaxR(RmaxR)の値でLrr(Rrr)の可動域を決める
-  //LmaxR(RmaxR)が大きいならLrr(Rrr)の可動域を小さくする
-  //RmaxR(LmaxR)が大きいならLrr(Rrr)の可動域を小さくする
+  //仮のLmaxR(RmaxR)の値でLrr(Rrr)の可動域を決める
+  //仮のLmaxR、RmaxRが大きいなら衝突を避けるためにLrr(Rrr)の可動域を小さくする
   slider_Lrr = slider.addSlider("Lrr")
    .setPosition(10,100)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
@@ -210,21 +181,16 @@ void setup(){
    .setRange(200/RmaxR, 700/RmaxR -0.02*LmaxR)  //最小値と最大値
    .setValue(random(200/RmaxR, 300/RmaxR))  //初期値
    ;
-   println("a:"+0.02*RmaxR);
-   println("b:"+700/RmaxR);
    
-  //ほんとのLmaxR
+  //ほんとのLmaxR, RmaxR
   LmaxR = Lrr * Lr * (pow(La+((Lspiral-1)*0.1+0.049)*Latranslate,((Lspiral-1)*2+6)*PI-2*STEP)+Lb);
-  println("L:" + LmaxR);
-  
-  //ほんとのRmaxR
+  println("本当のL:" + LmaxR);
   RmaxR = Rrr * Rr * (pow(Ra+(0.074+0.1*(Rspiral-1))*Ratranslate,(5+2*(Rspiral-1))*PI-2*STEP)+Rb);
-  println("R:" +RmaxR);
-   
+  println("本当のR:" +RmaxR);
   max = LmaxR +RmaxR;
   println("渦巻の大きさの和：" + max);
   
-  //左右の渦巻きの大きさの和(max)でベジェの長さとなるRxを決める
+  //左右の渦巻きの大きさの和(max)でRxを決める
   //Rxの値を動かすスライダー
   slider_Rx = slider.addSlider("Rx")
    .setPosition(width-120,70)  //スライダーの位置
@@ -233,7 +199,6 @@ void setup(){
    .setValue(-30 + max)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
-  
   //Ryの値を動かすスライダー
   slider.addSlider("Ry")
    .setPosition(width-120,100)  //スライダーの位置
@@ -246,14 +211,12 @@ void setup(){
   //左側の渦巻き
   last_Lspiral = int(slider.getController("Lspiral").getValue());
   last_Lb = slider.getController("Lb").getValue();
-  last_Lr = 1.5;
   last_Lrr = slider.getController("Lrr").getValue();
   origin_Lrr = slider.getController("Lrr").getValue();
   last_Latranslate = slider.getController("Latranslate").getValue();
   //右側の渦巻き
   last_Rspiral = int(slider.getController("Rspiral").getValue());
   last_Rb = slider.getController("Rb").getValue();
-  last_Rr = 1.5;
   last_Rrr = slider.getController("Rrr").getValue();
   origin_Rrr = slider.getController("Rrr").getValue();
   origin_Rx = slider.getController("Rx").getValue();
