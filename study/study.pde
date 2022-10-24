@@ -57,6 +57,8 @@ float bezierYl;
 float bezierXr;
 float bezierYr;
 float greenX;
+float greenXl;
+float greenXr;
 float s1, s3;
 float origin_s1;
 float origin_s3;
