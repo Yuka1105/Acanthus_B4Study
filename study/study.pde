@@ -127,27 +127,13 @@ void setup(){
     LmaxR = Lrr * Lr * (pow(La+0.149*Latranslate,8*PI-2*STEP)+Lb);
     println("仮のLmaxR:" + LmaxR);
   }
-  
-  //LmaxRの値でLrrの可動域を決める
-  //LmaxRが大きいならLrrの可動域を小さくする
-  slider_Lrr = slider.addSlider("Lrr")
-   .setPosition(10,100)  //スライダーの位置
-   .setSize(100,20)  //スライダーのサイズ
-   .setColorCaptionLabel(0)  //スライダーの文字の色
-   .setRange(200/LmaxR, 400/LmaxR)  //最小値と最大値
-   .setValue(random(200/LmaxR, 400/LmaxR))  //初期値
-   ;
-   
-  //ほんとのLmaxR
-  LmaxR = Lrr * Lr * (pow(La+((Lspiral-1)*0.1+0.049)*Latranslate,((Lspiral-1)*2+6)*PI-2*STEP)+Lb);
-  println("L:" + LmaxR);
 
   //Lxの値を動かすスライダー
   slider.addSlider("Lx")
    .setPosition(width-120,10)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-400, 400)  //最小値と最大値
-   .setValue(-200)  //初期値
+   .setValue(-150)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Lyの値を動かすスライダー
@@ -207,15 +193,30 @@ void setup(){
     println("仮のRLmaxR:" +RmaxR);
   }
   
-  //RLmaxRの値でRrrの可動域を決める
-  //RmaxRが大きいならRrrの可動域を小さくする
+  //LmaxR(RmaxR)の値でLrr(Rrr)の可動域を決める
+  //LmaxR(RmaxR)が大きいならLrr(Rrr)の可動域を小さくする
+  //RmaxR(LmaxR)が大きいならLrr(Rrr)の可動域を小さくする
+  slider_Lrr = slider.addSlider("Lrr")
+   .setPosition(10,100)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   .setRange(200/LmaxR, 700/LmaxR -0.02*RmaxR)  //最小値と最大値
+   .setValue(random(200/LmaxR, 400/LmaxR))  //初期値
+   ;
   slider_Rrr = slider.addSlider("Rrr")
    .setPosition(170,100)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setColorCaptionLabel(0)  //スライダーの文字の色
-   .setRange(200/RmaxR, 400/RmaxR)  //最小値と最大値
-   .setValue(random(200/RmaxR, 400/RmaxR))  //初期値
+   .setRange(200/RmaxR, 700/RmaxR -0.02*LmaxR)  //最小値と最大値
+   .setValue(random(200/RmaxR, 300/RmaxR))  //初期値
    ;
+   println("a:"+0.02*RmaxR);
+   println("b:"+700/RmaxR);
+   
+  //ほんとのLmaxR
+  LmaxR = Lrr * Lr * (pow(La+((Lspiral-1)*0.1+0.049)*Latranslate,((Lspiral-1)*2+6)*PI-2*STEP)+Lb);
+  println("L:" + LmaxR);
+  
   //ほんとのRmaxR
   RmaxR = Rrr * Rr * (pow(Ra+(0.074+0.1*(Rspiral-1))*Ratranslate,(5+2*(Rspiral-1))*PI-2*STEP)+Rb);
   println("R:" +RmaxR);
@@ -229,7 +230,7 @@ void setup(){
    .setPosition(width-120,70)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-400, 400)  //最小値と最大値
-   .setValue(-80 + max)  //初期値
+   .setValue(-30 + max)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   
