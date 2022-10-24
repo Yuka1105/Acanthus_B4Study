@@ -3,7 +3,7 @@ void draw(){
   fill(255);
   rect(0,0,width,height);
   
-  //直径Lrrを変化させたときベジェs1,s3,Rxの値も変化させる
+  //直径Lrrを変化させたときRxの値も変化させる
   if(last_Lrr > Lrr || last_Lrr < Lrr){
     rr = 1;
     kind = 1;
@@ -12,27 +12,27 @@ void draw(){
     if(last_kind > kind || last_kind < kind){
        kindLmaxR = LmaxR;
     }
-    //RrrからLrrに切り替わった時、つまりrrが2から1になった時の1回だけorigin_s3, origin_Rx, origin_Rrrを更新
+    //RrrからLrrに切り替わった時、つまりrrが2から1になった時の1回だけorigin_Rx, origin_Rrrを更新
     //Rrrのみの変化の時はorigin_s3, origin_Rxを更新し続けない
     if(last_rr > rr){
-      //origin_s3, origin_Rxの値を更新することでLrr, Rrr間でs3, Rxの値が飛ぶことを防げる
+      //origin_Rxの値を更新することでLrr, Rrr間でRxの値が飛ぶことを防げる
       origin_Rx = origin_Rx + 0.32*Rrr*kindRmaxR - 0.32*origin_Rrr*kindRmaxR;
       origin_Rrr = Rrr;
     }
     slider_Rx.setValue(origin_Rx + 0.32*Lrr*kindLmaxR - 0.32*origin_Lrr*kindLmaxR);
   }
   
-  //直径Rrrを変化させたときベジェs3,Rxの値も変化させる
+  //直径Rrrを変化させたときRxの値も変化させる
   if(last_Rrr > Rrr || last_Rrr < Rrr){
     rr = 2;
     kind = 2;
     if(last_kind > kind || last_kind < kind){
        kindRmaxR = RmaxR;
     }
-    //LrrからRrrに切り替わった時、つまりrrが1から2になった時の1回だけorigin_s3, origin_Rx, origin_Lrrを更新
-    //Lrrのみの変化の時はorigin_s3, origin_Rxを更新し続けない
+    //LrrからRrrに切り替わった時、つまりrrが1から2になった時の1回だけorigin_Rx, origin_Lrrを更新
+    //Lrrのみの変化の時はorigin_Rxを更新し続けない
     if(last_rr < rr && last_rr  != 0){//last_rr  != 0を書かないと、最初に更新されてしまう
-      //origin_s3, origin_Rxの値を更新することでLrr, Rrr間でs3, Rxの値が飛ぶことを防げる
+      //origin_Rxの値を更新することでLrr, Rrr間でRxの値が飛ぶことを防げる
       origin_Rx = origin_Rx + 0.32*Lrr*kindLmaxR - 0.32*origin_Lrr*kindLmaxR;
       origin_Lrr = Lrr;
     }
