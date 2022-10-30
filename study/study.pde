@@ -6,8 +6,9 @@ float Ltheta = 5 * PI;
 float Rtheta = 3.5 * PI;
 float topLtheta;//渦巻の最高点の時のθ
 float bottomRtheta;//渦巻の最下点の時のθ
-float min_height = 0;
-float max_height = 0;
+float min_height = 0; //左の渦巻きの最高点を求める時
+float Lmax_height = 0; //左の渦巻きの最低点を求める時
+float Rmax_height = 0; //右の渦巻きの最低点を求める時
 int Lspiral, Rspiral;
 float La= 1.1;
 float Ra= 1.1;
@@ -45,7 +46,7 @@ int last_kind = 0;
 float kindLmaxR, kindRmaxR;
 
 //ベジェ（葉）
-float lbXtr, lbXl, lbYl, lbXr, lbYr;
+float lbYl, lbYr;
 
 void setup(){
   size(1000,800);
@@ -207,48 +208,6 @@ void setup(){
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-height/2, height/2)  //最小値と最大値
    .setValue(-42)  //初期値
-   .setColorCaptionLabel(0)  //スライダーの文字の色
-   ;
-   
-  //葉（最高点から描画）
-  //lbXr
-  slider.addSlider("lbXtr")
-   .setPosition(width-120, 220)  //スライダーの位置
-   .setSize(100,20)  //スライダーのサイズ
-   .setRange(300,400)  //最小値と最大値
-   .setValue(350)  //初期値
-   .setColorCaptionLabel(0)  //スライダーの文字の色
-   ;
-  //lbXl
-  slider.addSlider("lbXl")
-   .setPosition(width-120, 250)  //スライダーの位置
-   .setSize(100,20)  //スライダーのサイズ
-   .setRange(300,500)  //最小値と最大値
-   .setValue(390)  //初期値
-   .setColorCaptionLabel(0)  //スライダーの文字の色
-   ;
-  //lbXl
-  slider.addSlider("lbYl")
-   .setPosition(width-120, 280)  //スライダーの位置
-   .setSize(100,20)  //スライダーのサイズ
-   .setRange(400,500)  //最小値と最大値
-   .setValue(460)  //初期値
-   .setColorCaptionLabel(0)  //スライダーの文字の色
-   ;
-  //lbXr
-  slider.addSlider("lbXr")
-   .setPosition(width-120, 310)  //スライダーの位置
-   .setSize(100,20)  //スライダーのサイズ
-   .setRange(250,450)  //最小値と最大値
-   .setValue(320)  //初期値
-   .setColorCaptionLabel(0)  //スライダーの文字の色
-   ;
-  //lbXr
-  slider.addSlider("lbYr")
-   .setPosition(width-120, 340)  //スライダーの位置
-   .setSize(100,20)  //スライダーのサイズ
-   .setRange(400,600)  //最小値と最大値
-   .setValue(490)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   

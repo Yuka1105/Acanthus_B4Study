@@ -39,7 +39,8 @@ void draw(){
   }
   
   min_height = height/2 - Ly + 10;//+10はLr=0の時でもsbXl、sbYlが更新されるようにするため
-  max_height = height/2 - Ry - 10;
+  Lmax_height = height/2 - Ly - 10;
+  Rmax_height = height/2 - Ry - 10;
   
   //左側の渦巻き：直径は一定で、巻き数、内径、比率を変える
   if(last_Lspiral > Lspiral || last_Lspiral < Lspiral || last_Lb > Lb || last_Lb < Lb || last_Latranslate > Latranslate || last_Latranslate < Latranslate){
@@ -75,6 +76,12 @@ void draw(){
      sbXl = Lrad(Ltheta)*cos(Ltheta)+ 400 + Lx;
      sbYl = Lrad(Ltheta)*sin(Ltheta)+ height/2 - Ly;
      topLtheta = Ltheta;
+   }
+   
+   //ベジェの始点(最低点を求める)
+   if(Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly > Lmax_height){
+     Lmax_height  = Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly;
+     lbYl = Lmax_height;
    }
    
    //直径Lrrを変えた時LmaxRが更新される(変わりゆくLaをそのまま使える)
@@ -117,11 +124,11 @@ void draw(){
    greenXr = Rradnext(Rtheta + STEP)*cos(Rtheta + STEP)+ 400 + Rx;
    
    //ベジェの始点(最低点を求める)
-   if(Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry > max_height){
-     max_height = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
+   if(Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry > Rmax_height){
+     Rmax_height = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
      bottomRtheta = Rtheta;
      sbXr = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
-     sbYr = max_height;
+     sbYr = Rmax_height;
    }
    //直径Rrrを変えた時RLmaxRが更新される(変わりゆくRaをそのまま使える)
    if(Rspiral == 1){
@@ -178,10 +185,13 @@ void draw(){
   bezier(sbXl, sbYl, greenXl+2000/LmaxR, sbYl, greenXr-2000/RmaxR, sbYr, sbXr, sbYr);
   
   //ベジェ（葉:最高点から描画）
-  bezier(sbXl, sbYl, lbXtr, sbYl, lbXl, lbYl, lbXr, lbYr);
-  stroke(255, 100, 0);
-  line(sbXl, sbYl, lbXtr, sbYl);
-  line(lbXl, lbYl, lbXr, lbYr);
+  if(Lspiral == 2){
+    lbYr = 450;
+    bezier(sbXl, sbYl, greenXl+2000/LmaxR-50, sbYl, greenXl+2000/LmaxR -20, lbYr, greenXl+2000/LmaxR-50, lbYl);
+    //stroke(255, 100, 0);
+    //line(sbXl, sbYl, greenXl+2000/LmaxR-50, sbYl);
+    //line(greenXl+2000/LmaxR -20, lbYr, greenXl+2000/LmaxR-50, lbYl);
+  }
   
   //値をリセットまたはスライダーの値に
   //左側の渦巻き
