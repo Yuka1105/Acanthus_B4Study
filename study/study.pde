@@ -28,8 +28,8 @@ float last_Latranslate, last_Ratranslate;
 float LmaxR, RmaxR;
 float max;//LmaxRとRLmaxRの和(これでRxを決定)
 
-//ベジェ
-float bezierXl, bezierYl, bezierXr, bezierYr;
+//ベジェ（茎）
+float sbXl, sbYl, sbXr, sbYr;
 float greenXl, greenXr;
 
 //曲線の精度
@@ -44,6 +44,9 @@ int kind = 0;
 int last_kind = 0;
 float kindLmaxR, kindRmaxR;
 
+//ベジェ（葉）
+float lbXtr, lbXl, lbYl, lbXr, lbYr;
+
 void setup(){
   size(1000,800);
   colorMode(RGB,255);
@@ -55,7 +58,7 @@ void setup(){
   //左側の渦巻き
   //Lr：直径
   slider_Lr = slider.addSlider("Lr")
-   .setPosition(width-120,height-60)  //スライダーの位置
+   .setPosition(width-120,130)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0, 30)  //最小値と最大値
    .setValue(2.3)  //初期値
@@ -105,7 +108,7 @@ void setup(){
   //右側の渦巻き
   //Rr：直径
   slider_Rr = slider.addSlider("Rr")
-   .setPosition(width-120, height-30)  //スライダーの位置
+   .setPosition(width-120, 160)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0, 30)  //最小値と最大値
    .setValue(2.3)  //初期値
@@ -173,8 +176,6 @@ void setup(){
    .setRange(170/LmaxR, 220/LmaxR + 100/RmaxR)  //最小値と最大値
    .setValue(random(170/LmaxR, (220/LmaxR + 100/RmaxR)))  //初期値
    ;
-   println("a:"+ 300/LmaxR);
-   println("b:"+ 100/RmaxR);
   slider_Rrr = slider.addSlider("Rrr")
    .setPosition(170,100)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
@@ -206,6 +207,48 @@ void setup(){
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-height/2, height/2)  //最小値と最大値
    .setValue(-42)  //初期値
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
+   
+  //葉（最高点から描画）
+  //lbXr
+  slider.addSlider("lbXtr")
+   .setPosition(width-120, 220)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setRange(300,400)  //最小値と最大値
+   .setValue(350)  //初期値
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
+  //lbXl
+  slider.addSlider("lbXl")
+   .setPosition(width-120, 250)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setRange(300,500)  //最小値と最大値
+   .setValue(390)  //初期値
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
+  //lbXl
+  slider.addSlider("lbYl")
+   .setPosition(width-120, 280)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setRange(400,500)  //最小値と最大値
+   .setValue(460)  //初期値
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
+  //lbXr
+  slider.addSlider("lbXr")
+   .setPosition(width-120, 310)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setRange(250,450)  //最小値と最大値
+   .setValue(320)  //初期値
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
+  //lbXr
+  slider.addSlider("lbYr")
+   .setPosition(width-120, 340)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setRange(400,600)  //最小値と最大値
+   .setValue(490)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   
