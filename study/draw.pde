@@ -224,4 +224,7 @@ void draw(){
   
   last_rr = rr;
   last_kind = kind;
+  
+  //葉
+  lbl = slider.getController("lbl").getValue();
 }
