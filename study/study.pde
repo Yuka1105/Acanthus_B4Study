@@ -46,9 +46,7 @@ int last_kind = 0;
 float kindLmaxR, kindRmaxR;
 
 //ベジェ（葉）
-float lbYl, lbYr;
-float bRx;
-float boriigin_Rx;
+float lbl;
 
 void setup(){
   size(1000,800);
@@ -210,6 +208,16 @@ void setup(){
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-height/2, height/2)  //最小値と最大値
    .setValue(-42)  //初期値
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
+   
+  //葉
+  //lblの値を動かすスライダー
+  slider.addSlider("lbl")
+   .setPosition(330,10)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setRange(450,520)  //最小値と最大値
+   .setValue(480)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   
