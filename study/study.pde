@@ -47,6 +47,8 @@ float kindLmaxR, kindRmaxR;
 
 //ベジェ（葉）
 float lbYl, lbYr;
+float bRx;
+float boriigin_Rx;
 
 void setup(){
   size(1000,800);

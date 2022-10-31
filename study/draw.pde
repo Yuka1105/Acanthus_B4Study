@@ -58,14 +58,14 @@ void draw(){
   for(int i = 0; i<(Lspiral*2*PI-PI)/STEP; i++){
    
    //下書き（緑の線）
-   //noFill();
-   //stroke(0,255,0);
-   //strokeWeight(1);
-   //line(Lrad(Ltheta)*cos(Ltheta)+ 400 + Lx,
-   // Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly,
-   // Lradnext(Ltheta + STEP)*cos(Ltheta + STEP)+ 400 + Lx,
-   // Lradnext(Ltheta + STEP)*sin(Ltheta + STEP)+ height/2 - Ly
-   // );
+   noFill();
+   stroke(0,255,0);
+   strokeWeight(1);
+   line(Lrad(Ltheta)*cos(Ltheta)+ 400 + Lx,
+    Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly,
+    Lradnext(Ltheta + STEP)*cos(Ltheta + STEP)+ 400 + Lx,
+    Lradnext(Ltheta + STEP)*sin(Ltheta + STEP)+ height/2 - Ly
+    );
    
    //緑の線の終点
    greenXl = Lradnext(Ltheta + STEP)*cos(Ltheta + STEP)+ 400 + Lx;
@@ -111,14 +111,14 @@ void draw(){
   for(int i = 0; i<(Rspiral*2*PI-0.5*PI)/STEP; i++){
    
    //下書き
-   //noFill();
-   //stroke(0,255,0);
-   //strokeWeight(1);
-   //line(Rrad(Rtheta)*cos(Rtheta) + 400 + Rx,
-   // Rrad(Rtheta)*sin(Rtheta) + height/2 - Ry,
-   // Rradnext(Rtheta + STEP)*cos(Rtheta + STEP)+ 400 + Rx,
-   // Rradnext(Rtheta + STEP)*sin(Rtheta + STEP)+ height/2 - Ry
-   // );
+   noFill();
+   stroke(0,255,0);
+   strokeWeight(1);
+   line(Rrad(Rtheta)*cos(Rtheta) + 400 + Rx,
+    Rrad(Rtheta)*sin(Rtheta) + height/2 - Ry,
+    Rradnext(Rtheta + STEP)*cos(Rtheta + STEP)+ 400 + Rx,
+    Rradnext(Rtheta + STEP)*sin(Rtheta + STEP)+ height/2 - Ry
+    );
     
    //緑の線の終点
    greenXr = Rradnext(Rtheta + STEP)*cos(Rtheta + STEP)+ 400 + Rx;
@@ -186,11 +186,11 @@ void draw(){
   
   //ベジェ（葉:最高点から描画）
   if(Lspiral == 2){
-    lbYr = 450;
-    bezier(sbXl, sbYl, greenXl+2000/LmaxR-50, sbYl, greenXl+2000/LmaxR -20, lbYr, greenXl+2000/LmaxR-50, lbYl);
-    //stroke(255, 100, 0);
-    //line(sbXl, sbYl, greenXl+2000/LmaxR-50, sbYl);
-    //line(greenXl+2000/LmaxR -20, lbYr, greenXl+2000/LmaxR-50, lbYl);
+    lbYr = 430+LmaxR*0.1;
+    bezier(sbXl, sbYl, greenXl+2000/LmaxR-50, sbYl, greenXl+LmaxR*0.3, lbYr, greenXl+2000/LmaxR-30, lbYl);
+    stroke(255, 100, 0);
+    line(sbXl, sbYl, greenXl+2000/LmaxR-50, sbYl);
+    line(greenXl+LmaxR*0.3, lbYr, greenXl+2000/LmaxR-30, lbYl);
   }
   
   //値をリセットまたはスライダーの値に
