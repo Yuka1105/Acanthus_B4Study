@@ -47,6 +47,7 @@ float kindLmaxR, kindRmaxR;
 
 //ベジェ（葉）
 float lbl;
+float origin_lbl;
 
 void setup(){
   size(1000,800);
@@ -174,15 +175,15 @@ void setup(){
    .setPosition(10,100)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setColorCaptionLabel(0)  //スライダーの文字の色
-   .setRange(170/LmaxR, 220/LmaxR + 100/RmaxR)  //最小値と最大値
-   .setValue(random(170/LmaxR, (220/LmaxR + 100/RmaxR)))  //初期値
+   .setRange(170/LmaxR, 210/LmaxR + 90/RmaxR)  //最小値と最大値
+   .setValue(random(190/LmaxR + 70/RmaxR, 210/LmaxR + 90/RmaxR))  //初期値
    ;
   slider_Rrr = slider.addSlider("Rrr")
    .setPosition(170,100)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setColorCaptionLabel(0)  //スライダーの文字の色
-   .setRange(170/RmaxR, 250/RmaxR + 100/LmaxR)  //最小値と最大値
-   .setValue(random(170/RmaxR, 250/RmaxR + 100/LmaxR))  //初期値
+   .setRange(170/RmaxR, 230/RmaxR + 90/LmaxR)  //最小値と最大値
+   .setValue(random(210/RmaxR + 70/LmaxR, 230/RmaxR + 90/LmaxR))  //初期値
    ;
    
   //ほんとのLmaxR, RmaxR
@@ -234,4 +235,6 @@ void setup(){
   origin_Rrr = slider.getController("Rrr").getValue();
   origin_Rx = slider.getController("Rx").getValue();
   last_Ratranslate = slider.getController("Ratranslate").getValue();
+  //葉
+  origin_lbl = slider.getController("lbl").getValue();
 }
