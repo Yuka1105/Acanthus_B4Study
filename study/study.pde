@@ -63,7 +63,7 @@ void setup(){
    .setPosition(width-120,130)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0, 30)  //最小値と最大値
-   .setValue(2.3)  //初期値
+   .setValue(3)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Lspiralの値を動かすスライダー
@@ -175,16 +175,16 @@ void setup(){
    .setPosition(10,100)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setColorCaptionLabel(0)  //スライダーの文字の色
-   .setRange(170/LmaxR, 225/LmaxR + 100/RmaxR)  //最小値と最大値
-   .setValue(random(180/LmaxR + 75/RmaxR, 220/LmaxR + 95/RmaxR))  //初期値
+   .setRange(190/LmaxR, 200/LmaxR + 60/RmaxR)  //最小値と最大値
+   .setValue(random(160/LmaxR + 30/RmaxR, 200/LmaxR + 60/RmaxR))  //初期値
    ;
    
   slider_Rrr = slider.addSlider("Rrr")
    .setPosition(170,100)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setColorCaptionLabel(0)  //スライダーの文字の色
-   .setRange(170/RmaxR, 230/RmaxR + 90/LmaxR)  //最小値と最大値
-   .setValue(random(210/RmaxR + 70/LmaxR, 230/RmaxR + 90/LmaxR))  //初期値
+   .setRange(170/RmaxR, 220/RmaxR + 90/LmaxR)  //最小値と最大値
+   .setValue(random(200/RmaxR + 70/LmaxR, 220/RmaxR + 80/LmaxR))  //初期値
    ;
    
   //ほんとのLmaxR, RmaxR
@@ -218,7 +218,7 @@ void setup(){
   slider.addSlider("lbl")
    .setPosition(330,10)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
-   .setRange(450,520)  //最小値と最大値
+   .setRange(440,520)  //最小値と最大値
    .setValue(480)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;

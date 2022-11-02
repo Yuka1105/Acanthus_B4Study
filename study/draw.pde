@@ -186,11 +186,11 @@ void draw(){
   
   //ベジェ（葉:最高点から描画）
   if(Lspiral == 2){
-    bezier(sbXl, sbYl, greenXl+2200/RmaxR-50, sbYl, greenXl+LmaxR*0.2+lbl*0.2-origin_lbl*0.2, 415+LmaxR*0.2, 0.7*(0.9*lbl+LmaxR*0.6+lbl*LmaxR*0.002)-20*Rrr, 345+0.2*lbl+LmaxR*0.6);
+    bezier(sbXl, sbYl, greenXl+2200/RmaxR-50, sbYl, greenXl+LmaxR*0.2+lbl*0.1-origin_lbl*0.1+20, LmaxR*0.2+415, 0.71*(LmaxR*lbl*0.002+LmaxR*0.6+lbl*0.9)-RmaxR*0.1, LmaxR*0.6+lbl*0.2+350);
     //stroke(255, 100, 0);
     //line(sbXl, sbYl, greenXl+2200/RmaxR-50, sbYl);
-    //line(greenXl+LmaxR*0.2+lbl*0.2-origin_lbl*0.2, 415+LmaxR*0.2, 0.7*(0.9*lbl+LmaxR*0.6+lbl*LmaxR*0.002)-20*Rrr, 345+0.2*lbl+LmaxR*0.6);
-}
+    //line(greenXl+LmaxR*0.2+lbl*0.1-origin_lbl*0.1+20, LmaxR*0.2+415, 0.71*(LmaxR*lbl*0.002+LmaxR*0.6+lbl*0.9)-RmaxR*0.1, LmaxR*0.6+lbl*0.2+350);
+  }
   
   //値をリセットまたはスライダーの値に
   //左側の渦巻き
