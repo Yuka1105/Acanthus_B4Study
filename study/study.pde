@@ -48,6 +48,7 @@ float kindLmaxR, kindRmaxR;
 //ベジェ（葉）
 float lbl;
 float origin_lbl;
+int lval;//左側の葉の数
 
 void setup(){
   size(1000,800);
@@ -220,6 +221,14 @@ void setup(){
    .setSize(100,20)  //スライダーのサイズ
    .setRange(440,520)  //最小値と最大値
    .setValue(480)  //初期値
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
+  //lvalの値を動かすスライダー
+  slider.addSlider("lval")
+   .setPosition(330,40)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setRange(0,2)  //最小値と最大値
+   .setValue(random(0,3))  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   
