@@ -17,11 +17,11 @@ void draw(){
     //Rrrのみの変化の時はorigin_Rxを更新し続けない
     if(last_rr > rr){
       //origin_Rxの値を更新することでLrr, Rrr間でRxの値が飛ぶことを防げる
-      origin_Rx = origin_Rx + 0.2*Rrr*kindRmaxR - 0.2*origin_Rrr*kindRmaxR;
+      origin_Rx = origin_Rx + 0.23*Rrr*kindRmaxR - 0.23*origin_Rrr*kindRmaxR;
       origin_Rrr = Rrr;
     }
     //X*origin_Lrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
-    slider_Rx.setValue(origin_Rx + 0.2*Lrr*kindLmaxR - 0.2*origin_Lrr*kindLmaxR);
+    slider_Rx.setValue(origin_Rx + 0.23*Lrr*kindLmaxR - 0.23*origin_Lrr*kindLmaxR);
   }
   
   //直径Rrrを変化させたときRxの値も変化させる
@@ -32,10 +32,10 @@ void draw(){
        kindRmaxR = RmaxR;
     }
     if(last_rr < rr && last_rr != 0){//last_rr != 0を書かないと、最初に更新されてしまう
-      origin_Rx = origin_Rx + 0.2*Lrr*kindLmaxR - 0.2*origin_Lrr*kindLmaxR;
+      origin_Rx = origin_Rx + 0.23*Lrr*kindLmaxR - 0.23*origin_Lrr*kindLmaxR;
       origin_Lrr = Lrr;
     }
-    slider_Rx.setValue(origin_Rx + 0.2*Rrr*kindRmaxR - 0.2*origin_Rrr*kindRmaxR);
+    slider_Rx.setValue(origin_Rx + 0.23*Rrr*kindRmaxR - 0.23*origin_Rrr*kindRmaxR);
   }
   
   min_height = height/2 - Ly + 10;//+10はLr=0の時でもsbXl、sbYlが更新されるようにするため
@@ -187,10 +187,10 @@ void draw(){
   //ベジェ（葉:最高点から描画）
   if(Lspiral == 2){
     if(lval != 0){
-      bezier(sbXl, sbYl, greenXl+2200/RmaxR-50, sbYl, greenXl+LmaxR*0.2+lbl*0.1-origin_lbl*0.1+20, LmaxR*0.2+415, 0.71*(LmaxR*lbl*0.002+LmaxR*0.6+lbl*0.9)-RmaxR*0.1+Rx*0.08, LmaxR*0.6+lbl*0.2+350);
+      bezier(sbXl, sbYl, greenXl+2200/RmaxR-50, sbYl, greenXl+LmaxR*0.2+lbl*0.1-origin_lbl*0.1+20, LmaxR*0.15+415, 0.71*(LmaxR*lbl*0.002+LmaxR*0.55+lbl*0.9)-RmaxR*0.1+Rx*0.08, LmaxR*0.55+lbl*0.2+350);
       //stroke(255, 100, 0);
       //line(sbXl, sbYl, greenXl+2200/RmaxR-50, sbYl);
-      //line(greenXl+LmaxR*0.2+lbl*0.1-origin_lbl*0.1+20, LmaxR*0.2+415, 0.71*(LmaxR*lbl*0.002+LmaxR*0.6+lbl*0.9)-RmaxR*0.1+Rx*0.08, LmaxR*0.6+lbl*0.2+350);
+      //line(greenXl+LmaxR*0.2+lbl*0.1-origin_lbl*0.1+20, LmaxR*0.15+415, 0.71*(LmaxR*lbl*0.002+LmaxR*0.55+lbl*0.9)-RmaxR*0.1+Rx*0.08, LmaxR*0.55+lbl*0.2+350);
     }
     if(lval == 2){
       bezier(sbXl, sbYl, greenXl+2200/RmaxR-50, sbYl, 0.95*(greenXl+LmaxR*0.2+lbl*0.1-origin_lbl*0.1+20), 1.05*(LmaxR*0.2+415), 0.6*(LmaxR*lbl*0.002+LmaxR*0.6+lbl*0.9)-RmaxR*0.1, 0.98*(LmaxR*0.6+lbl*0.2+350));
