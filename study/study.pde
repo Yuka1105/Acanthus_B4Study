@@ -79,7 +79,7 @@ void setup(){
    .setPosition(10,40)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0,10)  //最小値と最大値
-   .setValue(random(0,10))  //初期値
+   .setValue(random(1,3))  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Latranslateの値を動かすスライダー
@@ -87,7 +87,7 @@ void setup(){
    .setPosition(10,70)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0.25, 0.5)  //最小値と最大値
-   .setValue(random(0.25,0.5))  //初期値
+   .setValue(random(0.4,0.5))  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Lxの値を動かすスライダー
@@ -175,9 +175,10 @@ void setup(){
    .setPosition(10,100)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setColorCaptionLabel(0)  //スライダーの文字の色
-   .setRange(170/LmaxR, 210/LmaxR + 90/RmaxR)  //最小値と最大値
-   .setValue(random(190/LmaxR + 70/RmaxR, 210/LmaxR + 90/RmaxR))  //初期値
+   .setRange(170/LmaxR, 225/LmaxR + 100/RmaxR)  //最小値と最大値
+   .setValue(random(180/LmaxR + 75/RmaxR, 220/LmaxR + 95/RmaxR))  //初期値
    ;
+   
   slider_Rrr = slider.addSlider("Rrr")
    .setPosition(170,100)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
