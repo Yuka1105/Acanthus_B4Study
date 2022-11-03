@@ -184,21 +184,27 @@ void draw(){
   stroke(0);
   bezier(sbXl, sbYl, greenXl+2000/LmaxR, sbYl, greenXr-2000/RmaxR, sbYr, sbXr, sbYr);
   
-  //ベジェ（葉:最高点から描画）
-  if(Lspiral == 2){
-    if(lval != 0){
-      bezier(sbXl, sbYl, greenXl+2200/RmaxR-50, sbYl, greenXl+LmaxR*0.2+lbl*0.1-origin_lbl*0.1+20, LmaxR*0.15+415, 0.71*(LmaxR*lbl*0.002+LmaxR*0.55+lbl*0.9)-RmaxR*0.1+Rx*0.08, LmaxR*0.55+lbl*0.2+350);
-      //stroke(255, 100, 0);
-      //line(sbXl, sbYl, greenXl+2200/RmaxR-50, sbYl);
-      //line(greenXl+LmaxR*0.2+lbl*0.1-origin_lbl*0.1+20, LmaxR*0.15+415, 0.71*(LmaxR*lbl*0.002+LmaxR*0.55+lbl*0.9)-RmaxR*0.1+Rx*0.08, LmaxR*0.55+lbl*0.2+350);
-    }
-    if(lval == 2){
-      bezier(sbXl, sbYl, greenXl+2200/RmaxR-50, sbYl, 0.95*(greenXl+LmaxR*0.2+lbl*0.1-origin_lbl*0.1+20), 1.05*(LmaxR*0.2+415), 0.6*(LmaxR*lbl*0.002+LmaxR*0.6+lbl*0.9)-RmaxR*0.1, 0.98*(LmaxR*0.6+lbl*0.2+350));
-    //  stroke(255, 100, 0);
-    //  line(sbXl, sbYl, greenXl+2200/RmaxR-50, sbYl);
-    //  line(0.95*(greenXl+LmaxR*0.2+lbl*0.1-origin_lbl*0.1+20), 1.05*(LmaxR*0.2+415), 0.6*(LmaxR*lbl*0.002+LmaxR*0.6+lbl*0.9)-RmaxR*0.1, 0.98*(LmaxR*0.6+lbl*0.2+350));
-    }
+  //ベジェ（1,2枚の葉:最高点から描画）
+  if(lval != 0){
+    bezier(sbXl, sbYl, greenXl+2200/RmaxR-50, sbYl, greenXl+LmaxR*0.2+lbl*0.1-origin_lbl*0.1+20, LmaxR*0.15+415, 0.71*(LmaxR*lbl*0.002+LmaxR*0.55+lbl*0.9)-RmaxR*0.1+Rx*0.08, LmaxR*0.55+lbl*0.2+350);
+    //stroke(255, 100, 0);
+    //line(sbXl, sbYl, greenXl+2200/RmaxR-50, sbYl);
+    //line(greenXl+LmaxR*0.2+lbl*0.1-origin_lbl*0.1+20, LmaxR*0.15+415, 0.71*(LmaxR*lbl*0.002+LmaxR*0.55+lbl*0.9)-RmaxR*0.1+Rx*0.08, LmaxR*0.55+lbl*0.2+350);
   }
+  if(lval == 2){
+    bezier(sbXl, sbYl, greenXl+2200/RmaxR-50, sbYl, 0.95*(greenXl+LmaxR*0.2+lbl*0.1-origin_lbl*0.1+20), 1.05*(LmaxR*0.2+415), 0.6*(LmaxR*lbl*0.002+LmaxR*0.6+lbl*0.9)-RmaxR*0.1, 0.98*(LmaxR*0.6+lbl*0.2+350));
+    //stroke(255, 100, 0);
+    //line(sbXl, sbYl, greenXl+2200/RmaxR-50, sbYl);
+    //line(0.95*(greenXl+LmaxR*0.2+lbl*0.1-origin_lbl*0.1+20), 1.05*(LmaxR*0.2+415), 0.6*(LmaxR*lbl*0.002+LmaxR*0.6+lbl*0.9)-RmaxR*0.1, 0.98*(LmaxR*0.6+lbl*0.2+350));
+  }
+  
+  //ベジェ(めくれた葉)
+  //stroke(255, 100, 0);
+  //line(sbXl,sbYl,greenXl+2000/LmaxR,sbYl);
+  //line(greenXr-2000/RmaxR-100, sbYr-100, sbXr-100, sbYr-100);
+  //stroke(0);
+  //bezier(sbXl, sbYl, greenXl+2000/LmaxR, sbYl, greenXr-2000/RmaxR-100, sbYr-150, sbXr-100, sbYr-150);
+  
   
   //値をリセットまたはスライダーの値に
   //左側の渦巻き
