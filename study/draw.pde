@@ -184,10 +184,10 @@ void draw(){
   if(lval == 2){
     stroke(0);
     bezier(sbXl, sbYl, greenXl+120000/pow(LmaxR,1.95)+120000/pow(RmaxR,2.15)-60, sbYl, 
-    0.95*(greenXl+LmaxR*0.1+lbl*0.1-origin_lbl*0.1+20), 1.05*(LmaxR*0.2+415), 0.6*(LmaxR*lbl*0.002+LmaxR*0.6+lbl*0.9)-RmaxR*0.1, 0.98*(LmaxR*0.6+lbl*0.2+350));
+    0.94*(greenXl+LmaxR*0.1+lbl*0.1-origin_lbl*0.1+20), 1.05*(LmaxR*0.2+415), 0.71*(LmaxR*lbl*0.002+LmaxR*0.05+lbl*0.9)-RmaxR*0.1, 0.98*(LmaxR*0.6+lbl*0.2+350));
     //stroke(255, 100, 0);
     //line(sbXl, sbYl, greenXl+120000/pow(LmaxR,1.95)+120000/pow(RmaxR,2.15)-60, sbYl);
-    //line(0.95*(greenXl+LmaxR*0.1+lbl*0.1-origin_lbl*0.1+20), 1.05*(LmaxR*0.2+415), 0.6*(LmaxR*lbl*0.002+LmaxR*0.6+lbl*0.9)-RmaxR*0.1, 0.98*(LmaxR*0.6+lbl*0.2+350));
+    //line(0.94*(greenXl+LmaxR*0.1+lbl*0.1-origin_lbl*0.1+20), 1.05*(LmaxR*0.2+415), 0.71*(LmaxR*lbl*0.002+LmaxR*0.05+lbl*0.9)-RmaxR*0.1, 0.98*(LmaxR*0.6+lbl*0.2+350));
   }
   
   //値をリセットまたはスライダーの値に
