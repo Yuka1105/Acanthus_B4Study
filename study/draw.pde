@@ -7,35 +7,25 @@ void draw(){
   //直径Lrrを変化させたときRxの値も変化させる
   if(last_Lrr > Lrr || last_Lrr < Lrr){
     rr = 1;
-    kind = 1;
-    //Lrrを操作した瞬間のLmaxRをkindLmaxRに代入し、不変のkindLmaxRを使う（Rrrについても同様）
-    //直径が大きいものは大きく変化させる必要がある
-    if(last_kind > kind || last_kind < kind){
-       kindLmaxR = LmaxR;
-    }
     //RrrからLrrに切り替わった時、つまりrrが2から1になった時の1回だけorigin_Rx, origin_Rrrを更新
     //Rrrのみの変化の時はorigin_Rxを更新し続けない
     if(last_rr > rr){
       //origin_Rxの値を更新することでLrr, Rrr間でRxの値が飛ぶことを防げる
-      origin_Rx = origin_Rx + 0.23*Rrr*kindRmaxR - 0.23*origin_Rrr*kindRmaxR;
+      origin_Rx = origin_Rx + 40*Rrr - 40*origin_Rrr;
       origin_Rrr = Rrr;
     }
     //X*origin_Lrrを引いておくことで飛躍せずに滑らかにベジェを制御できる
-    slider_Rx.setValue(origin_Rx + 0.23*Lrr*kindLmaxR - 0.23*origin_Lrr*kindLmaxR);
+    slider_Rx.setValue(origin_Rx + 60*Lrr - 60*origin_Lrr);//計算された値
   }
   
   //直径Rrrを変化させたときRxの値も変化させる
   if(last_Rrr > Rrr || last_Rrr < Rrr){
     rr = 2;
-    kind = 2;
-    if(last_kind > kind || last_kind < kind){
-       kindRmaxR = RmaxR;
-    }
     if(last_rr < rr && last_rr != 0){//last_rr != 0を書かないと、最初に更新されてしまう
-      origin_Rx = origin_Rx + 0.23*Lrr*kindLmaxR - 0.23*origin_Lrr*kindLmaxR;
+      origin_Rx = origin_Rx + 60*Lrr - 60*origin_Lrr;
       origin_Lrr = Lrr;
     }
-    slider_Rx.setValue(origin_Rx + 0.23*Rrr*kindRmaxR - 0.23*origin_Rrr*kindRmaxR);
+    slider_Rx.setValue(origin_Rx + 40*Rrr - 40*origin_Rrr);//計算された値
   }
   
   min_height = height/2 - Ly + 10;//+10はLr=0の時でもsbXl、sbYlが更新されるようにするため
@@ -44,13 +34,11 @@ void draw(){
   
   //左側の渦巻き：直径は一定で、巻き数、内径、比率を変える
   if(last_Lspiral > Lspiral || last_Lspiral < Lspiral || last_Lb > Lb || last_Lb < Lb || last_Latranslate > Latranslate || last_Latranslate < Latranslate){
-    kind = 3;
     slider_Lr.setValue(LmaxR/((pow(La+(Latranslate*0.001*(Lspiral*2*PI-PI))/STEP,(Lspiral*2*PI-PI)+5*PI)+Lb)*Lrr));
   }
   
   //右側の渦巻き：直径は一定で、巻き数、内径、比率を変える
   if(last_Rspiral > Rspiral || last_Rspiral < Rspiral || last_Rb > Rb || last_Rb < Rb || last_Ratranslate > Ratranslate || last_Ratranslate < Ratranslate){
-    kind = 3;
     slider_Rr.setValue(RmaxR/((pow(Ra+Ratranslate*0.001*((Rspiral*2*PI-0.5*PI)/STEP-1),(Rspiral*2*PI-0.5*PI)+3.5*PI-2*STEP)+Rb)*Rrr));
   }
   
@@ -178,11 +166,11 @@ void draw(){
   }
   
   //ベジェ(茎)
-  //stroke(255, 100, 0);
-  //line(sbXl,sbYl,greenXl+2000/LmaxR,sbYl);
-  //line(greenXr-2000/RmaxR,sbYr,sbXr,sbYr);
   stroke(0);
-  bezier(sbXl, sbYl, greenXl+2000/LmaxR, sbYl, greenXr-2000/RmaxR, sbYr, sbXr, sbYr);
+  bezier(sbXl, sbYl, greenXl+150000/(LmaxR*LmaxR)-15, sbYl, greenXr-150000/(RmaxR*RmaxR)+15, sbYr, sbXr, sbYr);
+  //stroke(255, 100, 0);
+  //line(sbXl,sbYl,greenXl+150000/(LmaxR*LmaxR)-15,sbYl);
+  //line(greenXr-150000/(RmaxR*RmaxR)+15,sbYr,sbXr,sbYr);
   
   //ベジェ（1,2枚の葉:最高点から描画）
   if(lval != 0){
@@ -198,46 +186,37 @@ void draw(){
     //line(0.95*(greenXl+LmaxR*0.2+lbl*0.1-origin_lbl*0.1+20), 1.05*(LmaxR*0.2+415), 0.6*(LmaxR*lbl*0.002+LmaxR*0.6+lbl*0.9)-RmaxR*0.1, 0.98*(LmaxR*0.6+lbl*0.2+350));
   }
   
-  //ベジェ(めくれた葉)
-  //stroke(255, 100, 0);
-  //line(sbXl,sbYl,greenXl+2000/LmaxR,sbYl);
-  //line(greenXr-2000/RmaxR-100, sbYr-100, sbXr-100, sbYr-100);
-  //stroke(0);
-  //bezier(sbXl, sbYl, greenXl+2000/LmaxR, sbYl, greenXr-2000/RmaxR-100, sbYr-150, sbXr-100, sbYr-150);
-  
-  
   //値をリセットまたはスライダーの値に
   //左側の渦巻き
   Ltheta = 5 * PI;
-  Lspiral = int(slider.getController("Lspiral").getValue());
   La = 1.1;
+  Lspiral = int(slider.getController("Lspiral").getValue());
   Lb = slider.getController("Lb").getValue();
-  Lr = slider.getController("Lr").getValue();
-  Lrr = slider.getController("Lrr").getValue();
   Latranslate = slider.getController("Latranslate").getValue();
+  Lrr = slider.getController("Lrr").getValue();
+  Lr = slider.getController("Lr").getValue();
   Lx = slider.getController("Lx").getValue();
   Ly = slider.getController("Ly").getValue();
   last_Lspiral = Lspiral;
   last_Lb = Lb;
-  last_Lrr = Lrr;
   last_Latranslate = Latranslate;
+  last_Lrr = Lrr;
   //右側の渦巻き
   Rtheta = 3.5 * PI;
-  Rspiral = int(slider.getController("Rspiral").getValue());
   Ra = 1.1;
+  Rspiral = int(slider.getController("Rspiral").getValue());
   Rb = slider.getController("Rb").getValue();
-  Rr = slider.getController("Rr").getValue();
-  Rrr = slider.getController("Rrr").getValue();
   Ratranslate = slider.getController("Ratranslate").getValue();
+  Rrr = slider.getController("Rrr").getValue();
+  Rr = slider.getController("Rr").getValue();
   Rx = slider.getController("Rx").getValue();
   Ry = slider.getController("Ry").getValue();
   last_Rspiral = Rspiral;
   last_Rb = Rb;
-  last_Rrr = Rrr;
   last_Ratranslate = Ratranslate;
-  
+  last_Rrr = Rrr;
+
   last_rr = rr;
-  last_kind = kind;
   
   //葉
   lbl = slider.getController("lbl").getValue();
