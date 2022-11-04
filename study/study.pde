@@ -180,8 +180,8 @@ void setup(){
   slider.addSlider("lbl")
    .setPosition(330,10)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
-   .setRange(440,520)  //最小値と最大値
-   .setValue(480)  //初期値
+   .setRange(400,485)  //最小値と最大値
+   .setValue(460)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //lvalの値を動かすスライダー
