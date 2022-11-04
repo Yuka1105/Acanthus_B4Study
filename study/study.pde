@@ -66,7 +66,7 @@ void setup(){
   slider.addSlider("Lb")
    .setPosition(10,40)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
-   .setRange(0,10)  //最小値と最大値
+   .setRange(0,5)  //最小値と最大値
    .setValue(2)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
@@ -124,7 +124,7 @@ void setup(){
   slider.addSlider("Rb")
    .setPosition(170,40)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
-   .setRange(0,10)  //最小値と最大値
+   .setRange(0,5)  //最小値と最大値
    .setValue(5)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
