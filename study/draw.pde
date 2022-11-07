@@ -167,10 +167,38 @@ void draw(){
   
   //ベジェ(茎)
   stroke(0);
-  bezier(sbXl, sbYl, greenXl+150000/(LmaxR*LmaxR)-15, sbYl, greenXr-150000/(RmaxR*RmaxR)+15, sbYr, sbXr, sbYr);
+  float a = greenXl+150000/(LmaxR*LmaxR)-15;
+  float b = greenXr-150000/(RmaxR*RmaxR)+15;
+  bezier(sbXl, sbYl, a, sbYl, b, sbYr, sbXr, sbYr);
   //stroke(255, 100, 0);
-  //line(sbXl,sbYl,greenXl+150000/(LmaxR*LmaxR)-15,sbYl);
-  //line(greenXr-150000/(RmaxR*RmaxR)+15,sbYr,sbXr,sbYr);
+  //line(sbXl,sbYl,a,sbYl);
+  //line(b,sbYr,sbXr,sbYr);
+  for(float t=0; t<=1; t+=0.1){
+    //ベジェ(茎)のtを用いたパラメータ表記
+    float X = pow(1-t,3)*sbXl + 3*pow(1-t,2)*t*a + 3*pow(1-t,1)*t*t*b + t*t*t*sbXr;
+    float Y = pow(1-t,3)*sbYl + 3*pow(1-t,2)*t*sbYl + 3*pow(1-t,1)*t*t*sbYr + t*t*t*sbYr;
+    //stroke(0);
+    //ellipse(X,Y,3,3);
+    
+    if(t == 0.4){//ベジェの途中（t=0.4）から葉を描画
+      //微分
+      float dXt = -3*sbXl*pow(1-t,2) + 3*a*(3*t*t-4*t+1) + 3*b*t*(2-3*t) + 3*sbXr*t*t;
+      float dYt = -3*sbYl*pow(1-t,2) + 3*sbYl*(3*t*t-4*t+1) + 3*sbYr*t*(2-3*t) + 3*sbYr*t*t;
+      //微分値が等しくなるよう、方程式を解いてc,dの値を定める
+      float c = (dXt+3*X)/3;
+      float d = (dYt+3*Y)/3;
+      //以下は自由
+      float e = X+180;
+      float f = Y+30;
+      float g = X+150;
+      float h = Y-25;
+      stroke(0);
+      bezier(X,Y,c,d,e,f,g,h);
+      //stroke(255, 100, 0);
+      //line(X,Y,c,d);
+      //line(e,f,g,h);
+    }
+  }
   
   //ベジェ（1,2枚の葉:最高点から描画）
   if(lval != 0){
