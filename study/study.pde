@@ -44,6 +44,8 @@ int last_rr = 0;
 float lbl;
 float origin_lbl;
 int lval;//左側の葉の数
+float lbr;
+int rval;//右側の葉の数
 
 void setup(){
   size(1000,800);
@@ -187,6 +189,22 @@ void setup(){
   //lvalの値を動かすスライダー
   slider.addSlider("lval")
    .setPosition(330,40)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setRange(0,2)  //最小値と最大値
+   .setValue(2)  //初期値
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
+  //lblの値を動かすスライダー
+  slider.addSlider("lbr")
+   .setPosition(490,10)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setRange(0.1,0.8)  //最小値と最大値
+   .setValue(0.1)  //初期値
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
+  //lvalの値を動かすスライダー
+  slider.addSlider("rval")
+   .setPosition(490,40)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0,2)  //最小値と最大値
    .setValue(2)  //初期値
