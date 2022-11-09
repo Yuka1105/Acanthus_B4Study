@@ -212,7 +212,7 @@ void draw(){
         //以下は自由
         float g = X+lbr*RmaxR*0.3+155;
         float h = Y+lbr*60+RmaxR*0.08;
-        float e = X+50*cos(1.1*lbr)+RmaxR*0.1+105;
+        float e = X+50*cos(1.1*lbr)+RmaxR*0.2+110;
         float f = Y+70*sin(lbr)+RmaxR*0.1+10;
         stroke(0);
         bezier(X,Y,c,d,e,f,g,h);
@@ -241,7 +241,7 @@ void draw(){
         //以下は自由
         float g = X+lbr*RmaxR*0.3+155;
         float h = Y+lbr*60+RmaxR*0.08;
-        float e = X+50*cos(1.1*lbr)+RmaxR*0.1+105;
+        float e = X+50*cos(1.1*lbr)+RmaxR*0.1+115;
         float f = Y+70*sin(lbr)+RmaxR*0.1+10;
         stroke(0);
         bezier(X,Y,c,d,e,f,g,h);
