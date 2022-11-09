@@ -210,10 +210,10 @@ void draw(){
         float c = (dXt+3*X)/3;
         float d = (dYt+3*Y)/3;
         //以下は自由
-        float g = X+lbr*RmaxR*0.45+125;
-        float h = Y+lbr*RmaxR*0.45;
-        float e = X+50*cos(0.9*lbr)+RmaxR*0.1+105;
-        float f = Y+60*sin(lbr)+RmaxR*0.1+10;
+        float g = X+lbr*RmaxR*0.3+155;
+        float h = Y+lbr*60+RmaxR*0.08;
+        float e = X+50*cos(1.1*lbr)+RmaxR*0.1+105;
+        float f = Y+70*sin(lbr)+RmaxR*0.1+10;
         stroke(0);
         bezier(X,Y,c,d,e,f,g,h);
         //stroke(255, 100, 0);
@@ -223,6 +223,33 @@ void draw(){
     }
   }
   if(rval == 2){
+    
+    for(float t=0; t<=1; t+=0.1){
+      //ベジェ(茎)のtを用いたパラメータ表記
+      float X = pow(1-t,3)*sbXl + 3*pow(1-t,2)*t*a + 3*pow(1-t,1)*t*t*b + t*t*t*sbXr;
+      float Y = pow(1-t,3)*sbYl + 3*pow(1-t,2)*t*sbYl + 3*pow(1-t,1)*t*t*sbYr + t*t*t*sbYr;
+      //stroke(0);
+      //ellipse(X,Y,3,3);
+    
+      if(t == 0.2){//ベジェの途中（t=0.4）から葉を描画
+        //微分
+        float dXt = -3*sbXl*pow(1-t,2) + 3*a*(3*t*t-4*t+1) + 3*b*t*(2-3*t) + 3*sbXr*t*t;
+        float dYt = -3*sbYl*pow(1-t,2) + 3*sbYl*(3*t*t-4*t+1) + 3*sbYr*t*(2-3*t) + 3*sbYr*t*t;
+        //微分値が等しくなるよう、方程式を解いてc,dの値を定める
+        float c = (dXt+3*X)/3;
+        float d = (dYt+3*Y)/3;
+        //以下は自由
+        float g = X+lbr*RmaxR*0.3+155;
+        float h = Y+lbr*60+RmaxR*0.08;
+        float e = X+50*cos(1.1*lbr)+RmaxR*0.1+105;
+        float f = Y+70*sin(lbr)+RmaxR*0.1+10;
+        stroke(0);
+        bezier(X,Y,c,d,e,f,g,h);
+        //stroke(255, 100, 0);
+        //line(X,Y,c,d);
+        //line(e,f,g,h);
+      }
+    }
     
   }
   
