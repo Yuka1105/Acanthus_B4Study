@@ -6,7 +6,8 @@ float Ltheta = 5 * PI;
 float Rtheta = 3.5 * PI;
 float topLtheta;//渦巻の最高点の時のθ
 float bottomRtheta;//渦巻の最下点の時のθ
-float min_height = 0; //左の渦巻きの最高点を求める時
+float Lmin_height = 0; //左の渦巻きの最高点を求める時
+float Rmin_height = 0; //右の渦巻きの最高点を求める時
 float Lmax_height = 0; //左の渦巻きの最低点を求める時
 float Rmax_height = 0; //右の渦巻きの最低点を求める時
 int Lspiral, Rspiral;
@@ -46,6 +47,7 @@ float origin_lbl;
 int lval;//左側の葉の数
 float lbr;
 int rval;//右側の葉の数
+float lbXr, lbYr;
 
 void setup(){
   size(1000,800);
@@ -198,8 +200,8 @@ void setup(){
   slider.addSlider("lbr")
    .setPosition(490,10)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
-   .setRange(0.1,0.8)  //最小値と最大値
-   .setValue(0.1)  //初期値
+   .setRange(0,1.8)  //最小値と最大値
+   .setValue(0)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //lvalの値を動かすスライダー
