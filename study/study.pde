@@ -48,6 +48,9 @@ int lval;//左側の葉の数
 float lbr;
 int rval;//右側の葉の数
 float lbXr, lbYr;
+float RcirXl;
+float RcirYl;
+int count;
 
 void setup(){
   size(1000,800);
@@ -200,7 +203,7 @@ void setup(){
   slider.addSlider("lbr")
    .setPosition(490,10)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
-   .setRange(0,1.8)  //最小値と最大値
+   .setRange(1,1.5)  //最小値と最大値
    .setValue(0)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
