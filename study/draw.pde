@@ -43,6 +43,14 @@ void draw(){
     slider_Rr.setValue(RmaxR/((pow(Ra+Ratranslate*0.001*((Rspiral*2*PI-0.5*PI)/STEP-1),(Rspiral*2*PI-0.5*PI)+3.5*PI-2*STEP)+Rb)*Rrr));
   }
   
+  ////Rb, Ratranslateを変化させた時、葉を縮める
+  //if(last_Rb > Rb || last_Rb < Rb){
+  //  slider_lbr2.setValue(origin_lbr2 + Rb - origin_Rb);
+  //}
+  //if(last_Ratranslate > Ratranslate || last_Ratranslate < Ratranslate){
+  //  slider_lbr2.setValue(origin_lbr2 - 200*Ratranslate + 200*origin_Ratranslate);
+  //}
+  
   //左側の渦巻き：最初に渦巻きの最高点を求めておいて、その後その点まで描画する
   for(int i = 0; i<(Lspiral*2*PI-PI)/STEP; i++){
    
@@ -126,12 +134,22 @@ void draw(){
      sbXr = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
      sbYr = Rmax_height;
    }
-   
-   //渦巻きの左端のx座標
-   if(i > PI/STEP && count == 0){
-     RcirXl = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
-     RcirYl = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
-     count ++;
+   //渦巻きの右端のx,y座標
+   if(i > (0.1*PI*lbr1)/STEP && count1 == 0){
+     RcirXrU = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
+     RcirYrU = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
+     count1 ++;
+   }
+   if(i > (0.4*PI*lbr1)/STEP && count1 == 1){
+     RcirXrB = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
+     RcirYrB = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
+     count1 ++;
+   }
+   //渦巻きの下端のx,y座標
+   if(i > (0.5*PI)/STEP && count2 == 0){
+     RcirXb = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
+     RcirYb = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
+     count2 ++;
    }
    
    //直径Rrrを変えた時RLmaxRが更新される(変わりゆくRaをそのまま使える)
@@ -219,7 +237,7 @@ void draw(){
       //ellipse(X,Y,3,3);
     
       if(t == 0.3){//ベジェの途中（t=0.4）から葉を描画
-        if(Rspiral == 2){
+        if(Rspiral == 1){
           //微分
           float dXt = -3*sbXl*pow(1-t,2) + 3*a*(3*t*t-4*t+1) + 3*b*t*(2-3*t) + 3*sbXr*t*t;
           float dYt = -3*sbYl*pow(1-t,2) + 3*sbYl*(3*t*t-4*t+1) + 3*sbYr*t*(2-3*t) + 3*sbYr*t*t;
@@ -228,15 +246,34 @@ void draw(){
           float d = (dYt+3*Y)/3;
           //以下は自由
           //葉の先端
-          float g = RcirXl - 0.4*RmaxR + 0.15*LmaxR - 50;
-          float h = ((lbYr-d)/(lbXr-c))*g+d-c*(lbYr-d)/(lbXr-c);
+          float g = RcirXrU - 40*Rrr + 0.15*LmaxR - 60;
+          float h = ((RcirYrU-d)/(RcirXrU-c))*g+d-c*(RcirYrU-d)/(RcirXrU-c);
           //宙
-          float e = RcirXl - 0.5*RmaxR + 0.15*LmaxR - 50;
-          float f = ((lbYr-d)/(lbXr-c))*e+d-c*(lbYr-d)/(lbXr-c);
-          println(e);
+          float e = RcirXrU - 50*Rrr + 0.15*LmaxR - 60;
+          float f = ((RcirYrU-d)/(RcirXrU-c))*e+d-c*(RcirYrU-d)/(RcirXrU-c);
           stroke(70,190,70);
           bezier(X,Y,c,d,e,f,g,h);
-          //stroke(255, 100, 0, 80);
+          //stroke(255, 100, 0);
+          //line(X,Y,c,d);
+          //line(e,f,g,h);
+        }
+        else if(Rspiral == 2){
+          //微分
+          float dXt = -3*sbXl*pow(1-t,2) + 3*a*(3*t*t-4*t+1) + 3*b*t*(2-3*t) + 3*sbXr*t*t;
+          float dYt = -3*sbYl*pow(1-t,2) + 3*sbYl*(3*t*t-4*t+1) + 3*sbYr*t*(2-3*t) + 3*sbYr*t*t;
+          //微分値が等しくなるよう、方程式を解いてc,dの値を定める
+          float c = (dXt+3*X)/3;
+          float d = (dYt+3*Y)/3;
+          //以下は自由
+          //葉の先端
+          float g = RcirXb - 35*Rrr + 0.15*LmaxR - 70 - lbr2;
+          float h = ((lbYr-d)/(lbXr-c))*g+d-c*(lbYr-d)/(lbXr-c);
+          //宙
+          float e = RcirXb - 45*Rrr + 0.15*LmaxR - 70 - lbr2;
+          float f = ((lbYr-d)/(lbXr-c))*e+d-c*(lbYr-d)/(lbXr-c);
+          stroke(70,190,70);
+          bezier(X,Y,c,d,e,f,g,h);
+          //stroke(255, 100, 0);
           //line(X,Y,c,d);
           //line(e,f,g,h);
         }
@@ -253,7 +290,7 @@ void draw(){
       //ellipse(X,Y,3,3);
     
       if(t == 0.4){//ベジェの途中（t=0.4）から葉を描画
-        if(Rspiral == 2){
+        if(Rspiral == 1){
           //微分
           float dXt = -3*sbXl*pow(1-t,2) + 3*a*(3*t*t-4*t+1) + 3*b*t*(2-3*t) + 3*sbXr*t*t;
           float dYt = -3*sbYl*pow(1-t,2) + 3*sbYl*(3*t*t-4*t+1) + 3*sbYr*t*(2-3*t) + 3*sbYr*t*t;
@@ -262,14 +299,34 @@ void draw(){
           float d = (dYt+3*Y)/3;
           //以下は自由
           //葉の先端
-          float g = RcirXl - RmaxR*0.15 + 0.15*LmaxR - 50;
-          float h = ((RcirYl-d)/(RcirXl-c))*g+d-c*(RcirYl-d)/(RcirXl-c);
+          float g = RcirXrB - 40*Rrr + 0.15*LmaxR - 60;
+          float h = ((RcirYrB-d)/(RcirXrB-c))*g+d-c*(RcirYrB-d)/(RcirXrB-c);
           //宙
-          float e = RcirXl - RmaxR*0.35 + 0.15*LmaxR - 50;
-          float f = ((RcirYl-d)/(RcirXl-c))*e+d-c*(RcirYl-d)/(RcirXl-c);
+          float e = RcirXrB - 50*Rrr + 0.15*LmaxR - 60;
+          float f = ((RcirYrB-d)/(RcirXrB-c))*e+d-c*(RcirYrB-d)/(RcirXrB-c);
           stroke(70,190,70);
           bezier(X,Y,c,d,e,f,g,h);
-          //stroke(255, 100, 0, 80);
+          //stroke(255, 100, 0);
+          //line(X,Y,c,d);
+          //line(e,f,g,h);
+        }
+        else if(Rspiral == 2){
+          //微分
+          float dXt = -3*sbXl*pow(1-t,2) + 3*a*(3*t*t-4*t+1) + 3*b*t*(2-3*t) + 3*sbXr*t*t;
+          float dYt = -3*sbYl*pow(1-t,2) + 3*sbYl*(3*t*t-4*t+1) + 3*sbYr*t*(2-3*t) + 3*sbYr*t*t;
+          //微分値が等しくなるよう、方程式を解いてc,dの値を定める
+          float c = (dXt+3*X)/3;
+          float d = (dYt+3*Y)/3;
+          //以下は自由
+          //葉の先端
+          float g = RcirXb - 15*Rrr + 0.15*LmaxR - 70 - lbr2;
+          float h = ((RcirYb-d)/(RcirXb-c))*g+d-c*(RcirYb-d)/(RcirXb-c);
+          //宙
+          float e = RcirXb - 25*Rrr + 0.15*LmaxR - 70 - lbr2;
+          float f = ((RcirYb-d)/(RcirXb-c))*e+d-c*(RcirYb-d)/(RcirXb-c);
+          stroke(70,190,70);
+          bezier(X,Y,c,d,e,f,g,h);
+          //stroke(255, 100, 0);
           //line(X,Y,c,d);
           //line(e,f,g,h);
         }
@@ -311,6 +368,8 @@ void draw(){
   
   //葉
   lbl = slider.getController("lbl").getValue();
-  lbr = slider.getController("lbr").getValue();
-  count = 0;
+  lbr1 = slider.getController("lbr1").getValue();
+  lbr2 = slider.getController("lbr2").getValue();
+  count1 = 0;
+  count2 = 0;
 }
