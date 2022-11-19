@@ -43,14 +43,6 @@ void draw(){
     slider_Rr.setValue(RmaxR/((pow(Ra+Ratranslate*0.001*((Rspiral*2*PI-0.5*PI)/STEP-1),(Rspiral*2*PI-0.5*PI)+3.5*PI-2*STEP)+Rb)*Rrr));
   }
   
-  ////Rb, Ratranslateを変化させた時、葉を縮める
-  //if(last_Rb > Rb || last_Rb < Rb){
-  //  slider_lbr2.setValue(origin_lbr2 + Rb - origin_Rb);
-  //}
-  //if(last_Ratranslate > Ratranslate || last_Ratranslate < Ratranslate){
-  //  slider_lbr2.setValue(origin_lbr2 - 200*Ratranslate + 200*origin_Ratranslate);
-  //}
-  
   //左側の渦巻き：最初に渦巻きの最高点を求めておいて、その後その点まで描画する
   for(int i = 0; i<(Lspiral*2*PI-PI)/STEP; i++){
    
@@ -125,6 +117,8 @@ void draw(){
      Rmin_height = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
      lbXr = Rrad(Rtheta)*cos(Rtheta)+ 400 + Rx;
      lbYr = Rrad(Rtheta)*sin(Rtheta)+ height/2 - Ry;
+     RcirXt = lbXr;
+     RcirYt = lbYr - 2500/RmaxR;//RmaxRが大きい時は低く（谷ができるのを避ける）、小さい時は高く(茎にくっつくのを避ける)
    }
    
    //ベジェの始点(最低点を求める)
@@ -135,12 +129,12 @@ void draw(){
      sbYr = Rmax_height;
    }
    //渦巻きの右端のx,y座標
-   if(i > (0.1*PI*lbr1)/STEP && count1 == 0){
+   if(i > (0.1*PI)/STEP && count1 == 0){
      RcirXrU = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
      RcirYrU = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
      count1 ++;
    }
-   if(i > (0.4*PI*lbr1)/STEP && count1 == 1){
+   if(i > (0.5*PI)/STEP && count1 == 1){
      RcirXrB = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
      RcirYrB = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
      count1 ++;
@@ -149,6 +143,17 @@ void draw(){
    if(i > (0.5*PI)/STEP && count2 == 0){
      RcirXb = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
      RcirYb = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
+     RcirYb = RcirYb - 2500/RmaxR;//RmaxRが大きい時は低く（谷ができるのを避ける）、小さい時は高く(茎にくっつくのを避ける)
+     count2 ++;
+   }
+   if(i > 1.25*PI/STEP && count2 == 1){
+     RcirX125 = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
+     RcirY125 = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
+     count2 ++;
+   }
+   if(i > 1.5*PI/STEP && count2 == 2){
+     RcirXl = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
+     RcirYl = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
      count2 ++;
    }
    
@@ -266,11 +271,11 @@ void draw(){
           float d = (dYt+3*Y)/3;
           //以下は自由
           //葉の先端
-          float g = RcirXb - 35*Rrr + 0.15*LmaxR - 70 - lbr2;
-          float h = ((lbYr-d)/(lbXr-c))*g+d-c*(lbYr-d)/(lbXr-c);
+          float g = RcirXl - 6*Rrr + 0.10*LmaxR - 40;
+          float h = ((RcirYt-d)/(RcirXt-c))*g+d-c*(RcirYt-d)/(RcirXt-c);
           //宙
-          float e = RcirXb - 45*Rrr + 0.15*LmaxR - 70 - lbr2;
-          float f = ((lbYr-d)/(lbXr-c))*e+d-c*(lbYr-d)/(lbXr-c);
+          float e = RcirXl - 15*Rrr + 0.10*LmaxR - 40;
+          float f = ((RcirYt-d)/(RcirXt-c))*e+d-c*(RcirYt-d)/(RcirXt-c);
           stroke(70,190,70);
           bezier(X,Y,c,d,e,f,g,h);
           //stroke(255, 100, 0);
@@ -299,10 +304,10 @@ void draw(){
           float d = (dYt+3*Y)/3;
           //以下は自由
           //葉の先端
-          float g = RcirXrB - 40*Rrr + 0.15*LmaxR - 60;
+          float g = RcirXrB - 40*Rrr + 0.05*LmaxR - 50;
           float h = ((RcirYrB-d)/(RcirXrB-c))*g+d-c*(RcirYrB-d)/(RcirXrB-c);
           //宙
-          float e = RcirXrB - 50*Rrr + 0.15*LmaxR - 60;
+          float e = RcirXrB - 50*Rrr + 0.05*LmaxR - 50;
           float f = ((RcirYrB-d)/(RcirXrB-c))*e+d-c*(RcirYrB-d)/(RcirXrB-c);
           stroke(70,190,70);
           bezier(X,Y,c,d,e,f,g,h);
@@ -319,10 +324,10 @@ void draw(){
           float d = (dYt+3*Y)/3;
           //以下は自由
           //葉の先端
-          float g = RcirXb - 15*Rrr + 0.15*LmaxR - 70 - lbr2;
+          float g = RcirX125 - 8*Rrr + 0.05*LmaxR - 25;
           float h = ((RcirYb-d)/(RcirXb-c))*g+d-c*(RcirYb-d)/(RcirXb-c);
           //宙
-          float e = RcirXb - 25*Rrr + 0.15*LmaxR - 70 - lbr2;
+          float e = RcirX125 - 16*Rrr + 0.05*LmaxR - 25;
           float f = ((RcirYb-d)/(RcirXb-c))*e+d-c*(RcirYb-d)/(RcirXb-c);
           stroke(70,190,70);
           bezier(X,Y,c,d,e,f,g,h);
@@ -368,8 +373,6 @@ void draw(){
   
   //葉
   lbl = slider.getController("lbl").getValue();
-  lbr1 = slider.getController("lbr1").getValue();
-  lbr2 = slider.getController("lbr2").getValue();
   count1 = 0;
   count2 = 0;
 }

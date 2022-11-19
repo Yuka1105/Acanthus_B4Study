@@ -26,8 +26,6 @@ float last_Lb, last_Rb;
 float last_Latranslate, last_Ratranslate;
 float last_Lrr, last_Rrr;
 float origin_Lrr, origin_Rrr;
-float origin_Rb;
-float origin_Ratranslate;
 float origin_Rx;
 float LmaxR, RmaxR;
 
@@ -47,17 +45,17 @@ int last_rr = 0;
 float lbl;
 float origin_lbl;
 int lval;//左側の葉の数
-float lbr1, lbr2;
-Slider slider_lbr2;
 int rval;//右側の葉の数
 float lbXr, lbYr;
 //1枚目の葉用
 float RcirXrU, RcirYrU;
 float RcirXrB, RcirYrB;
 //2枚目の葉用
+float RcirXt, RcirYt;
+float RcirXl, RcirYl;
 float RcirXb, RcirYb;
+float RcirX125, RcirY125;
 int count1, count2;
-float origin_lbr2;
 
 void setup(){
   size(1000,800);
@@ -206,25 +204,9 @@ void setup(){
    .setValue(2)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
-  //lblの値を動かすスライダー
-  slider.addSlider("lbr1")
-   .setPosition(490,10)  //スライダーの位置
-   .setSize(100,20)  //スライダーのサイズ
-   .setRange(0.8,1.5)  //最小値と最大値
-   .setValue(0.8)  //初期値
-   .setColorCaptionLabel(0)  //スライダーの文字の色
-   ;
-  //lblの値を動かすスライダー
-  slider_lbr2 = slider.addSlider("lbr2")
-   .setPosition(490,40)  //スライダーの位置
-   .setSize(100,20)  //スライダーのサイズ
-   .setRange(0,50)  //最小値と最大値
-   .setValue(0)  //初期値
-   .setColorCaptionLabel(0)  //スライダーの文字の色
-   ;
   //lvalの値を動かすスライダー
   slider.addSlider("rval")
-   .setPosition(490,70)  //スライダーの位置
+   .setPosition(490,10)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0,2)  //最小値と最大値
    .setValue(2)  //初期値
@@ -244,11 +226,8 @@ void setup(){
   last_Ratranslate = slider.getController("Ratranslate").getValue();
   last_Rrr = slider.getController("Rrr").getValue();
   origin_Rrr = slider.getController("Rrr").getValue();
-  origin_Rb = slider.getController("Rb").getValue();
-  origin_Ratranslate = slider.getController("Ratranslate").getValue();
   origin_Rx = slider.getController("Rx").getValue();
   
   //葉
   origin_lbl = slider.getController("lbl").getValue();
-  origin_lbr2 = slider.getController("lbr2").getValue();
 }
