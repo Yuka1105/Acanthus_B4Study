@@ -46,7 +46,6 @@ float lbl;
 float origin_lbl;
 int lval;//左側の葉の数
 int rval;//右側の葉の数
-float lbXr, lbYr;
 //1枚目の葉用
 float RcirXrU, RcirYrU;
 float RcirXrB, RcirYrB;
@@ -59,11 +58,15 @@ int count1, count2;
 
 //UI
 float LcenX, LcenY;
+float RcenX, RcenY, forRcenY;
 int count3;
 float Ldia;
+float Rdia;
 color c;
 String prm;
 float last_mouseX, last_mouseY;
+
+
 
 void setup(){
   size(1000,800);

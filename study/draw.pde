@@ -129,10 +129,12 @@ void draw(){
    //ベジェの始点(最高点を求める)
    if(Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry < Rmin_height){
      Rmin_height = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
-     lbXr = Rrad(Rtheta)*cos(Rtheta)+ 400 + Rx;
-     lbYr = Rrad(Rtheta)*sin(Rtheta)+ height/2 - Ry;
-     RcirXt = lbXr;
-     RcirYt = lbYr - 2500/RmaxR;//RmaxRが大きい時は低く（谷ができるのを避ける）、小さい時は高く(茎にくっつくのを避ける)
+     RcirXt = Rrad(Rtheta)*cos(Rtheta)+ 400 + Rx;
+     RcirYt = Rrad(Rtheta)*sin(Rtheta)+ height/2 - Ry - 2500/RmaxR;//RmaxRが大きい時は低く（谷ができるのを避ける）、小さい時は高く(茎にくっつくのを避ける)
+     //UI
+     //直径のX座標
+     RcenX = Rrad(Rtheta)*cos(Rtheta)+ 400 + Rx;
+     forRcenY = Rrad(Rtheta)*sin(Rtheta)+ height/2 - Ry;//直径を求めるのに使う変数
    }
    
    //ベジェの始点(最低点を求める)
@@ -169,7 +171,14 @@ void draw(){
      RcirXl = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
      RcirYl = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
      count2 ++;
+     
+     //UI
+     //直径のY座標
+     RcenY = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
    }
+   
+   //直径
+   Rdia = 2*(RcenY - forRcenY);
    
    //直径Rrrを変えた時RLmaxRが更新される(変わりゆくRaをそのまま使える)
    if(Rspiral == 1){
@@ -357,6 +366,7 @@ void draw(){
   noStroke();
   fill(100,100,255,30);
   ellipse(LcenX,LcenY,Ldia,Ldia);
+  ellipse(RcenX,RcenY,Rdia,Rdia);
   
   //現在のマウスの位置の色取得
   c = get(mouseX,mouseY);
@@ -405,8 +415,15 @@ void draw(){
 }
 
 void mousePressed(){
+  //紫ならば
   if(red(c)==237 && green(c)==237 && blue(c)==255){
-    prm = "直径";
+    //左側の渦巻きならば
+    if(dist(mouseX,mouseY,LcenX,LcenY) <= Ldia/2){
+      prm = "左直径";
+    }
+    else if(dist(mouseX,mouseY,RcenX,RcenY) <= Rdia/2){
+      prm = "右直径";
+    }
   }
   else{
     prm = "なし";
@@ -414,7 +431,7 @@ void mousePressed(){
 }
 
 void mouseDragged(){
-  if(prm == "直径"){
+  if(prm == "左直径"){
     //マウスが第一象限にある時
     if(LcenX < mouseX && LcenY > mouseY){
       if(last_mouseX < mouseX){
@@ -473,6 +490,69 @@ void mouseDragged(){
       }
       else if(last_mouseY > mouseY){
         slider_Lrr.setValue(Lrr - mouseY*0.00002);
+      }
+    }
+  }
+  
+  if(prm == "右直径"){
+    //マウスが第一象限にある時
+    if(RcenX < mouseX && RcenY > mouseY){
+      if(last_mouseX < mouseX){
+        slider_Rrr.setValue(Rrr + mouseX*0.00002);
+      }
+      else if(last_mouseX > mouseX){
+        slider_Rrr.setValue(Rrr - mouseX*0.00002);
+      }
+      if(last_mouseY > mouseY){
+        slider_Rrr.setValue(Rrr + mouseY*0.00002);
+      }
+      else if(last_mouseY < mouseY){
+        slider_Rrr.setValue(Rrr - mouseY*0.00002);
+      }
+    }
+    //マウスが第二象限にある時
+    if(RcenX > mouseX && RcenY > mouseY){
+      if(last_mouseX > mouseX){
+        slider_Rrr.setValue(Rrr + mouseX*0.00002);
+      }
+      else if(last_mouseX < mouseX){
+        slider_Rrr.setValue(Rrr - mouseX*0.00002);
+      }
+      if(last_mouseY > mouseY){
+        slider_Rrr.setValue(Rrr + mouseY*0.00002);
+      }
+      else if(last_mouseY < mouseY){
+        slider_Rrr.setValue(Rrr - mouseY*0.00002);
+      }
+    }
+    //マウスが第三象限にある時
+    if(RcenX > mouseX && RcenY < mouseY){
+      if(last_mouseX > mouseX){
+        slider_Rrr.setValue(Rrr + mouseX*0.00002);
+      }
+      else if(last_mouseX < mouseX){
+        slider_Rrr.setValue(Rrr - mouseX*0.00002);
+      }
+      if(last_mouseY < mouseY){
+        slider_Rrr.setValue(Rrr + mouseY*0.00002);
+      }
+      else if(last_mouseY > mouseY){
+        slider_Rrr.setValue(Rrr - mouseY*0.00002);
+      }
+    }
+    //マウスが第四象限にある時
+    if(RcenX < mouseX && RcenY < mouseY){
+      if(last_mouseX < mouseX){
+        slider_Rrr.setValue(Rrr + mouseX*0.00002);
+      }
+      else if(last_mouseX > mouseX){
+        slider_Rrr.setValue(Rrr - mouseX*0.00002);
+      }
+      if(last_mouseY < mouseY){
+        slider_Rrr.setValue(Rrr + mouseY*0.00002);
+      }
+      else if(last_mouseY > mouseY){
+        slider_Rrr.setValue(Rrr - mouseY*0.00002);
       }
     }
   }
