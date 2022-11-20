@@ -420,9 +420,37 @@ void mousePressed(){
     //左側の渦巻きならば
     if(dist(mouseX,mouseY,LcenX,LcenY) <= Ldia/2){
       prm = "左直径";
+      
+      //何象限でドラッグを始めたか
+      if(LcenX < mouseX && LcenY > mouseY){
+        qdr = 1;
+      }
+      else if(LcenX > mouseX && LcenY > mouseY){
+        qdr = 2;
+      }
+      else if(LcenX > mouseX && LcenY < mouseY){
+        qdr = 3;
+      }
+      else if(LcenX < mouseX && LcenY < mouseY){
+        qdr = 4;
+      }
     }
     else if(dist(mouseX,mouseY,RcenX,RcenY) <= Rdia/2){
       prm = "右直径";
+      
+      //何象限でドラッグを始めたか
+      if(RcenX < mouseX && RcenY > mouseY){
+        qdr = 1;
+      }
+      else if(RcenX > mouseX && RcenY > mouseY){
+        qdr = 2;
+      }
+      else if(RcenX > mouseX && RcenY < mouseY){
+        qdr = 3;
+      }
+      else if(RcenX < mouseX && RcenY < mouseY){
+        qdr = 4;
+      }
     }
   }
   else{
@@ -433,126 +461,142 @@ void mousePressed(){
 void mouseDragged(){
   if(prm == "左直径"){
     //マウスが第一象限にある時
-    if(LcenX < mouseX && LcenY > mouseY){
-      if(last_mouseX < mouseX){
-        slider_Lrr.setValue(Lrr + mouseX*0.00002);
-      }
-      else if(last_mouseX > mouseX){
-        slider_Lrr.setValue(Lrr - mouseX*0.00002);
-      }
-      if(last_mouseY > mouseY){
-        slider_Lrr.setValue(Lrr + mouseY*0.00002);
-      }
-      else if(last_mouseY < mouseY){
-        slider_Lrr.setValue(Lrr - mouseY*0.00002);
+    if(qdr==1){
+      if(LcenX < mouseX && LcenY > mouseY){
+        if(last_mouseX < mouseX){
+          slider_Lrr.setValue(Lrr + mouseX*0.000025);
+        }
+        else if(last_mouseX > mouseX){
+          slider_Lrr.setValue(Lrr - mouseX*0.000025);
+        }
+        if(last_mouseY > mouseY){
+          slider_Lrr.setValue(Lrr + mouseY*0.000025);
+        }
+        else if(last_mouseY < mouseY){
+          slider_Lrr.setValue(Lrr - mouseY*0.000025);
+        }
       }
     }
     //マウスが第二象限にある時
-    if(LcenX > mouseX && LcenY > mouseY){
-      if(last_mouseX > mouseX){
-        slider_Lrr.setValue(Lrr + mouseX*0.00002);
-      }
-      else if(last_mouseX < mouseX){
-        slider_Lrr.setValue(Lrr - mouseX*0.00002);
-      }
-      if(last_mouseY > mouseY){
-        slider_Lrr.setValue(Lrr + mouseY*0.00002);
-      }
-      else if(last_mouseY < mouseY){
-        slider_Lrr.setValue(Lrr - mouseY*0.00002);
+    if(qdr==2){
+      if(LcenX > mouseX && LcenY > mouseY){
+        if(last_mouseX > mouseX){
+          slider_Lrr.setValue(Lrr + mouseX*0.000025);
+        }
+        else if(last_mouseX < mouseX){
+          slider_Lrr.setValue(Lrr - mouseX*0.000025);
+        }
+        if(last_mouseY > mouseY){
+          slider_Lrr.setValue(Lrr + mouseY*0.000025);
+        }
+        else if(last_mouseY < mouseY){
+          slider_Lrr.setValue(Lrr - mouseY*0.000025);
+        }
       }
     }
     //マウスが第三象限にある時
-    if(LcenX > mouseX && LcenY < mouseY){
-      if(last_mouseX > mouseX){
-        slider_Lrr.setValue(Lrr + mouseX*0.00002);
-      }
-      else if(last_mouseX < mouseX){
-        slider_Lrr.setValue(Lrr - mouseX*0.00002);
-      }
-      if(last_mouseY < mouseY){
-        slider_Lrr.setValue(Lrr + mouseY*0.00002);
-      }
-      else if(last_mouseY > mouseY){
-        slider_Lrr.setValue(Lrr - mouseY*0.00002);
+    if(qdr==3){
+      if(LcenX > mouseX && LcenY < mouseY){
+        if(last_mouseX > mouseX){
+          slider_Lrr.setValue(Lrr + mouseX*0.000025);
+        }
+        else if(last_mouseX < mouseX){
+          slider_Lrr.setValue(Lrr - mouseX*0.000025);
+        }
+        if(last_mouseY < mouseY){
+          slider_Lrr.setValue(Lrr + mouseY*0.000025);
+        }
+        else if(last_mouseY > mouseY){
+          slider_Lrr.setValue(Lrr - mouseY*0.000025);
+        }
       }
     }
     //マウスが第四象限にある時
-    if(LcenX < mouseX && LcenY < mouseY){
-      if(last_mouseX < mouseX){
-        slider_Lrr.setValue(Lrr + mouseX*0.00002);
-      }
-      else if(last_mouseX > mouseX){
-        slider_Lrr.setValue(Lrr - mouseX*0.00002);
-      }
-      if(last_mouseY < mouseY){
-        slider_Lrr.setValue(Lrr + mouseY*0.00002);
-      }
-      else if(last_mouseY > mouseY){
-        slider_Lrr.setValue(Lrr - mouseY*0.00002);
+    if(qdr==4){
+      if(LcenX < mouseX && LcenY < mouseY){
+        if(last_mouseX < mouseX){
+          slider_Lrr.setValue(Lrr + mouseX*0.000025);
+        }
+        else if(last_mouseX > mouseX){
+          slider_Lrr.setValue(Lrr - mouseX*0.000025);
+        }
+        if(last_mouseY < mouseY){
+          slider_Lrr.setValue(Lrr + mouseY*0.000025);
+        }
+        else if(last_mouseY > mouseY){
+          slider_Lrr.setValue(Lrr - mouseY*0.000025);
+        }
       }
     }
   }
   
   if(prm == "右直径"){
     //マウスが第一象限にある時
-    if(RcenX < mouseX && RcenY > mouseY){
-      if(last_mouseX < mouseX){
-        slider_Rrr.setValue(Rrr + mouseX*0.00002);
-      }
-      else if(last_mouseX > mouseX){
-        slider_Rrr.setValue(Rrr - mouseX*0.00002);
-      }
-      if(last_mouseY > mouseY){
-        slider_Rrr.setValue(Rrr + mouseY*0.00002);
-      }
-      else if(last_mouseY < mouseY){
-        slider_Rrr.setValue(Rrr - mouseY*0.00002);
+    if(qdr==1){
+      if(RcenX < mouseX && RcenY > mouseY){
+        if(last_mouseX < mouseX){
+          slider_Rrr.setValue(Rrr + mouseX*0.000025);
+        }
+        else if(last_mouseX > mouseX){
+          slider_Rrr.setValue(Rrr - mouseX*0.000025);
+        }
+        if(last_mouseY > mouseY){
+          slider_Rrr.setValue(Rrr + mouseY*0.000025);
+        }
+        else if(last_mouseY < mouseY){
+          slider_Rrr.setValue(Rrr - mouseY*0.000025);
+        }
       }
     }
     //マウスが第二象限にある時
-    if(RcenX > mouseX && RcenY > mouseY){
-      if(last_mouseX > mouseX){
-        slider_Rrr.setValue(Rrr + mouseX*0.00002);
-      }
-      else if(last_mouseX < mouseX){
-        slider_Rrr.setValue(Rrr - mouseX*0.00002);
-      }
-      if(last_mouseY > mouseY){
-        slider_Rrr.setValue(Rrr + mouseY*0.00002);
-      }
-      else if(last_mouseY < mouseY){
-        slider_Rrr.setValue(Rrr - mouseY*0.00002);
+    if(qdr==2){
+      if(RcenX > mouseX && RcenY > mouseY){
+        if(last_mouseX > mouseX){
+          slider_Rrr.setValue(Rrr + mouseX*0.000025);
+        }
+        else if(last_mouseX < mouseX){
+          slider_Rrr.setValue(Rrr - mouseX*0.000025);
+        }
+        if(last_mouseY > mouseY){
+          slider_Rrr.setValue(Rrr + mouseY*0.000025);
+        }
+        else if(last_mouseY < mouseY){
+          slider_Rrr.setValue(Rrr - mouseY*0.000025);
+        }
       }
     }
     //マウスが第三象限にある時
-    if(RcenX > mouseX && RcenY < mouseY){
-      if(last_mouseX > mouseX){
-        slider_Rrr.setValue(Rrr + mouseX*0.00002);
-      }
-      else if(last_mouseX < mouseX){
-        slider_Rrr.setValue(Rrr - mouseX*0.00002);
-      }
-      if(last_mouseY < mouseY){
-        slider_Rrr.setValue(Rrr + mouseY*0.00002);
-      }
-      else if(last_mouseY > mouseY){
-        slider_Rrr.setValue(Rrr - mouseY*0.00002);
+    if(qdr==3){
+      if(RcenX > mouseX && RcenY < mouseY){
+        if(last_mouseX > mouseX){
+          slider_Rrr.setValue(Rrr + mouseX*0.000025);
+        }
+        else if(last_mouseX < mouseX){
+          slider_Rrr.setValue(Rrr - mouseX*0.000025);
+        }
+        if(last_mouseY < mouseY){
+          slider_Rrr.setValue(Rrr + mouseY*0.000025);
+        }
+        else if(last_mouseY > mouseY){
+          slider_Rrr.setValue(Rrr - mouseY*0.000025);
+        }
       }
     }
     //マウスが第四象限にある時
-    if(RcenX < mouseX && RcenY < mouseY){
-      if(last_mouseX < mouseX){
-        slider_Rrr.setValue(Rrr + mouseX*0.00002);
-      }
-      else if(last_mouseX > mouseX){
-        slider_Rrr.setValue(Rrr - mouseX*0.00002);
-      }
-      if(last_mouseY < mouseY){
-        slider_Rrr.setValue(Rrr + mouseY*0.00002);
-      }
-      else if(last_mouseY > mouseY){
-        slider_Rrr.setValue(Rrr - mouseY*0.00002);
+    if(qdr==4){
+      if(RcenX < mouseX && RcenY < mouseY){
+        if(last_mouseX < mouseX){
+          slider_Rrr.setValue(Rrr + mouseX*0.000025);
+        }
+        else if(last_mouseX > mouseX){
+          slider_Rrr.setValue(Rrr - mouseX*0.000025);
+        }
+        if(last_mouseY < mouseY){
+          slider_Rrr.setValue(Rrr + mouseY*0.000025);
+        }
+        else if(last_mouseY > mouseY){
+          slider_Rrr.setValue(Rrr - mouseY*0.000025);
+        }
       }
     }
   }
