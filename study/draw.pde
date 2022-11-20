@@ -65,6 +65,10 @@ void draw(){
      sbXl = Lrad(Ltheta)*cos(Ltheta)+ 400 + Lx;
      sbYl = Lrad(Ltheta)*sin(Ltheta)+ height/2 - Ly;
      topLtheta = Ltheta;
+     
+     //UI
+     //直径のX座標
+     LcenX = sbXl;
    }
    
    ////ベジェの始点(最低点を求める)
@@ -72,6 +76,16 @@ void draw(){
    //  Lmax_height  = Lrad(Ltheta)*sin(Ltheta)+height/2 - Ly;
    //  lbYl = Lmax_height;
    //}
+   
+   //UI
+   //直径のY座標
+   if(i > (2*PI)/STEP && count3 == 0){
+     LcenY = Lrad(Ltheta)*sin(Ltheta) + height/2 - Ly;
+     count3 ++;
+   }
+   
+   //直径
+   Ldia = 2*(LcenY-sbYl);
    
    //直径Lrrを変えた時LmaxRが更新される(変わりゆくLaをそのまま使える)
    if(Lspiral == 1){
@@ -128,7 +142,7 @@ void draw(){
      sbXr = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
      sbYr = Rmax_height;
    }
-   //渦巻きの右端のx,y座標
+   //巻数１の時
    if(i > (0.1*PI)/STEP && count1 == 0){
      RcirXrU = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
      RcirYrU = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
@@ -139,7 +153,7 @@ void draw(){
      RcirYrB = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
      count1 ++;
    }
-   //渦巻きの下端のx,y座標
+   //巻数２の時
    if(i > (0.5*PI)/STEP && count2 == 0){
      RcirXb = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
      RcirYb = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
@@ -339,6 +353,14 @@ void draw(){
     } 
   }
   
+  //UI
+  noStroke();
+  fill(100,100,255,30);
+  ellipse(LcenX,LcenY,Ldia,Ldia);
+  
+  //現在のマウスの位置の色取得
+  c = get(mouseX,mouseY);
+  
   //値をリセットまたはスライダーの値に
   //左側の渦巻き
   Ltheta = 5 * PI;
@@ -375,4 +397,83 @@ void draw(){
   lbl = slider.getController("lbl").getValue();
   count1 = 0;
   count2 = 0;
+  
+  //UI
+  count3 = 0;
+  last_mouseX = mouseX;
+  last_mouseY = mouseY;
+}
+
+void mousePressed(){
+  if(red(c)==237 && green(c)==237 && blue(c)==255){
+    prm = "直径";
+  }
+  else{
+    prm = "なし";
+  }
+}
+
+void mouseDragged(){
+  if(prm == "直径"){
+    //マウスが第一象限にある時
+    if(LcenX < mouseX && LcenY > mouseY){
+      if(last_mouseX < mouseX){
+        slider_Lrr.setValue(Lrr + mouseX*0.00002);
+      }
+      else if(last_mouseX > mouseX){
+        slider_Lrr.setValue(Lrr - mouseX*0.00002);
+      }
+      if(last_mouseY > mouseY){
+        slider_Lrr.setValue(Lrr + mouseY*0.00002);
+      }
+      else if(last_mouseY < mouseY){
+        slider_Lrr.setValue(Lrr - mouseY*0.00002);
+      }
+    }
+    //マウスが第二象限にある時
+    if(LcenX > mouseX && LcenY > mouseY){
+      if(last_mouseX > mouseX){
+        slider_Lrr.setValue(Lrr + mouseX*0.00002);
+      }
+      else if(last_mouseX < mouseX){
+        slider_Lrr.setValue(Lrr - mouseX*0.00002);
+      }
+      if(last_mouseY > mouseY){
+        slider_Lrr.setValue(Lrr + mouseY*0.00002);
+      }
+      else if(last_mouseY < mouseY){
+        slider_Lrr.setValue(Lrr - mouseY*0.00002);
+      }
+    }
+    //マウスが第三象限にある時
+    if(LcenX > mouseX && LcenY < mouseY){
+      if(last_mouseX > mouseX){
+        slider_Lrr.setValue(Lrr + mouseX*0.00002);
+      }
+      else if(last_mouseX < mouseX){
+        slider_Lrr.setValue(Lrr - mouseX*0.00002);
+      }
+      if(last_mouseY < mouseY){
+        slider_Lrr.setValue(Lrr + mouseY*0.00002);
+      }
+      else if(last_mouseY > mouseY){
+        slider_Lrr.setValue(Lrr - mouseY*0.00002);
+      }
+    }
+    //マウスが第四象限にある時
+    if(LcenX < mouseX && LcenY < mouseY){
+      if(last_mouseX < mouseX){
+        slider_Lrr.setValue(Lrr + mouseX*0.00002);
+      }
+      else if(last_mouseX > mouseX){
+        slider_Lrr.setValue(Lrr - mouseX*0.00002);
+      }
+      if(last_mouseY < mouseY){
+        slider_Lrr.setValue(Lrr + mouseY*0.00002);
+      }
+      else if(last_mouseY > mouseY){
+        slider_Lrr.setValue(Lrr - mouseY*0.00002);
+      }
+    }
+  }
 }

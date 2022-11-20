@@ -57,6 +57,14 @@ float RcirXb, RcirYb;
 float RcirX125, RcirY125;
 int count1, count2;
 
+//UI
+float LcenX, LcenY;
+int count3;
+float Ldia;
+color c;
+String prm;
+float last_mouseX, last_mouseY;
+
 void setup(){
   size(1000,800);
   colorMode(RGB,255);
