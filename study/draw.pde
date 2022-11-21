@@ -408,12 +408,20 @@ void draw(){
     ellipse(RcenX,RcenY,Rdia,Rdia);
     //比率
     fill(255,100,100,60);
-    ellipse(LrtcenX,LrtcenY,Lrtdia,Lrtdia);
-    ellipse(RrtcenX,RrtcenY,Rrtdia,Rrtdia);
+    if(Lspiral==2){
+      ellipse(LrtcenX,LrtcenY,Lrtdia,Lrtdia);
+    }
+    if(Rspiral==2){
+      ellipse(RrtcenX,RrtcenY,Rrtdia,Rrtdia);
+    }
     //内径
     fill(50,200,50,60);
-    ellipse(LincenX,LincenY,Lindia,Lindia);
-    ellipse(RincenX,RincenY,Rindia,Rindia);
+    if(Lspiral==2){
+      ellipse(LincenX,LincenY,Lindia,Lindia);
+    }
+    if(Rspiral==2){
+      ellipse(RincenX,RincenY,Rindia,Rindia);
+    }
     println("r:"+red(c),"g:"+green(c)+"b:"+blue(c));
   }
   
