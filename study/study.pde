@@ -14,15 +14,10 @@ int Lspiral, Rspiral;
 float La= 1.1;
 float Ra= 1.1;
 float Lb, Rb;
-Slider slider_Lb, slider_Rb;
 float Latranslate, Ratranslate;
-Slider slider_Latranslate, slider_Ratranslate;
 float Lrr, Rrr;
-Slider slider_Lrr, slider_Rrr;
 float Lr, Rr;
-Slider slider_Lr, slider_Rr;
 float Lx, Ly, Rx, Ry;
-Slider slider_Rx;
 float last_Lspiral, last_Rspiral;
 float last_Lb, last_Rb;
 float last_Latranslate, last_Ratranslate;
@@ -30,6 +25,11 @@ float last_Lrr, last_Rrr;
 float origin_Lrr, origin_Rrr;
 float origin_Rx;
 float LmaxR, RmaxR;
+Slider slider_Lb, slider_Rb;
+Slider slider_Latranslate, slider_Ratranslate;
+Slider slider_Lrr, slider_Rrr;
+Slider slider_Lr, slider_Rr;
+Slider slider_Rx;
 
 //ベジェ（茎）
 float sbXl, sbYl, sbXr, sbYr;
@@ -55,30 +55,21 @@ float RcirXrB, RcirYrB;
 float RcirXt, RcirYt;
 float RcirXl, RcirYl;
 float RcirXb, RcirYb;
-float RcirX125, RcirY125;
-int count1, count2;
 
 //UI
 //直径
 float LcenX, LcenY;
 float RcenX, RcenY;
-int count3;
 float Ldia;
 float Rdia;
 //比率
 float LrtcenX, LrtcenY;
 float RrtcenX, RrtcenY;
-float LcirX05, LcirY05;
-float RcirX1, RcirY1;
 float Lrtdia;
 float Rrtdia;
 //内径
 float LincenX, LincenY;
 float RincenX, RincenY;
-float LcirX0, LcirY0;
-float LcirX1, LcirY1;
-float RcirX0, RcirY0;
-float RcirX05, RcirY05;
 float Lindia;
 float Rindia;
 //その他
@@ -87,7 +78,15 @@ String prm;
 float last_mouseX, last_mouseY;
 int qdr;//第何象限でドラッグを始めたか
 boolean ui = true;
-
+float RcirX01, RcirY01;
+float LcirX0, LcirY0, RcirX0, RcirY0;
+float LcirX05, LcirY05, RcirX05, RcirY05;
+float LcirX1, LcirY1, RcirX1, RcirY1;
+float RcirX125, RcirY125;
+float RcirX15, RcirY15;
+float LcirX2, LcirY2;
+float RcirX25, RcirY25;
+int Lcount, Rcount;
 
 void setup(){
   size(1000,800);
@@ -154,7 +153,7 @@ void setup(){
    .setValue(-42)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
-  
+   
   //右側の渦巻き
   //Rspiralの値を動かすスライダー
   slider.addSlider("Rspiral")
