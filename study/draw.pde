@@ -76,6 +76,7 @@ void draw(){
    //UI
    //比率のY座標を求めるための変数を求める
    if(i > (0.5*PI)/STEP && count3 == 0){
+     LcirX05 = Lrad(Ltheta)*cos(Ltheta)+ 400 + Lx;
      LcirY05 = Lrad(Ltheta)*sin(Ltheta) + height/2 - Ly;
      count3 ++;
    }
@@ -107,13 +108,13 @@ void draw(){
   //直径のX座標
   LcenX = sbXl;
   //比率のX,Y座標
-  LrtcenX = LcenX;
+  LrtcenX = (sbXl+LcirX05)/2;
   LrtcenY = (LcirY05 + sbYl)/2;
   
   //直径
-   Ldia = 2*(LcenY-sbYl);
-   //比率の直径
-   Lrtdia = LcirY05 - sbYl;
+  Ldia = 2*(LcenY-sbYl);
+  //比率の直径
+  Lrtdia = LcirY05 - sbYl;
   
   //一旦初期値に戻す
   Ltheta = 5 * PI;
@@ -140,10 +141,6 @@ void draw(){
      Rmin_height = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
      RcirXt = Rrad(Rtheta)*cos(Rtheta)+ 400 + Rx;
      RcirYt = Rrad(Rtheta)*sin(Rtheta)+ height/2 - Ry - 2500/RmaxR;//RmaxRが大きい時は低く（谷ができるのを避ける）、小さい時は高く(茎にくっつくのを避ける)
-     //UI
-     //直径のX座標
-     RcenX = Rrad(Rtheta)*cos(Rtheta)+ 400 + Rx;
-     forRcenY = Rrad(Rtheta)*sin(Rtheta)+ height/2 - Ry;//直径を求めるのに使う変数
    }
    
    //ベジェの始点(最低点を求める)
@@ -171,23 +168,29 @@ void draw(){
      RcirYb = RcirYb - 2500/RmaxR;//RmaxRが大きい時は低く（谷ができるのを避ける）、小さい時は高く(茎にくっつくのを避ける)
      count2 ++;
    }
-   if(i > 1.25*PI/STEP && count2 == 1){
+   if(i > PI/STEP && count2 == 1){
+     //UI
+     //比率
+     RcirX05 = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
+     RcirY05 = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
+     count2 ++;
+   }
+   if(i > 1.25*PI/STEP && count2 == 2){
      RcirX125 = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
      RcirY125 = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
      count2 ++;
    }
-   if(i > 1.5*PI/STEP && count2 == 2){
+   if(i > 1.5*PI/STEP && count2 == 3){
      RcirXl = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
      RcirYl = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
      count2 ++;
-     
+   }
+   if(i > 2.5*PI/STEP && count2 == 4){
      //UI
      //直径のY座標
      RcenY = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
+     count2 ++;
    }
-   
-   //直径
-   Rdia = 2*(RcenY - forRcenY);
    
    //直径Rrrを変えた時RLmaxRが更新される(変わりゆくRaをそのまま使える)
    if(Rspiral == 1){
@@ -207,6 +210,17 @@ void draw(){
    Rtheta += STEP;
    Ra += Ratranslate * 0.001;
   }
+  
+  //UI
+  //直径のX座標
+  RcenX = sbXr;
+  //直径
+  Rdia = 2*(sbYr-RcenY);
+  //比率のX,Y座標
+  RrtcenX = (sbXr+RcirX05)/2;
+  RrtcenY = (sbYr+RcirY05)/2;
+  //比率の直径
+  Rrtdia = sbYr-RcirY05;
   
   //一旦初期値に戻す
   Rtheta = 3.5 * PI;
@@ -378,6 +392,7 @@ void draw(){
   ellipse(RcenX,RcenY,Rdia,Rdia);
   fill(255,100,100,60);
   ellipse(LrtcenX,LrtcenY,Lrtdia,Lrtdia);
+  ellipse(RrtcenX,RrtcenY,Rrtdia,Rrtdia);
   //println("r:"+red(c),"g:"+green(c)+"b:"+blue(c));
   
   //現在のマウスの位置の色取得
@@ -485,6 +500,24 @@ void mousePressed(){
         qdr = 4;
       }
     }
+    //右側の渦巻きならば
+    if(dist(mouseX,mouseY,RrtcenX,RrtcenY) <= Rrtdia/2){
+      prm = "右比率";
+      
+      //何象限でドラッグを始めたか
+      if(RrtcenX < mouseX && RrtcenY > mouseY){
+        qdr = 1;
+      }
+      else if(RrtcenX > mouseX && RrtcenY > mouseY){
+        qdr = 2;
+      }
+      else if(RrtcenX > mouseX && RrtcenY < mouseY){
+        qdr = 3;
+      }
+      else if(RrtcenX < mouseX && RrtcenY < mouseY){
+        qdr = 4;
+      }
+    }
   }
   else{
     prm = "なし";
@@ -497,16 +530,16 @@ void mouseDragged(){
     if(qdr==1){
       //if(LcenX < mouseX && LcenY > mouseY){
         if(last_mouseX < mouseX){
-          slider_Lrr.setValue(Lrr + mouseX*0.000025);
+          slider_Lrr.setValue(Lrr + mouseX*0.00003);
         }
         else if(last_mouseX > mouseX){
-          slider_Lrr.setValue(Lrr - mouseX*0.000025);
+          slider_Lrr.setValue(Lrr - mouseX*0.00003);
         }
         if(last_mouseY > mouseY){
-          slider_Lrr.setValue(Lrr + mouseY*0.000025);
+          slider_Lrr.setValue(Lrr + mouseY*0.00003);
         }
         else if(last_mouseY < mouseY){
-          slider_Lrr.setValue(Lrr - mouseY*0.000025);
+          slider_Lrr.setValue(Lrr - mouseY*0.00003);
         }
       //}
     }
@@ -514,16 +547,16 @@ void mouseDragged(){
     if(qdr==2){
       //if(LcenX > mouseX && LcenY > mouseY){
         if(last_mouseX > mouseX){
-          slider_Lrr.setValue(Lrr + mouseX*0.000025);
+          slider_Lrr.setValue(Lrr + mouseX*0.00003);
         }
         else if(last_mouseX < mouseX){
-          slider_Lrr.setValue(Lrr - mouseX*0.000025);
+          slider_Lrr.setValue(Lrr - mouseX*0.00003);
         }
         if(last_mouseY > mouseY){
-          slider_Lrr.setValue(Lrr + mouseY*0.000025);
+          slider_Lrr.setValue(Lrr + mouseY*0.00003);
         }
         else if(last_mouseY < mouseY){
-          slider_Lrr.setValue(Lrr - mouseY*0.000025);
+          slider_Lrr.setValue(Lrr - mouseY*0.00003);
         }
       //}
     }
@@ -531,16 +564,16 @@ void mouseDragged(){
     if(qdr==3){
       //if(LcenX > mouseX && LcenY < mouseY){
         if(last_mouseX > mouseX){
-          slider_Lrr.setValue(Lrr + mouseX*0.000025);
+          slider_Lrr.setValue(Lrr + mouseX*0.00003);
         }
         else if(last_mouseX < mouseX){
-          slider_Lrr.setValue(Lrr - mouseX*0.000025);
+          slider_Lrr.setValue(Lrr - mouseX*0.00003);
         }
         if(last_mouseY < mouseY){
-          slider_Lrr.setValue(Lrr + mouseY*0.000025);
+          slider_Lrr.setValue(Lrr + mouseY*0.00003);
         }
         else if(last_mouseY > mouseY){
-          slider_Lrr.setValue(Lrr - mouseY*0.000025);
+          slider_Lrr.setValue(Lrr - mouseY*0.00003);
         }
       //}
     }
@@ -548,16 +581,16 @@ void mouseDragged(){
     if(qdr==4){
       //if(LcenX < mouseX && LcenY < mouseY){
         if(last_mouseX < mouseX){
-          slider_Lrr.setValue(Lrr + mouseX*0.000025);
+          slider_Lrr.setValue(Lrr + mouseX*0.00003);
         }
         else if(last_mouseX > mouseX){
-          slider_Lrr.setValue(Lrr - mouseX*0.000025);
+          slider_Lrr.setValue(Lrr - mouseX*0.00003);
         }
         if(last_mouseY < mouseY){
-          slider_Lrr.setValue(Lrr + mouseY*0.000025);
+          slider_Lrr.setValue(Lrr + mouseY*0.00003);
         }
         else if(last_mouseY > mouseY){
-          slider_Lrr.setValue(Lrr - mouseY*0.000025);
+          slider_Lrr.setValue(Lrr - mouseY*0.00003);
         }
       //}
     }
@@ -568,16 +601,16 @@ void mouseDragged(){
     if(qdr==1){
       //if(RcenX < mouseX && RcenY > mouseY){
         if(last_mouseX < mouseX){
-          slider_Rrr.setValue(Rrr + mouseX*0.000025);
+          slider_Rrr.setValue(Rrr + mouseX*0.00003);
         }
         else if(last_mouseX > mouseX){
-          slider_Rrr.setValue(Rrr - mouseX*0.000025);
+          slider_Rrr.setValue(Rrr - mouseX*0.00003);
         }
         if(last_mouseY > mouseY){
-          slider_Rrr.setValue(Rrr + mouseY*0.000025);
+          slider_Rrr.setValue(Rrr + mouseY*0.00003);
         }
         else if(last_mouseY < mouseY){
-          slider_Rrr.setValue(Rrr - mouseY*0.000025);
+          slider_Rrr.setValue(Rrr - mouseY*0.00003);
         }
       //}
     }
@@ -585,16 +618,16 @@ void mouseDragged(){
     if(qdr==2){
       //if(RcenX > mouseX && RcenY > mouseY){
         if(last_mouseX > mouseX){
-          slider_Rrr.setValue(Rrr + mouseX*0.000025);
+          slider_Rrr.setValue(Rrr + mouseX*0.00003);
         }
         else if(last_mouseX < mouseX){
-          slider_Rrr.setValue(Rrr - mouseX*0.000025);
+          slider_Rrr.setValue(Rrr - mouseX*0.00003);
         }
         if(last_mouseY > mouseY){
-          slider_Rrr.setValue(Rrr + mouseY*0.000025);
+          slider_Rrr.setValue(Rrr + mouseY*0.00003);
         }
         else if(last_mouseY < mouseY){
-          slider_Rrr.setValue(Rrr - mouseY*0.000025);
+          slider_Rrr.setValue(Rrr - mouseY*0.00003);
         }
       //}
     }
@@ -602,16 +635,16 @@ void mouseDragged(){
     if(qdr==3){
       //if(RcenX > mouseX && RcenY < mouseY){
         if(last_mouseX > mouseX){
-          slider_Rrr.setValue(Rrr + mouseX*0.000025);
+          slider_Rrr.setValue(Rrr + mouseX*0.00003);
         }
         else if(last_mouseX < mouseX){
-          slider_Rrr.setValue(Rrr - mouseX*0.000025);
+          slider_Rrr.setValue(Rrr - mouseX*0.00003);
         }
         if(last_mouseY < mouseY){
-          slider_Rrr.setValue(Rrr + mouseY*0.000025);
+          slider_Rrr.setValue(Rrr + mouseY*0.00003);
         }
         else if(last_mouseY > mouseY){
-          slider_Rrr.setValue(Rrr - mouseY*0.000025);
+          slider_Rrr.setValue(Rrr - mouseY*0.00003);
         }
       //}
     }
@@ -619,16 +652,16 @@ void mouseDragged(){
     if(qdr==4){
       //if(RcenX < mouseX && RcenY < mouseY){
         if(last_mouseX < mouseX){
-          slider_Rrr.setValue(Rrr + mouseX*0.000025);
+          slider_Rrr.setValue(Rrr + mouseX*0.00003);
         }
         else if(last_mouseX > mouseX){
-          slider_Rrr.setValue(Rrr - mouseX*0.000025);
+          slider_Rrr.setValue(Rrr - mouseX*0.00003);
         }
         if(last_mouseY < mouseY){
-          slider_Rrr.setValue(Rrr + mouseY*0.000025);
+          slider_Rrr.setValue(Rrr + mouseY*0.00003);
         }
         else if(last_mouseY > mouseY){
-          slider_Rrr.setValue(Rrr - mouseY*0.000025);
+          slider_Rrr.setValue(Rrr - mouseY*0.00003);
         }
       //}
     }
@@ -639,16 +672,16 @@ void mouseDragged(){
     if(qdr==1){
       //if(LrtcenX < mouseX && LrtcenY > mouseY){
         if(last_mouseX < mouseX){
-          slider_Latranslate.setValue(Latranslate + mouseX*0.000015);
+          slider_Latranslate.setValue(Latranslate + mouseX*0.00001);
         }
         else if(last_mouseX > mouseX){
-          slider_Latranslate.setValue(Latranslate - mouseX*0.000015);
+          slider_Latranslate.setValue(Latranslate - mouseX*0.00001);
         }
         if(last_mouseY > mouseY){
-          slider_Latranslate.setValue(Latranslate + mouseY*0.000015);
+          slider_Latranslate.setValue(Latranslate + mouseY*0.00001);
         }
         else if(last_mouseY < mouseY){
-          slider_Latranslate.setValue(Latranslate - mouseY*0.000015);
+          slider_Latranslate.setValue(Latranslate - mouseY*0.00001);
         }
       //}
     }
@@ -656,16 +689,16 @@ void mouseDragged(){
     if(qdr==2){
       //if(LrtcenX > mouseX && LrtcenY > mouseY){
         if(last_mouseX > mouseX){
-          slider_Latranslate.setValue(Latranslate + mouseX*0.000015);
+          slider_Latranslate.setValue(Latranslate + mouseX*0.00001);
         }
         else if(last_mouseX < mouseX){
-          slider_Latranslate.setValue(Latranslate - mouseX*0.000015);
+          slider_Latranslate.setValue(Latranslate - mouseX*0.00001);
         }
         if(last_mouseY > mouseY){
-          slider_Latranslate.setValue(Latranslate + mouseY*0.000015);
+          slider_Latranslate.setValue(Latranslate + mouseY*0.00001);
         }
         else if(last_mouseY < mouseY){
-          slider_Latranslate.setValue(Latranslate - mouseY*0.000015);
+          slider_Latranslate.setValue(Latranslate - mouseY*0.00001);
         }
       //}
     }
@@ -673,16 +706,16 @@ void mouseDragged(){
     if(qdr==3){
       //if(LrtcenX > mouseX && LrtcenY < mouseY){
         if(last_mouseX > mouseX){
-          slider_Latranslate.setValue(Latranslate + mouseX*0.000015);
+          slider_Latranslate.setValue(Latranslate + mouseX*0.00001);
         }
         else if(last_mouseX < mouseX){
-          slider_Latranslate.setValue(Latranslate - mouseX*0.000015);
+          slider_Latranslate.setValue(Latranslate - mouseX*0.00001);
         }
         if(last_mouseY < mouseY){
-          slider_Latranslate.setValue(Latranslate + mouseY*0.000015);
+          slider_Latranslate.setValue(Latranslate + mouseY*0.00001);
         }
         else if(last_mouseY > mouseY){
-          slider_Latranslate.setValue(Latranslate - mouseY*0.000015);
+          slider_Latranslate.setValue(Latranslate - mouseY*0.00001);
         }
       //}
     }
@@ -690,16 +723,86 @@ void mouseDragged(){
     if(qdr==4){
       //if(LrtcenX < mouseX && LrtcenY < mouseY){
         if(last_mouseX < mouseX){
-          slider_Latranslate.setValue(Latranslate + mouseX*0.000015);
+          slider_Latranslate.setValue(Latranslate + mouseX*0.00001);
         }
         else if(last_mouseX > mouseX){
-          slider_Latranslate.setValue(Latranslate - mouseX*0.000015);
+          slider_Latranslate.setValue(Latranslate - mouseX*0.00001);
         }
         if(last_mouseY < mouseY){
-          slider_Latranslate.setValue(Latranslate + mouseY*0.000015);
+          slider_Latranslate.setValue(Latranslate + mouseY*0.00001);
         }
         else if(last_mouseY > mouseY){
-          slider_Latranslate.setValue(Latranslate - mouseY*0.000015);
+          slider_Latranslate.setValue(Latranslate - mouseY*0.00001);
+        }
+      //}
+    }
+  }
+  if(prm == "右比率"){
+    //マウスが第一象限にある時
+    if(qdr==1){
+      //if(RrtcenX < mouseX && RrtcenY > mouseY){
+        if(last_mouseX < mouseX){
+          slider_Ratranslate.setValue(Ratranslate + mouseX*0.00001);
+        }
+        else if(last_mouseX > mouseX){
+          slider_Ratranslate.setValue(Ratranslate - mouseX*0.00001);
+        }
+        if(last_mouseY > mouseY){
+          slider_Ratranslate.setValue(Ratranslate + mouseY*0.00001);
+        }
+        else if(last_mouseY < mouseY){
+          slider_Ratranslate.setValue(Ratranslate - mouseY*0.00001);
+        }
+      //}
+    }
+    //マウスが第二象限にある時
+    if(qdr==2){
+      //if(RrtcenX > mouseX && RrtcenY > mouseY){
+        if(last_mouseX > mouseX){
+          slider_Ratranslate.setValue(Ratranslate + mouseX*0.00001);
+        }
+        else if(last_mouseX < mouseX){
+          slider_Ratranslate.setValue(Ratranslate - mouseX*0.00001);
+        }
+        if(last_mouseY > mouseY){
+          slider_Ratranslate.setValue(Ratranslate + mouseY*0.00001);
+        }
+        else if(last_mouseY < mouseY){
+          slider_Ratranslate.setValue(Ratranslate - mouseY*0.00001);
+        }
+      //}
+    }
+    //マウスが第三象限にある時
+    if(qdr==3){
+      //if(RrtcenX > mouseX && RrtcenY < mouseY){
+        if(last_mouseX > mouseX){
+          slider_Ratranslate.setValue(Ratranslate + mouseX*0.00001);
+        }
+        else if(last_mouseX < mouseX){
+          slider_Ratranslate.setValue(Ratranslate - mouseX*0.00001);
+        }
+        if(last_mouseY < mouseY){
+          slider_Ratranslate.setValue(Ratranslate + mouseY*0.00001);
+        }
+        else if(last_mouseY > mouseY){
+          slider_Ratranslate.setValue(Ratranslate - mouseY*0.00001);
+        }
+      //}
+    }
+    //マウスが第四象限にある時
+    if(qdr==4){
+      //if(RrtcenX < mouseX && RrtcenY < mouseY){
+        if(last_mouseX < mouseX){
+          slider_Ratranslate.setValue(Ratranslate + mouseX*0.00001);
+        }
+        else if(last_mouseX > mouseX){
+          slider_Ratranslate.setValue(Ratranslate - mouseX*0.00001);
+        }
+        if(last_mouseY < mouseY){
+          slider_Ratranslate.setValue(Ratranslate + mouseY*0.00001);
+        }
+        else if(last_mouseY > mouseY){
+          slider_Ratranslate.setValue(Ratranslate - mouseY*0.00001);
         }
       //}
     }

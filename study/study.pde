@@ -60,14 +60,17 @@ int count1, count2;
 //UI
 //直径
 float LcenX, LcenY;
-float RcenX, RcenY, forRcenY;
+float RcenX, RcenY;
 int count3;
 float Ldia;
 float Rdia;
 //比率
 float LrtcenX, LrtcenY;
-float LcirY05;
+float RrtcenX, RrtcenY;
+float LcirX05, LcirY05;
+float RcirX05, RcirY05;
 float Lrtdia;
+float Rrtdia;
 //その他
 color c;
 String prm;
