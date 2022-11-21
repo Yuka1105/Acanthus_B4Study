@@ -76,7 +76,7 @@ color c;
 String prm;
 float last_mouseX, last_mouseY;
 int qdr;//第何象限でドラッグを始めたか
-
+boolean ui = true;
 
 
 void setup(){

@@ -386,14 +386,16 @@ void draw(){
   }
   
   //UI
-  noStroke();
-  fill(100,100,255,30);
-  ellipse(LcenX,LcenY,Ldia,Ldia);
-  ellipse(RcenX,RcenY,Rdia,Rdia);
-  fill(255,100,100,60);
-  ellipse(LrtcenX,LrtcenY,Lrtdia,Lrtdia);
-  ellipse(RrtcenX,RrtcenY,Rrtdia,Rrtdia);
-  //println("r:"+red(c),"g:"+green(c)+"b:"+blue(c));
+  if(ui == true){//UIが表示の時
+    noStroke();
+    fill(100,100,255,30);
+    ellipse(LcenX,LcenY,Ldia,Ldia);
+    ellipse(RcenX,RcenY,Rdia,Rdia);
+    fill(255,100,100,60);
+    ellipse(LrtcenX,LrtcenY,Lrtdia,Lrtdia);
+    ellipse(RrtcenX,RrtcenY,Rrtdia,Rrtdia);
+    //println("r:"+red(c),"g:"+green(c)+"b:"+blue(c));
+  }
   
   //現在のマウスの位置の色取得
   c = get(mouseX,mouseY);
@@ -439,6 +441,18 @@ void draw(){
   count3 = 0;
   last_mouseX = mouseX;
   last_mouseY = mouseY;
+}
+
+//スペースキーが押された時UIの表示非表示を切り替える
+void keyPressed(){
+  if (key == ' '){
+    if(ui == true){
+      ui = false;
+    }
+    else{
+      ui = true;
+    }
+  }
 }
 
 void mousePressed(){
