@@ -14,6 +14,7 @@ int Lspiral, Rspiral;
 float La= 1.1;
 float Ra= 1.1;
 float Lb, Rb;
+Slider slider_Lb, slider_Rb;
 float Latranslate, Ratranslate;
 Slider slider_Latranslate, slider_Ratranslate;
 float Lrr, Rrr;
@@ -68,9 +69,18 @@ float Rdia;
 float LrtcenX, LrtcenY;
 float RrtcenX, RrtcenY;
 float LcirX05, LcirY05;
-float RcirX05, RcirY05;
+float RcirX1, RcirY1;
 float Lrtdia;
 float Rrtdia;
+//内径
+float LincenX, LincenY;
+float RincenX, RincenY;
+float LcirX0, LcirY0;
+float LcirX1, LcirY1;
+float RcirX0, RcirY0;
+float RcirX05, RcirY05;
+float Lindia;
+float Rindia;
 //その他
 color c;
 String prm;
@@ -97,7 +107,7 @@ void setup(){
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Lbの値を動かすスライダー
-  slider.addSlider("Lb")
+  slider_Lb = slider.addSlider("Lb")
    .setPosition(10,40)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0,5)  //最小値と最大値
@@ -155,7 +165,7 @@ void setup(){
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Rbの値を動かすスライダー
-  slider.addSlider("Rb")
+  slider_Rb = slider.addSlider("Rb")
    .setPosition(170,40)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0,5)  //最小値と最大値
