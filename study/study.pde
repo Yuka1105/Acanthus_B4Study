@@ -15,6 +15,7 @@ float La= 1.1;
 float Ra= 1.1;
 float Lb, Rb;
 float Latranslate, Ratranslate;
+Slider slider_Latranslate, slider_Ratranslate;
 float Lrr, Rrr;
 Slider slider_Lrr, slider_Rrr;
 float Lr, Rr;
@@ -57,11 +58,17 @@ float RcirX125, RcirY125;
 int count1, count2;
 
 //UI
+//直径
 float LcenX, LcenY;
 float RcenX, RcenY, forRcenY;
 int count3;
 float Ldia;
 float Rdia;
+//比率
+float LrtcenX, LrtcenY;
+float LcirY05;
+float Lrtdia;
+//その他
 color c;
 String prm;
 float last_mouseX, last_mouseY;
@@ -95,7 +102,7 @@ void setup(){
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Latranslateの値を動かすスライダー
-  slider.addSlider("Latranslate")
+  slider_Latranslate = slider.addSlider("Latranslate")
    .setPosition(10,70)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0.25, 0.5)  //最小値と最大値
@@ -153,7 +160,7 @@ void setup(){
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Ratranslateの値を動かすスライダー
-  slider.addSlider("Ratranslate")
+  slider_Ratranslate = slider.addSlider("Ratranslate")
    .setPosition(170,70)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0.25, 0.5)  //最小値と最大値
