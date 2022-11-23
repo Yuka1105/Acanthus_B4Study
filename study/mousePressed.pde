@@ -114,6 +114,24 @@ void mousePressed(){
       }
     }
   }
+  //灰色ならば
+  else if(red(c)==219 && green(c)==219 && blue(c)==219){
+    prm = "葉";
+    
+    //何象限でドラッグを始めたか
+    if(lcenX < mouseX && lcenY > mouseY){
+      qdr = 1;
+    }
+    else if(lcenX > mouseX && lcenY > mouseY){
+      qdr = 2;
+    }
+    else if(lcenX > mouseX && lcenY < mouseY){
+      qdr = 3;
+    }
+    else if(lcenX < mouseX && lcenY < mouseY){
+      qdr = 4;
+    }
+  }
   else{
     prm = "なし";
   }

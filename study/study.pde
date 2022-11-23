@@ -55,6 +55,7 @@ float RcirXrB, RcirYrB;
 float RcirXt, RcirYt;
 float RcirXl, RcirYl;
 float RcirXb, RcirYb;
+Slider slider_lbl;
 
 //UI
 //直径
@@ -72,6 +73,8 @@ float LincenX, LincenY;
 float RincenX, RincenY;
 float Lindia;
 float Rindia;
+//葉
+float A,B,C,D,E,Ed,F,Fd,G,H,A1,B1,A2,B2,PX,PY,I,J,K,L,M,O,P,lcenX,lcenY,ldia;
 //その他
 color c;
 String prm;
@@ -220,7 +223,7 @@ void setup(){
   
   //葉
   //lblの値を動かすスライダー
-  slider.addSlider("lbl")
+  slider_lbl = slider.addSlider("lbl")
    .setPosition(330,10)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(400,485)  //最小値と最大値

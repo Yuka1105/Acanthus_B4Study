@@ -423,4 +423,74 @@ void mouseDragged(){
       //}
     }
   }
+  if(prm == "葉"){
+    //マウスが第一象限にある時
+    if(qdr==1){
+      //if(lcenX < mouseX && LcenY > mouseY){
+        if(last_mouseX < mouseX){
+          slider_lbl.setValue(lbl - mouseX*0.0018);
+        }
+        else if(last_mouseX > mouseX){
+          slider_lbl.setValue(lbl + mouseX*0.0018);
+        }
+        if(last_mouseY > mouseY){
+          slider_lbl.setValue(lbl - mouseY*0.0018);
+        }
+        else if(last_mouseY < mouseY){
+          slider_lbl.setValue(lbl + mouseY*0.0018);
+        }
+      //}
+    }
+    //マウスが第二象限にある時
+    if(qdr==2){
+      //if(lcenX > mouseX && lcenY > mouseY){
+        if(last_mouseX > mouseX){
+          slider_lbl.setValue(lbl - mouseX*0.0018);
+        }
+        else if(last_mouseX < mouseX){
+          slider_lbl.setValue(lbl + mouseX*0.0018);
+        }
+        if(last_mouseY > mouseY){
+          slider_lbl.setValue(lbl - mouseY*0.0018);
+        }
+        else if(last_mouseY < mouseY){
+          slider_lbl.setValue(lbl + mouseY*0.0018);
+        }
+      //}
+    }
+    //マウスが第三象限にある時
+    if(qdr==3){
+      //if(lcenX > mouseX && lcenY < mouseY){
+        if(last_mouseX > mouseX){
+          slider_lbl.setValue(lbl - mouseX*0.0018);
+        }
+        else if(last_mouseX < mouseX){
+          slider_lbl.setValue(lbl + mouseX*0.0018);
+        }
+        if(last_mouseY < mouseY){
+          slider_lbl.setValue(lbl - mouseY*0.0018);
+        }
+        else if(last_mouseY > mouseY){
+          slider_lbl.setValue(lbl + mouseY*0.0018);
+        }
+      //}
+    }
+    //マウスが第四象限にある時
+    if(qdr==4){
+      //if(lcenX < mouseX && lcenY < mouseY){
+        if(last_mouseX < mouseX){
+          slider_lbl.setValue(lbl - mouseX*0.0018);
+        }
+        else if(last_mouseX > mouseX){
+          slider_lbl.setValue(lbl + mouseX*0.0018);
+        }
+        if(last_mouseY < mouseY){
+          slider_lbl.setValue(lbl - mouseY*0.0018);
+        }
+        else if(last_mouseY > mouseY){
+          slider_lbl.setValue(lbl + mouseY*0.0018);
+        }
+      //}
+    }
+  }
 }
