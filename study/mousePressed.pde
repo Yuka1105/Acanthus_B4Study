@@ -21,17 +21,46 @@ void mousePressed(){
         slider_Rspiral.setValue(1);
       }
     }
-    //葉数の円ならば
-    else{
-      prm = "葉数";
+    //葉数0(左)の円ならば
+    else if(dist(mouseX,mouseY,ltcenX,ltcenY) <= 15/2){
+      prm = "葉数0";
       if(lval == 0){
         slider_lval.setValue(2);
       }
-      else if(lval == 1){
+    }
+    //葉数1(左)の円ならば
+    else if(dist(mouseX,mouseY,lrcenX,lrcenY) <= 15/2){
+      prm = "葉数1";
+      if(lval == 1){
         slider_lval.setValue(0);
       }
-      else if(lval == 2){
+    }
+    //葉数2(左)の円ならば
+    else if(dist(mouseX,mouseY,llcenX,llcenY) <= 15/2){
+      prm = "葉数2";
+      if(lval == 2){
         slider_lval.setValue(1);
+      }
+    }
+    //葉数0(右)の円ならば
+    else if(dist(mouseX,mouseY,rlcenX,rlcenY) <= 15/2){
+      prm = "葉数0";
+      if(rval == 0){
+        slider_rval.setValue(2);
+      }
+    }
+    //葉数1(右)の円ならば
+    else if(dist(mouseX,mouseY,rtcenX,rtcenY) <= 15/2){
+      prm = "葉数1";
+      if(rval == 1){
+        slider_rval.setValue(0);
+      }
+    }
+    //葉数2(右)の円ならば
+    else if(dist(mouseX,mouseY,rbcenX,rbcenY) <= 15/2){
+      prm = "葉数2";
+      if(rval == 2){
+        slider_rval.setValue(1);
       }
     }
   }

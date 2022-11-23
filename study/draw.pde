@@ -405,7 +405,7 @@ void draw(){
       //stroke(70,190,70);
       //ellipse(X,Y,3,3);
     
-      if(t == 0.3){//ベジェの途中（t=0.4）から葉を描画
+      if(t == 0.3){//ベジェの途中（t=0.3）から葉を描画
         if(Rspiral == 1){
           //微分
           float dXt = -3*sbXl*pow(1-t,2) + 3*a*(3*t*t-4*t+1) + 3*b*t*(2-3*t) + 3*sbXr*t*t;
@@ -425,6 +425,11 @@ void draw(){
           //stroke(255, 100, 0);
           //line(X,Y,c,d);
           //line(e,f,g,h);
+          
+          //UI
+          //葉数
+          rtcenX = g;
+          rtcenY = h;
         }
         else if(Rspiral == 2){
           //微分
@@ -445,7 +450,16 @@ void draw(){
           //stroke(255, 100, 0);
           //line(X,Y,c,d);
           //line(e,f,g,h);
+          
+          //UI
+          //葉数
+          rtcenX = g;
+          rtcenY = h;
         }
+        //UI
+        //葉数
+        rlcenX = X;
+        rlcenY = Y;
       }
     }
   }
@@ -478,6 +492,11 @@ void draw(){
           //stroke(255, 100, 0);
           //line(X,Y,c,d);
           //line(e,f,g,h);
+          
+          //UI
+          //葉数
+          rbcenX = g;
+          rbcenY = h;
         }
         else if(Rspiral == 2){
           //微分
@@ -498,6 +517,11 @@ void draw(){
           //stroke(255, 100, 0);
           //line(X,Y,c,d);
           //line(e,f,g,h);
+          
+          //UI
+          //葉数
+          rbcenX = g;
+          rbcenY = h;
         }
       }
     } 
@@ -546,7 +570,16 @@ void draw(){
     else if(lval == 2){
       ellipse(llcenX,llcenY,15,15);
     }
-    
+    if(rval == 0){
+      ellipse(rlcenX,rlcenY,15,15);
+    }
+    else if(rval == 1){
+      ellipse(rtcenX,rtcenY,15,15);
+    }
+    else if(rval == 2){
+      ellipse(rbcenX,rbcenY,15,15);
+    }
+
     println("r:"+red(c),"g:"+green(c)+"b:"+blue(c));
   }
   
