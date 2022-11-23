@@ -297,6 +297,15 @@ void draw(){
   }
   
   //UI
+  //葉数
+  ltcenX = sbXl;
+  ltcenY = sbYl;
+  llcenX = 0.6*(LmaxR*lbl*0.002+LmaxR*0.55+lbl*0.9)-RmaxR*0.1+Rx*0.08;
+  llcenY = 0.98*(LmaxR*0.25+RmaxR*0.25+lbl*0.15+375+100/lbl);
+  lrcenX = 0.71*(LmaxR*lbl*0.002+LmaxR*0.55+lbl*0.9)-RmaxR*0.1+Rx*0.08;
+  lrcenY = LmaxR*0.25+RmaxR*0.25+lbl*0.15+375+100/lbl;
+  
+  //UI
   //葉
   //1本目の直線
   A = greenXl+LmaxR*0.1+lbl*0.1-origin_lbl*0.1+20;
@@ -526,13 +535,23 @@ void draw(){
     fill(220,140,140);
     ellipse(LspcenX,LspcenY,15,15);
     ellipse(RspcenX,RspcenY,15,15);
+    //葉数
+    fill(220,140,140);
+    if(lval == 0){
+      ellipse(ltcenX,ltcenY,15,15);
+    }
+    else if(lval == 1){
+      ellipse(lrcenX,lrcenY,15,15);
+    }
+    else if(lval == 2){
+      ellipse(llcenX,llcenY,15,15);
+    }
     
     println("r:"+red(c),"g:"+green(c)+"b:"+blue(c));
   }
   
   //現在のマウスの位置の色取得
   c = get(mouseX,mouseY);
-  println(prm);
   
   //値をリセットまたはスライダーの値に
   //左側の渦巻き

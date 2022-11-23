@@ -57,6 +57,7 @@ float RcirXt, RcirYt;
 float RcirXl, RcirYl;
 float RcirXb, RcirYb;
 Slider slider_lbl;
+Slider slider_lval;
 
 //UI
 //巻き数
@@ -77,6 +78,10 @@ float LincenX, LincenY;
 float RincenX, RincenY;
 float Lindia;
 float Rindia;
+//葉数
+float ltcenX,ltcenY;
+float llcenX,llcenY;
+float lrcenX,lrcenY;
 //葉
 float A,B,C,D,E,Ed,F,Fd,G,H,A1,B1,A2,B2,PX,PY,I,J,K,L,M,O,P,lcenX,lcenY,ldia;
 //その他
@@ -235,7 +240,7 @@ void setup(){
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //lvalの値を動かすスライダー
-  slider.addSlider("lval")
+  slider_lval = slider.addSlider("lval")
    .setPosition(330,40)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0,2)  //最小値と最大値

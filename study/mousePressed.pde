@@ -21,6 +21,19 @@ void mousePressed(){
         slider_Rspiral.setValue(1);
       }
     }
+    //葉数の円ならば
+    else{
+      prm = "葉数";
+      if(lval == 0){
+        slider_lval.setValue(2);
+      }
+      else if(lval == 1){
+        slider_lval.setValue(0);
+      }
+      else if(lval == 2){
+        slider_lval.setValue(1);
+      }
+    }
   }
   //紫ならば
   else if(red(c)==237 && green(c)==237 && blue(c)==255){
