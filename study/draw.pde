@@ -395,7 +395,19 @@ void draw(){
   
   noFill(); 
   strokeWeight(3);
-  //ベジェ（右側の葉:最高点から描画）
+  //UI
+  //葉数
+  if(rval == 0){
+    for(float t=0; t<=1; t+=0.1){
+      //ベジェ(茎)のtを用いたパラメータ表記
+      float X = pow(1-t,3)*sbXl + 3*pow(1-t,2)*t*a + 3*pow(1-t,1)*t*t*b + t*t*t*sbXr;
+      float Y = pow(1-t,3)*sbYl + 3*pow(1-t,2)*t*sbYl + 3*pow(1-t,1)*t*t*sbYr + t*t*t*sbYr;
+      if(t == 0.3){
+        rlcenX = X;
+        rlcenY = Y;
+      }
+    }
+  }
   if(rval != 0){
     
     for(float t=0; t<=1; t+=0.1){
@@ -456,10 +468,6 @@ void draw(){
           rtcenX = g;
           rtcenY = h;
         }
-        //UI
-        //葉数
-        rlcenX = X;
-        rlcenY = Y;
       }
     }
   }
