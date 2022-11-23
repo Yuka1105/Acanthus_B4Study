@@ -25,6 +25,7 @@ float last_Lrr, last_Rrr;
 float origin_Lrr, origin_Rrr;
 float origin_Rx;
 float LmaxR, RmaxR;
+Slider slider_Lspiral, slider_Rspiral;
 Slider slider_Lb, slider_Rb;
 Slider slider_Latranslate, slider_Ratranslate;
 Slider slider_Lrr, slider_Rrr;
@@ -58,6 +59,9 @@ float RcirXb, RcirYb;
 Slider slider_lbl;
 
 //UI
+//巻き数
+float LspcenX, LspcenY;
+float RspcenX, RspcenY;
 //直径
 float LcenX, LcenY;
 float RcenX, RcenY;
@@ -81,8 +85,8 @@ String prm;
 float last_mouseX, last_mouseY;
 int qdr;//第何象限でドラッグを始めたか
 boolean ui = true;
-float RcirX01, RcirY01;
 float LcirX0, LcirY0, RcirX0, RcirY0;
+float RcirX01, RcirY01;
 float LcirX05, LcirY05, RcirX05, RcirY05;
 float LcirX1, LcirY1, RcirX1, RcirY1;
 float RcirX125, RcirY125;
@@ -101,7 +105,7 @@ void setup(){
   
   //左側の渦巻き
   //Lspiralの値を動かすスライダー
-  slider.addSlider("Lspiral")
+  slider_Lspiral = slider.addSlider("Lspiral")
    .setPosition(10,10)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(1,2)  //最小値と最大値
@@ -159,7 +163,7 @@ void setup(){
    
   //右側の渦巻き
   //Rspiralの値を動かすスライダー
-  slider.addSlider("Rspiral")
+  slider_Rspiral = slider.addSlider("Rspiral")
    .setPosition(170,10)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(1,2)  //最小値と最大値

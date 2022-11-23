@@ -1,6 +1,29 @@
 void mousePressed(){
+  //赤ならば
+  if(red(c)==220 && green(c)==140 && blue(c)==140){
+    //左側の渦巻きならば
+    if(dist(mouseX,mouseY,LspcenX,LspcenY) <= 15/2){
+      prm = "左巻き数";
+      if(Lspiral == 1){
+        slider_Lspiral.setValue(2);
+      }
+      else if(Lspiral == 2){
+        slider_Lspiral.setValue(1);
+      }
+    }
+    //右側の渦巻きならば
+    else if(dist(mouseX,mouseY,RspcenX,RspcenY) <= 15/2){
+      prm = "右巻き数";
+      if(Rspiral == 1){
+        slider_Rspiral.setValue(2);
+      }
+      else if(Rspiral == 2){
+        slider_Rspiral.setValue(1);
+      }
+    }
+  }
   //紫ならば
-  if(red(c)==237 && green(c)==237 && blue(c)==255){
+  else if(red(c)==237 && green(c)==237 && blue(c)==255){
     //左側の渦巻きならば
     if(dist(mouseX,mouseY,LcenX,LcenY) <= Ldia/2){
       prm = "左直径";

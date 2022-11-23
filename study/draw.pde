@@ -115,6 +115,8 @@ void draw(){
   }
   //UI
   //中心のX,Y座標
+  LspcenX = LcirX0;
+  LspcenY = LcirY0;
   LcenX = sbXl;
   LcenY = LcirY2;
   LrtcenX = (sbXl+LcirX05)/2;
@@ -225,6 +227,8 @@ void draw(){
   RcirYl = RcirY15;
   //UI
   //中心のX,Y座標
+  RspcenX = RcirX0;
+  RspcenY = RcirY0;
   RcenX = sbXr;
   RcenY = RcirY25;
   RrtcenX = (sbXr+RcirX1)/2;
@@ -518,6 +522,10 @@ void draw(){
     if(lval >= 1){
       ellipse(lcenX,lcenY,ldia,ldia);
     }
+    //巻き数
+    fill(220,140,140);
+    ellipse(LspcenX,LspcenY,15,15);
+    ellipse(RspcenX,RspcenY,15,15);
     
     println("r:"+red(c),"g:"+green(c)+"b:"+blue(c));
   }
