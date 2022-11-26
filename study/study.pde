@@ -47,7 +47,7 @@ int last_rr = 0;
 //ベジェ（葉）
 float lbl;
 float origin_lbl;
-int lval;//左側の葉の数
+int lpattern;//左側の葉の数
 int rval;//右側の葉の数
 //1枚目の葉用
 float RcirXrU, RcirYrU;
@@ -57,7 +57,7 @@ float RcirXt, RcirYt;
 float RcirXl, RcirYl;
 float RcirXb, RcirYb;
 Slider slider_lbl;
-Slider slider_lval, slider_rval;
+Slider slider_lpattern, slider_rval;
 
 //UI
 //巻き数
@@ -87,6 +87,7 @@ float rtcenX,rtcenY;
 float rbcenX,rbcenY;
 //葉
 float A,B,C,D,E,Ed,F,Fd,G,H,A1,B1,A2,B2,PX,PY,I,J,K,L,M,O,P,lcenX,lcenY,ldia;
+float Al,Bl,Cl,Dl,El,Eld,Fl,Fld,Gl,Hl,Al1,Bl1,Al2,Bl2,PlX,PlY,Il,Jl,Kl,Ll,Ml,Ol,Pl,lcenlX,lcenlY,lldia;
 //その他
 color c;
 String prm;
@@ -242,15 +243,15 @@ void setup(){
    .setValue(460)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
-  //lvalの値を動かすスライダー
-  slider_lval = slider.addSlider("lval")
+  //lpatternの値を動かすスライダー
+  slider_lpattern = slider.addSlider("lpattern")
    .setPosition(330,40)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
-   .setRange(0,2)  //最小値と最大値
+   .setRange(0,3)  //最小値と最大値
    .setValue(2)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
-  //lvalの値を動かすスライダー
+  //lpatternの値を動かすスライダー
   slider_rval = slider.addSlider("rval")
    .setPosition(490,10)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ

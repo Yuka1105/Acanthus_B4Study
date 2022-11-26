@@ -24,22 +24,31 @@ void mousePressed(){
     //葉数0(左)の円ならば
     else if(dist(mouseX,mouseY,ltcenX,ltcenY) <= 15/2){
       prm = "葉数0";
-      if(lval == 0){
-        slider_lval.setValue(2);
+      if(lpattern == 0){
+        slider_lpattern.setValue(3);
       }
     }
-    //葉数1(左)の円ならば
+    //右側の葉（左）の円ならば
     else if(dist(mouseX,mouseY,lrcenX,lrcenY) <= 15/2){
-      prm = "葉数1";
-      if(lval == 1){
-        slider_lval.setValue(0);
+      if(lpattern == 1){
+        prm = "葉数1：右の葉";
+        slider_lpattern.setValue(0);
+      }
+      else if(lpattern == 3){
+        prm = "葉数2";
+        slider_lpattern.setValue(2);
       }
     }
-    //葉数2(左)の円ならば
+    //左側の葉（左）の円ならば
     else if(dist(mouseX,mouseY,llcenX,llcenY) <= 15/2){
-      prm = "葉数2";
-      if(lval == 2){
-        slider_lval.setValue(1);
+      prm = "葉数1：左の葉";
+      if(lpattern == 2){
+        prm = "葉数2";
+        slider_lpattern.setValue(0);
+      }
+      else if(lpattern == 3){
+        prm = "葉数2";
+        slider_lpattern.setValue(1);
       }
     }
     //葉数0(右)の円ならば
@@ -181,20 +190,40 @@ void mousePressed(){
   }
   //灰色ならば
   else if(red(c)==219 && green(c)==219 && blue(c)==219){
-    prm = "葉";
-    
-    //何象限でドラッグを始めたか
-    if(lcenX < mouseX && lcenY > mouseY){
-      qdr = 1;
+    //左の葉群
+    //左側の葉ならば
+    if(lpattern == 2 || lpattern == 3){
+      prm = "左側の葉";
+      //何象限でドラッグを始めたか
+      if(lcenlX < mouseX && lcenlY > mouseY){
+        qdr = 1;
+      }
+      else if(lcenlX > mouseX && lcenlY > mouseY){
+        qdr = 2;
+      }
+      else if(lcenlX > mouseX && lcenlY < mouseY){
+        qdr = 3;
+      }
+      else if(lcenlX < mouseX && lcenlY < mouseY){
+        qdr = 4;
+      }
     }
-    else if(lcenX > mouseX && lcenY > mouseY){
-      qdr = 2;
-    }
-    else if(lcenX > mouseX && lcenY < mouseY){
-      qdr = 3;
-    }
-    else if(lcenX < mouseX && lcenY < mouseY){
-      qdr = 4;
+    //右側の葉ならば
+    else if(lpattern == 1 || lpattern == 3){
+      prm = "右側の葉";
+      //何象限でドラッグを始めたか
+      if(lcenX < mouseX && lcenY > mouseY){
+        qdr = 1;
+      }
+      else if(lcenX > mouseX && lcenY > mouseY){
+        qdr = 2;
+      }
+      else if(lcenX > mouseX && lcenY < mouseY){
+        qdr = 3;
+      }
+      else if(lcenX < mouseX && lcenY < mouseY){
+        qdr = 4;
+      }
     }
   }
   else{

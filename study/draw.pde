@@ -1,4 +1,5 @@
 void draw(){
+  print(prm);
   //背景
   noStroke();
   fill(255);
@@ -279,7 +280,7 @@ void draw(){
   
   
   //ベジェ（左側の葉:最高点から描画）
-  if(lval != 0){
+  if(lpattern == 1 || lpattern == 3){
     stroke(70,190,70);
     bezier(sbXl, sbYl, greenXl+120000/pow(LmaxR,1.95)+120000/pow(RmaxR,2.15)-60, sbYl, 
     greenXl+LmaxR*0.1+lbl*0.1-origin_lbl*0.1+20, LmaxR*0.15+415, 0.71*(LmaxR*lbl*0.002+LmaxR*0.55+lbl*0.9)-RmaxR*0.1+Rx*0.08, LmaxR*0.25+RmaxR*0.25+lbl*0.15+375+100/lbl);
@@ -287,14 +288,15 @@ void draw(){
     //line(sbXl, sbYl, greenXl+120000/pow(LmaxR,1.95)+120000/pow(RmaxR,2.15)-60, sbYl);
     //line(greenXl+LmaxR*0.1+lbl*0.1-origin_lbl*0.1+20, LmaxR*0.15+415, 0.71*(LmaxR*lbl*0.002+LmaxR*0.55+lbl*0.9)-RmaxR*0.1+Rx*0.08, LmaxR*0.25+RmaxR*0.25+lbl*0.15+375+100/lbl);
   }
-  if(lval == 2){
+  if(lpattern == 2 || lpattern == 3){
     stroke(70,190,70);
     bezier(sbXl, sbYl, greenXl+120000/pow(LmaxR,1.95)+120000/pow(RmaxR,2.15)-60, sbYl, 
     0.94*(greenXl+LmaxR*0.1+lbl*0.1-origin_lbl*0.1+20), LmaxR*0.2+415, 0.6*(LmaxR*lbl*0.002+LmaxR*0.55+lbl*0.9)-RmaxR*0.1+Rx*0.08, 0.98*(LmaxR*0.25+RmaxR*0.25+lbl*0.15+375+100/lbl));
     //stroke(255, 100, 0);
     //line(sbXl, sbYl, greenXl+120000/pow(LmaxR,1.95)+120000/pow(RmaxR,2.15)-60, sbYl);
-    //line(0.94*(greenXl+LmaxR*0.1+lbl*0.1-origin_lbl*0.1+20), 1.05*(LmaxR*0.2+415), 0.6*(LmaxR*lbl*0.002+LmaxR*0.55+lbl*0.9)-RmaxR*0.1+Rx*0.08, 0.98*(LmaxR*0.25+RmaxR*0.25+lbl*0.15+375+100/lbl));
+    //line(0.94*(greenXl+LmaxR*0.1+lbl*0.1-origin_lbl*0.1+20), LmaxR*0.2+415, 0.6*(LmaxR*lbl*0.002+LmaxR*0.55+lbl*0.9)-RmaxR*0.1+Rx*0.08, 0.98*(LmaxR*0.25+RmaxR*0.25+lbl*0.15+375+100/lbl));
   }
+  
   
   //UI
   //葉数
@@ -307,17 +309,31 @@ void draw(){
   
   //UI
   //葉
-  //1本目の直線
+  
+  //（右側の葉）1本目の直線
   A = greenXl+LmaxR*0.1+lbl*0.1-origin_lbl*0.1+20;
   B = LmaxR*0.15+415;
   C = 0.71*(LmaxR*lbl*0.002+LmaxR*0.55+lbl*0.9)-RmaxR*0.1+Rx*0.08;
   D = LmaxR*0.25+RmaxR*0.25+lbl*0.15+375+100/lbl;
   A1 = (B-D)/(A-C);
   B1 = D-((B-D)/(A-C))*C;
+  
+  //（左側の葉）1本目の直線
+  Al = 0.94*(greenXl+LmaxR*0.1+lbl*0.1-origin_lbl*0.1+20);
+  Bl = LmaxR*0.2+415;
+  Cl = 0.6*(LmaxR*lbl*0.002+LmaxR*0.55+lbl*0.9)-RmaxR*0.1+Rx*0.08;
+  Dl = 0.98*(LmaxR*0.25+RmaxR*0.25+lbl*0.15+375+100/lbl);
+  Al1 = (Bl-Dl)/(Al-Cl);
+  Bl1 = Dl-((Bl-Dl)/(Al-Cl))*Cl;
+  
 
-  //2本目の直線
+  //（左右の葉）2本目の直線
   for(float t=0; t<=1; t+=0.1){
       //ベジェ(茎)のtを用いたパラメータ表記
+      //（左側の葉）
+      El = pow(1-t,3)*sbXl + 3*pow(1-t,2)*t*a + 3*pow(1-t,1)*t*t*b + t*t*t*sbXr;
+      Fl = pow(1-t,3)*sbYl + 3*pow(1-t,2)*t*sbYl + 3*pow(1-t,1)*t*t*sbYr + t*t*t*sbYr;
+      //（右側の葉）
       E = pow(1-t,3)*sbXl + 3*pow(1-t,2)*t*a + 3*pow(1-t,1)*t*t*b + t*t*t*sbXr;
       F = pow(1-t,3)*sbYl + 3*pow(1-t,2)*t*sbYl + 3*pow(1-t,1)*t*t*sbYr + t*t*t*sbYr;
       //stroke(70,190,70);
@@ -328,6 +344,15 @@ void draw(){
         float dYt = -3*sbYl*pow(1-t,2) + 3*sbYl*(3*t*t-4*t+1) + 3*sbYr*t*(2-3*t) + 3*sbYr*t*t;
         //微分値が等しくなるよう、方程式を解いてG,Hの値を定める
         //E,Fはtによって更新され続けるからt=0.6の時のE,Fの値を代入しておく
+        
+        //（左側の葉）
+        Eld = El;
+        Fld = Fl;
+        Gl = (dXt+3*El)/3;
+        Hl = (dYt+3*Fl)/3;
+        Al2 = (Fl-Hl)/(El-Gl);
+        Bl2 = Hl-((Fl-Hl)/(El-Gl))*Gl;
+        //（右側の葉）
         Ed = E;
         Fd = F;
         G = (dXt+3*E)/3;
@@ -336,6 +361,28 @@ void draw(){
         B2 = H-((F-H)/(E-G))*G;
       }
   }
+  //（左側の葉）
+  //直線1,2の交点
+  PlX = (Bl2-Bl1)/(Al1-Al2);
+  PlY = (Al1*Bl2-Al2*Bl1)/(Al1-Al2);
+  //変数置き換え
+  Kl = pow((PlX-Cl),2)+pow((PlY-Dl),2);
+  Ll = Kl-pow(PlX,2)-pow(PlY,2);
+  Ml = 1+pow(Al2,2);
+  Ol = -2*PlX-2*PlY*Al2+2*Al2*Bl2;
+  Pl = pow(Bl2,2)-2*PlY*Bl2-Ll;
+  //MlIl^2+OlIl+Pl=0を解く
+  float ol = Ol/2;
+  //茎上の点
+  Il = (-ol + abs(sqrt(pow(ol,2)-Ml*Pl)))/Ml;
+  Jl = Al2*Il+Bl2;
+  //直線3,4の交点
+  lcenlX = (Al1*Al2*(Dl-Jl)+Al2*Cl-Al1*Il)/(Al2-Al1);
+  lcenlY = linel3(lcenlX);
+  //葉の直径
+  lldia = 2*dist(Cl,Dl,lcenlX,lcenlY);
+  
+  //（右側の葉）
   //直線1,2の交点
   PX = (B2-B1)/(A1-A2);
   PY = (A1*B2-A2*B1)/(A1-A2);
@@ -356,8 +403,42 @@ void draw(){
   //葉の直径
   ldia = 2*dist(C,D,lcenX,lcenY);
   
+  ////（左側の葉）下書き(葉のUI)
+  //noFill();
+  ////ベジェ
+  //strokeWeight(3);
+  //stroke(255, 100, 0);
+  //line(Al, Bl, Cl, Dl);
+  //line(Eld, Fld, Gl, Hl);
+  ////直線
+  //strokeWeight(1);
+  //stroke(0,255,0);
+  ////直線1：y=Al1*x+Bl1
+  //line(0,linel1(0),800,linel1(800));
+  ////直線2：y=Al2*x+Bl2
+  //line(0,line2(0),800,line2(800));
+  ////直線1,2の交点
+  //noStroke();
+  //fill(0,255,0);
+  //ellipse(PlX,PlY,10,10);
+  ////葉上の点
+  //ellipse(Cl,Dl,10,10);
+  ////茎上の点
+  //ellipse(Il,Jl,10,10);
+  ////直角に交わる直線
+  //noFill();
+  //stroke(0,255,0);
+  //strokeWeight(1);
+  ////直線3
+  //line(0,linel3(0),800,linel3(800));
+  ////直線4
+  //line(0,linel4(0),800,linel4(800));
+  ////直線3,4の交点
+  //noStroke();
+  //fill(0,255,0);
+  //ellipse(lcenlX,lcenlY,10,10);
   
-  ////下書き(葉のUI)
+  ////（右側の葉）下書き(葉のUI)
   //noFill();
   ////ベジェ
   //strokeWeight(3);
@@ -560,8 +641,11 @@ void draw(){
     }
     //葉
     fill(100,100,100,60);
-    if(lval >= 1){
+    if(lpattern == 1 || lpattern == 3){
       ellipse(lcenX,lcenY,ldia,ldia);
+    }
+    else if(lpattern == 2){
+      ellipse(lcenlX,lcenlY,lldia,lldia);
     }
     //巻き数
     fill(220,140,140);
@@ -569,13 +653,17 @@ void draw(){
     ellipse(RspcenX,RspcenY,15,15);
     //葉数
     fill(220,140,140);
-    if(lval == 0){
+    if(lpattern == 0){
       ellipse(ltcenX,ltcenY,15,15);
     }
-    else if(lval == 1){
+    else if(lpattern == 1){
       ellipse(lrcenX,lrcenY,15,15);
     }
-    else if(lval == 2){
+    else if(lpattern == 2){
+      ellipse(llcenX,llcenY,15,15);
+    }
+    else if(lpattern == 3){
+      ellipse(lrcenX,lrcenY,15,15);
       ellipse(llcenX,llcenY,15,15);
     }
     if(rval == 0){
