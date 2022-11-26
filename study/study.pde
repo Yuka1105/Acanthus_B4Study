@@ -239,7 +239,7 @@ void setup(){
   slider_lbl = slider.addSlider("lbl")
    .setPosition(330,10)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
-   .setRange(400,485)  //最小値と最大値
+   .setRange(420,485)  //最小値と最大値
    .setValue(460)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
