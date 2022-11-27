@@ -45,8 +45,8 @@ int rr = 0;
 int last_rr = 0;
 
 //ベジェ（葉）
-float lbl;
-float origin_lbl;
+float lbl, lbr;//葉を動かす変数
+float origin_lbl, origin_lbr;
 int lpattern;//左側の葉の数
 int rpattern;//右側の葉の数
 //1枚目の葉用
@@ -56,7 +56,7 @@ float RcirXrB, RcirYrB;
 float RcirXt, RcirYt;
 float RcirXl, RcirYl;
 float RcirXb, RcirYb;
-Slider slider_lbl;
+Slider slider_lbl, slider_lbr;
 Slider slider_lpattern, slider_rpattern;
 
 //UI
@@ -100,7 +100,7 @@ float LcirX05, LcirY05, RcirX05, RcirY05;
 float LcirX1, LcirY1, RcirX1, RcirY1;
 float RcirX125, RcirY125;
 float RcirX15, RcirY15;
-float LcirX2, LcirY2;
+float RcirX2, RcirY2, LcirX2, LcirY2;
 float RcirX25, RcirY25;
 int Lcount, Rcount;
 
@@ -243,6 +243,14 @@ void setup(){
    .setValue(460)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
+  //lbrの値を動かすスライダー
+  slider_lbr = slider.addSlider("lbr")
+   .setPosition(490,10)  //スライダーの位置
+   .setSize(100,20)  //スライダーのサイズ
+   .setRange(0,100)  //最小値と最大値
+   .setValue(0)  //初期値
+   .setColorCaptionLabel(0)  //スライダーの文字の色
+   ;
   //lpatternの値を動かすスライダー
   slider_lpattern = slider.addSlider("lpattern")
    .setPosition(330,40)  //スライダーの位置
@@ -253,7 +261,7 @@ void setup(){
    ;
   //lpatternの値を動かすスライダー
   slider_rpattern = slider.addSlider("rpattern")
-   .setPosition(490,10)  //スライダーの位置
+   .setPosition(490,40)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0,3)  //最小値と最大値
    .setValue(2)  //初期値
@@ -277,4 +285,5 @@ void setup(){
   
   //葉
   origin_lbl = slider.getController("lbl").getValue();
+  origin_lbr = slider.getController("lbr").getValue();
 }

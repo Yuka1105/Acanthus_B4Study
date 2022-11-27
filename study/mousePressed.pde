@@ -70,13 +70,13 @@ void mousePressed(){
     }
     //下側の葉（右）の円ならば
     else if(dist(mouseX,mouseY,rbcenX,rbcenY) <= 15/2){
-      if(lpattern == 2){
+      if(rpattern == 2){
         prm = "葉数1：下の葉";
-        slider_lpattern.setValue(0);
+        slider_rpattern.setValue(0);
       }
-      else if(lpattern == 3){
+      else if(rpattern == 3){
         prm = "葉数2";
-        slider_lpattern.setValue(1);
+        slider_rpattern.setValue(1);
       }
     }
   }

@@ -150,11 +150,10 @@ void draw(){
    greenXr = Rradnext(Rtheta + STEP)*cos(Rtheta + STEP)+ 400 + Rx;
    
    //ベジェの始点(最高点を求める)
-   if(Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry < Rmin_height){
-     Rmin_height = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
-     RcirXt = Rrad(Rtheta)*cos(Rtheta)+ 400 + Rx;
-     RcirYt = Rrad(Rtheta)*sin(Rtheta)+ height/2 - Ry - 2500/RmaxR;//RmaxRが大きい時は低く（谷ができるのを避ける）、小さい時は高く(茎にくっつくのを避ける)
-   }
+   //if(Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry < Rmin_height){
+   //  Rmin_height = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
+   //}
+   
    //ベジェの始点(最低点を求める)
    if(Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry > Rmax_height){
      Rmax_height = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
@@ -193,7 +192,12 @@ void draw(){
      RcirY15 = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
      Rcount ++;
    }
-   if(i > (2.5*PI)/STEP && Rcount == 6){
+   if(i > (2*PI)/STEP && Rcount == 6){
+     RcirX2 = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
+     RcirY2 = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
+     Rcount ++;
+   }
+   if(i > (2.5*PI)/STEP && Rcount == 7){
      RcirX25 = Rrad(Rtheta)*cos(Rtheta) + 400 + Rx;
      RcirY25 = Rrad(Rtheta)*sin(Rtheta)+height/2 - Ry;
      Rcount ++;
@@ -218,12 +222,16 @@ void draw(){
    Ra += Ratranslate * 0.001;
   }
   //葉
+  //Rspiral==1のとき
   RcirXrU = RcirX01;
-  RcirYrU = RcirY01;
+  RcirYrU = RcirY01 - lbr;
   RcirXrB = RcirX05;
-  RcirYrB = RcirY05;
-  RcirXb = RcirX05;
-  RcirYb = RcirY05 - 2500/RmaxR;//RmaxRが大きい時は低く（谷ができるのを避ける）、小さい時は高く(茎にくっつくのを避ける)
+  RcirYrB = RcirY05 - lbr;
+  //Rspiral==2のとき
+  RcirXt = RcirX2- 0.1*lbr;
+  RcirYt = RcirY2 - 2500/RmaxR - lbr;//RmaxRが大きい時は低く（谷ができるのを避ける）、小さい時は高く(茎にくっつくのを避ける)
+  RcirXb = RcirX05- 0.1*lbr;
+  RcirYb = RcirY05 - 2500/RmaxR - lbr;//RmaxRが大きい時は低く（谷ができるのを避ける）、小さい時は高く(茎にくっつくのを避ける)
   RcirXl = RcirX15;
   RcirYl = RcirY15;
   //UI
@@ -720,6 +728,7 @@ void draw(){
   
   //葉
   lbl = slider.getController("lbl").getValue();
+  lbr = slider.getController("lbr").getValue();
   
   //UI
   Lcount = 0;
