@@ -92,7 +92,7 @@ float Al,Bl,Cl,Dl,El,Eld,Fl,Fld,Gl,Hl,Al1,Bl1,Al2,Bl2,PlX,PlY,Il,Jl,Kl,Ll,Ml,Ol,
 //右側の葉群
 float At,Bt,Ct,Dt,Et,Etd,Ft,Ftd,Gt,Ht,At1,Bt1,At2,Bt2,PtX,PtY,It,Jt,Kt,Lt,Mt,Ot,Pt,lcentX,lcentY,ltdia;
 float Ab,Bb,Cb,Db,Eb,Ebd,Fb,Fbd,Gb,Hb,Ab1,Bb1,Ab2,Bb2,PbX,PbY,Ib,Jb,Kb,Lbb,Mb,Ob,Pb,lcenbX,lcenbY,lbdia;
-float T21X,T22X,T23X,T24X,T21Y,T22Y,T23Y,T24Y;
+float L1X,L2X,L3X,L4X,L1Y,L2Y,L3Y,L4Y;
 //その他
 color c;
 String prm;

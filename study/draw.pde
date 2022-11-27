@@ -348,6 +348,9 @@ void draw(){
       //（上側の葉）
       Et = pow(1-t,3)*sbXl + 3*pow(1-t,2)*t*a + 3*pow(1-t,1)*t*t*b + t*t*t*sbXr;
       Ft = pow(1-t,3)*sbYl + 3*pow(1-t,2)*t*sbYl + 3*pow(1-t,1)*t*t*sbYr + t*t*t*sbYr;
+      //（下側の葉）
+      Eb = pow(1-t,3)*sbXl + 3*pow(1-t,2)*t*a + 3*pow(1-t,1)*t*t*b + t*t*t*sbXr;
+      Fb = pow(1-t,3)*sbYl + 3*pow(1-t,2)*t*sbYl + 3*pow(1-t,1)*t*t*sbYr + t*t*t*sbYr;
       
       //stroke(70,190,70);
       //ellipse(X,Y,3,3);
@@ -387,6 +390,13 @@ void draw(){
         Ht = (dYt+3*Ft)/3;
         At2 = (Ft-Ht)/(El-Gt);
         Bt2 = Ht-((Ft-Ht)/(Et-Gt))*Gt;
+        //（下側の葉）
+        Ebd = Eb;
+        Fbd = Fb;
+        Gb = (dXt+3*Eb)/3;
+        Hb = (dYt+3*Fb)/3;
+        Ab2 = (Fb-Hb)/(Eb-Gb);
+        Bb2 = Hb-((Fb-Hb)/(Eb-Gb))*Gb;
       }
       print(t);
   }
@@ -502,9 +512,7 @@ void draw(){
   //fill(0,255,0);
   //ellipse(lcenX,lcenY,10,10);
   
-  
-  
-  
+
   noFill(); 
   strokeWeight(3);
   //UI  
@@ -571,19 +579,22 @@ void draw(){
           float f = ((RcirYt-d)/(RcirXt-c))*e+d-c*(RcirYt-d)/(RcirXt-c);
           stroke(70,190,70);
           bezier(X,Y,c,d,e,f,g,h);
-          //UI
-          //葉
-          T21X=X;
-          T22X=c;
-          T23X=e;
-          T24X=g;
-          T21Y=Y;
-          T22Y=d;
-          T23Y=f;
-          T24Y=h;
           //stroke(255, 100, 0);
           //line(X,Y,c,d);
           //line(e,f,g,h);
+          
+          if(rpattern == 1){
+            //UI
+            //葉
+            L1X=X;
+            L2X=c;
+            L3X=e;
+            L4X=g;
+            L1Y=Y;
+            L2Y=d;
+            L3Y=f;
+            L4Y=h;
+          }
           
           //UI
           //葉数
@@ -649,6 +660,17 @@ void draw(){
           //line(e,f,g,h);
           
           //UI
+          //葉
+          L1X=X;
+          L2X=c;
+          L3X=e;
+          L4X=g;
+          L1Y=Y;
+          L2Y=d;
+          L3Y=f;
+          L4Y=h;
+          
+          //UI
           //葉数
           rbcenX = g;
           rbcenY = h;
@@ -656,12 +678,10 @@ void draw(){
       }
     } 
   }
-  if(rpattern == 1 || rpattern == 3){
-    
-    for(float t=0; t<=1; t+=0.1){
+  for(float t=0; t<=1; t+=0.1){
       //ベジェ(茎)のtを用いたパラメータ表記
-      float X = pow(1-t,3)*T21X + 3*pow(1-t,2)*t*T22X + 3*pow(1-t,1)*t*t*T23X + t*t*t*T24X;
-      float Y = pow(1-t,3)*T21Y + 3*pow(1-t,2)*t*T22Y + 3*pow(1-t,1)*t*t*T23Y + t*t*t*T24Y;
+      float X = pow(1-t,3)*L1X + 3*pow(1-t,2)*t*L2X + 3*pow(1-t,1)*t*t*L3X + t*t*t*L4X;
+      float Y = pow(1-t,3)*L1Y + 3*pow(1-t,2)*t*L2Y + 3*pow(1-t,1)*t*t*L3Y + t*t*t*L4Y;
       //stroke(70,190,70);
       //ellipse(X,Y,3,3);
     
@@ -670,8 +690,8 @@ void draw(){
         }
         else if(Rspiral == 2){
           //微分
-          float dXt = -3*T21X*pow(1-t,2) + 3*T22X*(3*t*t-4*t+1) + 3*T23X*t*(2-3*t) + 3*T24X*t*t;
-          float dYt = -3*T21Y*pow(1-t,2) + 3*T22Y*(3*t*t-4*t+1) + 3*T23Y*t*(2-3*t) + 3*T24Y*t*t;
+          float dXt = -3*L1X*pow(1-t,2) + 3*L2X*(3*t*t-4*t+1) + 3*L3X*t*(2-3*t) + 3*L4X*t*t;
+          float dYt = -3*L1Y*pow(1-t,2) + 3*L2Y*(3*t*t-4*t+1) + 3*L3Y*t*(2-3*t) + 3*L4Y*t*t;
           //微分値が等しくなるよう、方程式を解いてc,dの値を定める
           float c = (dXt+3*X)/3;
           float d = (dYt+3*Y)/3;
@@ -686,10 +706,17 @@ void draw(){
           Dt = Y;
           At1 = (Bt-Dt)/(At-Ct);
           Bt1 = Dt-((Bt-Dt)/(At-Ct))*Ct;
+          //（下側の葉）1本目の直線
+          Ab = c;
+          Bb = d;
+          Cb = X;
+          Db = Y;
+          Ab1 = (Bb-Db)/(Ab-Cb);
+          Bb1 = Db-((Bb-Db)/(Ab-Cb))*Cb;
         }
       }
     }
-  }
+    
   //（上側の葉）
   //直線1,2の交点
   PtX = (Bt2-Bt1)/(At1-At2);
@@ -710,6 +737,27 @@ void draw(){
   lcentY = linet3(lcentX);
   //葉の直径
   ltdia = 2*dist(Ct,Dt,lcentX,lcentY);
+  
+  //（下側の葉）
+  //直線1,2の交点
+  PbX = (Bb2-Bb1)/(Ab1-Ab2);
+  PbY = (Ab1*Bb2-Ab2*Bb1)/(Ab1-Ab2);
+  //変数置き換え
+  Kb = pow((PbX-Cb),2)+pow((PbY-Db),2);
+  Lbb = Kb-pow(PbX,2)-pow(PbY,2);
+  Mb = 1+pow(Ab2,2);
+  Ob = -2*PbX-2*PbY*Ab2+2*Ab2*Bb2;
+  Pb = pow(Bb2,2)-2*PbY*Bb2-Lbb;
+  //MbIb^2+ObIb+Pb=0を解く
+  float ob = Ob/2;
+  //茎上の点
+  Ib = (-ob + abs(sqrt(pow(ob,2)-Mb*Pb)))/Mb;
+  Jb = Ab2*Ib+Bb2;
+  //直線3,4の交点
+  lcenbX = (Ab1*Ab2*(Db-Jb)+Ab2*Cb-Ab1*Ib)/(Ab2-Ab1);
+  lcenbY = lineb3(lcenbX);
+  //葉の直径
+  lbdia = 2*dist(Cb,Db,lcenbX,lcenbY);
   
   ////Rspiral==2のとき
   ////（上側の葉）下書き(葉のUI)
@@ -747,6 +795,41 @@ void draw(){
   //fill(0,255,0);
   //ellipse(lcentX,lcentY,10,10);
   
+  ////（下側の葉）下書き(葉のUI)
+  //noFill();
+  ////ベジェ
+  //strokeWeight(3);
+  //stroke(255, 100, 0);
+  //line(Ab, Bb, Cb, Db);
+  //line(Ebd, Fbd, Gb, Hb);
+  ////直線
+  //strokeWeight(1);
+  //stroke(0,255,0);
+  ////直線1：y=A1*x+B1
+  //line(0,lineb1(0),800,lineb1(800));
+  ////直線2：y=A2*x+B2
+  //line(0,lineb2(0),800,lineb2(800));
+  ////直線1,2の交点
+  //noStroke();
+  //fill(0,255,0);
+  //ellipse(PbX,PbY,10,10);
+  ////葉上の点
+  //ellipse(Cb,Db,10,10);
+  ////茎上の点
+  //ellipse(Ib,Jb,10,10);
+  ////直角に交わる直線
+  //noFill();
+  //stroke(0,255,0);
+  //strokeWeight(1);
+  ////直線3
+  //line(0,lineb3(0),800,lineb3(800));
+  ////直線4
+  //line(0,lineb4(0),800,lineb4(800));
+  ////直線3,4の交点
+  //noStroke();
+  //fill(0,255,0);
+  //ellipse(lcenbX,lcenbY,10,10);
+  
   //UI
   if(ui == true){//UIが表示の時
     noStroke();
@@ -781,9 +864,9 @@ void draw(){
     if(rpattern == 1 && Rspiral == 2){
       ellipse(lcentX,lcentY,ltdia,ltdia);
     }
-    //else if(lpattern == 2 || lpattern == 3){
-    //  ellipse(lcenlX,lcenlY,lldia,lldia);
-    //}
+    else if((rpattern == 2 || rpattern == 3) && Rspiral == 2){
+      ellipse(lcenbX,lcenbY,lbdia,lbdia);
+    }
     //巻き数
     fill(220,140,140);
     ellipse(LspcenX,LspcenY,15,15);

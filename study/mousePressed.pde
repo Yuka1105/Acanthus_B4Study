@@ -251,6 +251,23 @@ void mousePressed(){
         qdr = 4;
       }
     }
+    //上側の葉ならば
+    else if(Rspiral==2 && (rpattern == 2 || rpattern == 3) && dist(mouseX,mouseY,lcenbX,lcenbY) <= lbdia/2){
+      prm = "巻数2の下側の葉";
+      //何象限でドラッグを始めたか
+      if(lcenbX < mouseX && lcenbY > mouseY){
+        qdr = 1;
+      }
+      else if(lcenbX > mouseX && lcenbY > mouseY){
+        qdr = 2;
+      }
+      else if(lcenbX > mouseX && lcenbY < mouseY){
+        qdr = 3;
+      }
+      else if(lcenbX < mouseX && lcenbY < mouseY){
+        qdr = 4;
+      }
+    }
   }
   else{
     prm = "なし";
