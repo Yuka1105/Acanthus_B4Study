@@ -192,7 +192,7 @@ void mousePressed(){
   else if(red(c)==219 && green(c)==219 && blue(c)==219){
     //左の葉群
     //左側の葉ならば
-    if(lpattern == 2 || lpattern == 3){
+    if(lpattern == 2){
       prm = "左側の葉";
       //何象限でドラッグを始めたか
       if(lcenlX < mouseX && lcenlY > mouseY){
