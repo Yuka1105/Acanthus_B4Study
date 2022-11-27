@@ -478,7 +478,7 @@ void draw(){
   strokeWeight(3);
   //UI
   //葉数
-  if(rval == 0){
+  if(rpattern == 0){
     for(float t=0; t<=1; t+=0.1){
       //ベジェ(茎)のtを用いたパラメータ表記
       float X = pow(1-t,3)*sbXl + 3*pow(1-t,2)*t*a + 3*pow(1-t,1)*t*t*b + t*t*t*sbXr;
@@ -489,7 +489,7 @@ void draw(){
       }
     }
   }
-  if(rval != 0){
+  if(rpattern == 1 || rpattern == 3){
     
     for(float t=0; t<=1; t+=0.1){
       //ベジェ(茎)のtを用いたパラメータ表記
@@ -552,7 +552,7 @@ void draw(){
       }
     }
   }
-  if(rval == 2){
+  if(rpattern == 2 || rpattern == 3){
 
     for(float t=0; t<=1; t+=0.1){
       //ベジェ(茎)のtを用いたパラメータ表記
@@ -666,13 +666,17 @@ void draw(){
       ellipse(lrcenX,lrcenY,15,15);
       ellipse(llcenX,llcenY,15,15);
     }
-    if(rval == 0){
+    if(rpattern == 0){
       ellipse(rlcenX,rlcenY,15,15);
     }
-    else if(rval == 1){
+    else if(rpattern == 1){
       ellipse(rtcenX,rtcenY,15,15);
     }
-    else if(rval == 2){
+    else if(rpattern == 2){
+      ellipse(rbcenX,rbcenY,15,15);
+    }
+    else if(rpattern == 3){
+      ellipse(rtcenX,rtcenY,15,15);
       ellipse(rbcenX,rbcenY,15,15);
     }
 

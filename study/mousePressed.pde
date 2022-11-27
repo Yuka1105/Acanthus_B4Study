@@ -41,9 +41,8 @@ void mousePressed(){
     }
     //左側の葉（左）の円ならば
     else if(dist(mouseX,mouseY,llcenX,llcenY) <= 15/2){
-      prm = "葉数1：左の葉";
       if(lpattern == 2){
-        prm = "葉数2";
+        prm = "葉数1：左の葉";
         slider_lpattern.setValue(0);
       }
       else if(lpattern == 3){
@@ -54,22 +53,30 @@ void mousePressed(){
     //葉数0(右)の円ならば
     else if(dist(mouseX,mouseY,rlcenX,rlcenY) <= 15/2){
       prm = "葉数0";
-      if(rval == 0){
-        slider_rval.setValue(2);
+      if(rpattern == 0){
+        slider_rpattern.setValue(3);
       }
     }
-    //葉数1(右)の円ならば
+    //上側の葉（右）の円ならば
     else if(dist(mouseX,mouseY,rtcenX,rtcenY) <= 15/2){
-      prm = "葉数1";
-      if(rval == 1){
-        slider_rval.setValue(0);
+      if(rpattern == 1){
+        prm = "葉数1：上の葉";
+        slider_rpattern.setValue(0);
+      }
+      else if(rpattern == 3){
+        prm = "葉数2";
+        slider_rpattern.setValue(2);
       }
     }
-    //葉数2(右)の円ならば
+    //下側の葉（右）の円ならば
     else if(dist(mouseX,mouseY,rbcenX,rbcenY) <= 15/2){
-      prm = "葉数2";
-      if(rval == 2){
-        slider_rval.setValue(1);
+      if(lpattern == 2){
+        prm = "葉数1：下の葉";
+        slider_lpattern.setValue(0);
+      }
+      else if(lpattern == 3){
+        prm = "葉数2";
+        slider_lpattern.setValue(1);
       }
     }
   }

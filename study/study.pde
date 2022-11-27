@@ -48,7 +48,7 @@ int last_rr = 0;
 float lbl;
 float origin_lbl;
 int lpattern;//左側の葉の数
-int rval;//右側の葉の数
+int rpattern;//右側の葉の数
 //1枚目の葉用
 float RcirXrU, RcirYrU;
 float RcirXrB, RcirYrB;
@@ -57,7 +57,7 @@ float RcirXt, RcirYt;
 float RcirXl, RcirYl;
 float RcirXb, RcirYb;
 Slider slider_lbl;
-Slider slider_lpattern, slider_rval;
+Slider slider_lpattern, slider_rpattern;
 
 //UI
 //巻き数
@@ -252,10 +252,10 @@ void setup(){
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //lpatternの値を動かすスライダー
-  slider_rval = slider.addSlider("rval")
+  slider_rpattern = slider.addSlider("rpattern")
    .setPosition(490,10)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
-   .setRange(0,2)  //最小値と最大値
+   .setRange(0,3)  //最小値と最大値
    .setValue(2)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
