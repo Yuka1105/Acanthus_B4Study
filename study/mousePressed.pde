@@ -196,10 +196,10 @@ void mousePressed(){
     }
   }
   //灰色ならば
-  else if(red(c)==219 && green(c)==219 && blue(c)==219){
+  else if((red(c)==219 && green(c)==219 && blue(c)==219) || (red(c)==205 && green(c)==205 && blue(c)==219)){
     //左の葉群
     //左側の葉ならば
-    if(lpattern == 2){
+    if(lpattern == 2 && dist(mouseX,mouseY,lcenlX,lcenlY) <= lldia/2){
       prm = "左側の葉";
       //何象限でドラッグを始めたか
       if(lcenlX < mouseX && lcenlY > mouseY){
@@ -216,7 +216,7 @@ void mousePressed(){
       }
     }
     //右側の葉ならば
-    else if(lpattern == 1 || lpattern == 3){
+    else if((lpattern == 1 || lpattern == 3) && dist(mouseX,mouseY,lcenX,lcenY) <= ldia/2){
       prm = "右側の葉";
       //何象限でドラッグを始めたか
       if(lcenX < mouseX && lcenY > mouseY){
@@ -229,6 +229,25 @@ void mousePressed(){
         qdr = 3;
       }
       else if(lcenX < mouseX && lcenY < mouseY){
+        qdr = 4;
+      }
+    }
+    //右の葉群
+    //Rspiral==2のとき
+    //上側の葉ならば
+    if((Rspiral==2 && rpattern == 1) && dist(mouseX,mouseY,lcentX,lcentY) <= ltdia/2){
+      prm = "巻数2の上側の葉";
+      //何象限でドラッグを始めたか
+      if(lcentX < mouseX && lcentY > mouseY){
+        qdr = 1;
+      }
+      else if(lcentX > mouseX && lcentY > mouseY){
+        qdr = 2;
+      }
+      else if(lcentX > mouseX && lcentY < mouseY){
+        qdr = 3;
+      }
+      else if(lcentX < mouseX && lcentY < mouseY){
         qdr = 4;
       }
     }

@@ -563,4 +563,74 @@ void mouseDragged(){
       //}
     }
   }
+  if(prm == "巻数2の上側の葉"){
+    //マウスが第一象限にある時
+    if(qdr==1){
+      //if(lcentX < mouseX && lcentY > mouseY){
+        if(last_mouseX < mouseX){
+          slider_lbr.setValue(lbr + mouseX*0.0018);
+        }
+        else if(last_mouseX > mouseX){
+          slider_lbr.setValue(lbr - mouseX*0.0018);
+        }
+        if(last_mouseY > mouseY){
+          slider_lbr.setValue(lbr + mouseY*0.0018);
+        }
+        else if(last_mouseY < mouseY){
+          slider_lbr.setValue(lbr - mouseY*0.0018);
+        }
+      //}
+    }
+    //マウスが第二象限にある時
+    if(qdr==2){
+      //if(lcentX > mouseX && lcentY > mouseY){
+        if(last_mouseX > mouseX){
+          slider_lbr.setValue(lbr + mouseX*0.0018);
+        }
+        else if(last_mouseX < mouseX){
+          slider_lbr.setValue(lbr - mouseX*0.0018);
+        }
+        if(last_mouseY > mouseY){
+          slider_lbr.setValue(lbr + mouseY*0.0018);
+        }
+        else if(last_mouseY < mouseY){
+          slider_lbr.setValue(lbr - mouseY*0.0018);
+        }
+      //}
+    }
+    //マウスが第三象限にある時
+    if(qdr==3){
+      //if(lcentX > mouseX && lcentY < mouseY){
+        if(last_mouseX > mouseX){
+          slider_lbr.setValue(lbr + mouseX*0.0018);
+        }
+        else if(last_mouseX < mouseX){
+          slider_lbr.setValue(lbr - mouseX*0.0018);
+        }
+        if(last_mouseY < mouseY){
+          slider_lbr.setValue(lbr + mouseY*0.0018);
+        }
+        else if(last_mouseY > mouseY){
+          slider_lbr.setValue(lbr - mouseY*0.0018);
+        }
+      //}
+    }
+    //マウスが第四象限にある時
+    if(qdr==4){
+      //if(lcentX < mouseX && lcentY < mouseY){
+        if(last_mouseX < mouseX){
+          slider_lbr.setValue(lbr + mouseX*0.0018);
+        }
+        else if(last_mouseX > mouseX){
+          slider_lbr.setValue(lbr - mouseX*0.0018);
+        }
+        if(last_mouseY < mouseY){
+          slider_lbr.setValue(lbr + mouseY*0.0018);
+        }
+        else if(last_mouseY > mouseY){
+          slider_lbr.setValue(lbr - mouseY*0.0018);
+        }
+      //}
+    }
+  }
 }
