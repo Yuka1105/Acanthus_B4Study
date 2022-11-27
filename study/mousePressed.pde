@@ -268,6 +268,41 @@ void mousePressed(){
         qdr = 4;
       }
     }
+    //Rspiral==1のとき
+    //上側の葉ならば
+    if((Rspiral==1 && rpattern == 1) && dist(mouseX,mouseY,lcentX,lcentY) <= ltdia/2){
+      prm = "巻数1の上側の葉";
+      //何象限でドラッグを始めたか
+      if(lcentX < mouseX && lcentY > mouseY){
+        qdr = 1;
+      }
+      else if(lcentX > mouseX && lcentY > mouseY){
+        qdr = 2;
+      }
+      else if(lcentX > mouseX && lcentY < mouseY){
+        qdr = 3;
+      }
+      else if(lcentX < mouseX && lcentY < mouseY){
+        qdr = 4;
+      }
+    }
+    //上側の葉ならば
+    else if(Rspiral==1 && (rpattern == 2 || rpattern == 3) && dist(mouseX,mouseY,lcenbX,lcenbY) <= lbdia/2){
+      prm = "巻数1の下側の葉";
+      //何象限でドラッグを始めたか
+      if(lcenbX < mouseX && lcenbY > mouseY){
+        qdr = 1;
+      }
+      else if(lcenbX > mouseX && lcenbY > mouseY){
+        qdr = 2;
+      }
+      else if(lcenbX > mouseX && lcenbY < mouseY){
+        qdr = 3;
+      }
+      else if(lcenbX < mouseX && lcenbY < mouseY){
+        qdr = 4;
+      }
+    }
   }
   else{
     prm = "なし";

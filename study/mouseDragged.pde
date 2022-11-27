@@ -563,21 +563,21 @@ void mouseDragged(){
       //}
     }
   }
-  if(prm == "巻数2の上側の葉"){
+  if(prm == "巻数2の上側の葉" || prm == "巻数1の上側の葉"){
     //マウスが第一象限にある時
     if(qdr==1){
       //if(lcentX < mouseX && lcentY > mouseY){
         if(last_mouseX < mouseX){
-          slider_lbr.setValue(lbr + mouseX*0.0018);
+          slider_lbr.setValue(lbr + mouseX*0.0035);
         }
         else if(last_mouseX > mouseX){
-          slider_lbr.setValue(lbr - mouseX*0.0018);
+          slider_lbr.setValue(lbr - mouseX*0.0035);
         }
         if(last_mouseY > mouseY){
-          slider_lbr.setValue(lbr + mouseY*0.0018);
+          slider_lbr.setValue(lbr + mouseY*0.0035);
         }
         else if(last_mouseY < mouseY){
-          slider_lbr.setValue(lbr - mouseY*0.0018);
+          slider_lbr.setValue(lbr - mouseY*0.0035);
         }
       //}
     }
@@ -585,16 +585,16 @@ void mouseDragged(){
     if(qdr==2){
       //if(lcentX > mouseX && lcentY > mouseY){
         if(last_mouseX > mouseX){
-          slider_lbr.setValue(lbr + mouseX*0.0018);
+          slider_lbr.setValue(lbr + mouseX*0.0035);
         }
         else if(last_mouseX < mouseX){
-          slider_lbr.setValue(lbr - mouseX*0.0018);
+          slider_lbr.setValue(lbr - mouseX*0.0035);
         }
         if(last_mouseY > mouseY){
-          slider_lbr.setValue(lbr + mouseY*0.0018);
+          slider_lbr.setValue(lbr + mouseY*0.0035);
         }
         else if(last_mouseY < mouseY){
-          slider_lbr.setValue(lbr - mouseY*0.0018);
+          slider_lbr.setValue(lbr - mouseY*0.0035);
         }
       //}
     }
@@ -602,16 +602,16 @@ void mouseDragged(){
     if(qdr==3){
       //if(lcentX > mouseX && lcentY < mouseY){
         if(last_mouseX > mouseX){
-          slider_lbr.setValue(lbr + mouseX*0.0018);
+          slider_lbr.setValue(lbr + mouseX*0.0035);
         }
         else if(last_mouseX < mouseX){
-          slider_lbr.setValue(lbr - mouseX*0.0018);
+          slider_lbr.setValue(lbr - mouseX*0.0035);
         }
         if(last_mouseY < mouseY){
-          slider_lbr.setValue(lbr + mouseY*0.0018);
+          slider_lbr.setValue(lbr + mouseY*0.0035);
         }
         else if(last_mouseY > mouseY){
-          slider_lbr.setValue(lbr - mouseY*0.0018);
+          slider_lbr.setValue(lbr - mouseY*0.0035);
         }
       //}
     }
@@ -619,35 +619,35 @@ void mouseDragged(){
     if(qdr==4){
       //if(lcentX < mouseX && lcentY < mouseY){
         if(last_mouseX < mouseX){
-          slider_lbr.setValue(lbr + mouseX*0.0018);
+          slider_lbr.setValue(lbr + mouseX*0.0035);
         }
         else if(last_mouseX > mouseX){
-          slider_lbr.setValue(lbr - mouseX*0.0018);
+          slider_lbr.setValue(lbr - mouseX*0.0035);
         }
         if(last_mouseY < mouseY){
-          slider_lbr.setValue(lbr + mouseY*0.0018);
+          slider_lbr.setValue(lbr + mouseY*0.0035);
         }
         else if(last_mouseY > mouseY){
-          slider_lbr.setValue(lbr - mouseY*0.0018);
+          slider_lbr.setValue(lbr - mouseY*0.0035);
         }
       //}
     }
   }
-  if(prm == "巻数2の下側の葉"){
+  if(prm == "巻数2の下側の葉" || prm == "巻数1の下側の葉"){
     //マウスが第一象限にある時
     if(qdr==1){
       //if(lcenbX < mouseX && lcenbY > mouseY){
         if(last_mouseX < mouseX){
-          slider_lbr.setValue(lbr + mouseX*0.0018);
+          slider_lbr.setValue(lbr + mouseX*0.0035);
         }
         else if(last_mouseX > mouseX){
-          slider_lbr.setValue(lbr - mouseX*0.0018);
+          slider_lbr.setValue(lbr - mouseX*0.0035);
         }
         if(last_mouseY > mouseY){
-          slider_lbr.setValue(lbr + mouseY*0.0018);
+          slider_lbr.setValue(lbr + mouseY*0.0035);
         }
         else if(last_mouseY < mouseY){
-          slider_lbr.setValue(lbr - mouseY*0.0018);
+          slider_lbr.setValue(lbr - mouseY*0.0035);
         }
       //}
     }
@@ -655,16 +655,16 @@ void mouseDragged(){
     if(qdr==2){
       //if(lcenbX > mouseX && lcenbY > mouseY){
         if(last_mouseX > mouseX){
-          slider_lbr.setValue(lbr + mouseX*0.0018);
+          slider_lbr.setValue(lbr + mouseX*0.0035);
         }
         else if(last_mouseX < mouseX){
-          slider_lbr.setValue(lbr - mouseX*0.0018);
+          slider_lbr.setValue(lbr - mouseX*0.0035);
         }
         if(last_mouseY > mouseY){
-          slider_lbr.setValue(lbr + mouseY*0.0018);
+          slider_lbr.setValue(lbr + mouseY*0.0035);
         }
         else if(last_mouseY < mouseY){
-          slider_lbr.setValue(lbr - mouseY*0.0018);
+          slider_lbr.setValue(lbr - mouseY*0.0035);
         }
       //}
     }
@@ -672,16 +672,16 @@ void mouseDragged(){
     if(qdr==3){
       //if(lcenbX > mouseX && lcenbY < mouseY){
         if(last_mouseX > mouseX){
-          slider_lbr.setValue(lbr + mouseX*0.0018);
+          slider_lbr.setValue(lbr + mouseX*0.0035);
         }
         else if(last_mouseX < mouseX){
-          slider_lbr.setValue(lbr - mouseX*0.0018);
+          slider_lbr.setValue(lbr - mouseX*0.0035);
         }
         if(last_mouseY < mouseY){
-          slider_lbr.setValue(lbr + mouseY*0.0018);
+          slider_lbr.setValue(lbr + mouseY*0.0035);
         }
         else if(last_mouseY > mouseY){
-          slider_lbr.setValue(lbr - mouseY*0.0018);
+          slider_lbr.setValue(lbr - mouseY*0.0035);
         }
       //}
     }
@@ -689,16 +689,16 @@ void mouseDragged(){
     if(qdr==4){
       //if(lcenbX < mouseX && lcenbY < mouseY){
         if(last_mouseX < mouseX){
-          slider_lbr.setValue(lbr + mouseX*0.0018);
+          slider_lbr.setValue(lbr + mouseX*0.0035);
         }
         else if(last_mouseX > mouseX){
-          slider_lbr.setValue(lbr - mouseX*0.0018);
+          slider_lbr.setValue(lbr - mouseX*0.0035);
         }
         if(last_mouseY < mouseY){
-          slider_lbr.setValue(lbr + mouseY*0.0018);
+          slider_lbr.setValue(lbr + mouseY*0.0035);
         }
         else if(last_mouseY > mouseY){
-          slider_lbr.setValue(lbr - mouseY*0.0018);
+          slider_lbr.setValue(lbr - mouseY*0.0035);
         }
       //}
     }

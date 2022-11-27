@@ -559,6 +559,17 @@ void draw(){
           //line(e,f,g,h);
           
           //UI
+          //葉
+          L1X=X;
+          L2X=c;
+          L3X=e;
+          L4X=g;
+          L1Y=Y;
+          L2Y=d;
+          L3Y=f;
+          L4Y=h;
+          
+          //UI
           //葉数
           rtcenX = g;
           rtcenY = h;
@@ -635,6 +646,17 @@ void draw(){
           //line(e,f,g,h);
           
           //UI
+          //葉
+          L1X=X;
+          L2X=c;
+          L3X=e;
+          L4X=g;
+          L1Y=Y;
+          L2Y=d;
+          L3Y=f;
+          L4Y=h;
+          
+          //UI
           //葉数
           rbcenX = g;
           rbcenY = h;
@@ -684,11 +706,8 @@ void draw(){
       float Y = pow(1-t,3)*L1Y + 3*pow(1-t,2)*t*L2Y + 3*pow(1-t,1)*t*t*L3Y + t*t*t*L4Y;
       //stroke(70,190,70);
       //ellipse(X,Y,3,3);
-    
-      if(t == 0.6){//ベジェの途中（t=0.3）から葉を描画
-        if(Rspiral == 1){
-        }
-        else if(Rspiral == 2){
+      
+      if(t == 0.6){
           //微分
           float dXt = -3*L1X*pow(1-t,2) + 3*L2X*(3*t*t-4*t+1) + 3*L3X*t*(2-3*t) + 3*L4X*t*t;
           float dYt = -3*L1Y*pow(1-t,2) + 3*L2Y*(3*t*t-4*t+1) + 3*L3Y*t*(2-3*t) + 3*L4Y*t*t;
@@ -706,6 +725,40 @@ void draw(){
           Dt = Y;
           At1 = (Bt-Dt)/(At-Ct);
           Bt1 = Dt-((Bt-Dt)/(At-Ct))*Ct;
+        }
+      if(Rspiral == 1){
+        if(t == 0.5){
+          //微分
+          float dXt = -3*L1X*pow(1-t,2) + 3*L2X*(3*t*t-4*t+1) + 3*L3X*t*(2-3*t) + 3*L4X*t*t;
+          float dYt = -3*L1Y*pow(1-t,2) + 3*L2Y*(3*t*t-4*t+1) + 3*L3Y*t*(2-3*t) + 3*L4Y*t*t;
+          //微分値が等しくなるよう、方程式を解いてc,dの値を定める
+          float c = (dXt+3*X)/3;
+          float d = (dYt+3*Y)/3;
+          //stroke(255, 100, 0);
+          //line(X,Y,c,d);
+          //葉
+          //右側の葉群
+          //（下側の葉）1本目の直線
+          Ab = c;
+          Bb = d;
+          Cb = X;
+          Db = Y;
+          Ab1 = (Bb-Db)/(Ab-Cb);
+          Bb1 = Db-((Bb-Db)/(Ab-Cb))*Cb;
+        }
+      }
+      else if(Rspiral == 2){
+        if(t == 0.6){//ベジェの途中（t=0.3）から葉を描画
+          //微分
+          float dXt = -3*L1X*pow(1-t,2) + 3*L2X*(3*t*t-4*t+1) + 3*L3X*t*(2-3*t) + 3*L4X*t*t;
+          float dYt = -3*L1Y*pow(1-t,2) + 3*L2Y*(3*t*t-4*t+1) + 3*L3Y*t*(2-3*t) + 3*L4Y*t*t;
+          //微分値が等しくなるよう、方程式を解いてc,dの値を定める
+          float c = (dXt+3*X)/3;
+          float d = (dYt+3*Y)/3;
+          //stroke(255, 100, 0);
+          //line(X,Y,c,d);
+          //葉
+          //右側の葉群
           //（下側の葉）1本目の直線
           Ab = c;
           Bb = d;
@@ -759,7 +812,7 @@ void draw(){
   //葉の直径
   lbdia = 2*dist(Cb,Db,lcenbX,lcenbY);
   
-  ////Rspiral==2のとき
+  
   ////（上側の葉）下書き(葉のUI)
   //noFill();
   ////ベジェ
@@ -770,7 +823,7 @@ void draw(){
   ////直線
   //strokeWeight(1);
   //stroke(0,255,0);
-  //直線1：y=A1*x+B1
+  ////直線1：y=A1*x+B1
   //line(0,linet1(0),800,linet1(800));
   ////直線2：y=A2*x+B2
   //line(0,linet2(0),800,linet2(800));
@@ -865,6 +918,12 @@ void draw(){
       ellipse(lcentX,lcentY,ltdia,ltdia);
     }
     else if((rpattern == 2 || rpattern == 3) && Rspiral == 2){
+      ellipse(lcenbX,lcenbY,lbdia,lbdia);
+    }
+    if(rpattern == 1 && Rspiral == 1){
+      ellipse(lcentX,lcentY,ltdia,ltdia);
+    }
+    else if((rpattern == 2 || rpattern == 3) && Rspiral == 1){
       ellipse(lcenbX,lcenbY,lbdia,lbdia);
     }
     //巻き数
