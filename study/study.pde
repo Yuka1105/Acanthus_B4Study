@@ -7,8 +7,6 @@ float Rtheta = 3.5 * PI;
 float topLtheta;//渦巻の最高点の時のθ
 float bottomRtheta;//渦巻の最下点の時のθ
 float Lmin_height = 0; //左の渦巻きの最高点を求める時
-float Rmin_height = 0; //右の渦巻きの最高点を求める時
-float Lmax_height = 0; //左の渦巻きの最低点を求める時
 float Rmax_height = 0; //右の渦巻きの最低点を求める時
 int Lspiral, Rspiral;
 float La= 1.1;
@@ -88,10 +86,8 @@ float rbcenX,rbcenY;
 //葉
 //左側の葉群
 float A,B,C,D,E,Ed,F,Fd,G,H,A1,B1,A2,B2,PX,PY,I,J,K,L,M,O,P,lcenX,lcenY,ldia;
-float Al,Bl,Cl,Dl,El,Eld,Fl,Fld,Gl,Hl,Al1,Bl1,Al2,Bl2,PlX,PlY,Il,Jl,Kl,Ll,Ml,Ol,Pl,lcenlX,lcenlY,lldia;
-//右側の葉群（巻数1,2共通）
+//右側の葉群
 float At,Bt,Ct,Dt,Et,Etd,Ft,Ftd,Gt,Ht,At1,Bt1,At2,Bt2,PtX,PtY,It,Jt,Kt,Lt,Mt,Ot,Pt,lcentX,lcentY,ltdia;
-float Ab,Bb,Cb,Db,Eb,Ebd,Fb,Fbd,Gb,Hb,Ab1,Bb1,Ab2,Bb2,PbX,PbY,Ib,Jb,Kb,Lbb,Mb,Ob,Pb,lcenbX,lcenbY,lbdia;
 float L1X,L2X,L3X,L4X,L1Y,L2Y,L3Y,L4Y;
 //その他
 color c;
