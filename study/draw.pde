@@ -274,7 +274,7 @@ void draw(){
   //line(b,sbYr,sbXr,sbYr);
   
   
-  //ベジェ（左側の葉:最高点から描画）
+  //ベジェ：左側の葉群
   if(lpattern == 1 || lpattern == 3){
     stroke(70,190,70);
     bezier(sbXl, sbYl, greenXl+120000/pow(LmaxR,1.95)+120000/pow(RmaxR,2.15)-60, sbYl, 
