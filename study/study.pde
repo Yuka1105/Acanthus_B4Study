@@ -115,23 +115,23 @@ void setup(){
   
   //左側の渦巻き
   //Lspiralの値を動かすスライダー
-  slider_Lspiral = slider.addSlider("Lspiral")
-   .setPosition(10,10)  //スライダーの位置
+  slider_Lspiral = slider.addSlider("Lspiral").setLabel("L_SP")
+   .setPosition(10,100)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(1,2)  //最小値と最大値
    .setValue(2)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Lbの値を動かすスライダー
-  slider_Lb = slider.addSlider("Lb")
-   .setPosition(10,40)  //スライダーの位置
+  slider_Lb = slider.addSlider("Lb").setLabel("L_ID")
+   .setPosition(10,10)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0,5)  //最小値と最大値
    .setValue(2)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Latranslateの値を動かすスライダー
-  slider_Latranslate = slider.addSlider("Latranslate")
+  slider_Latranslate = slider.addSlider("Latranslate").setLabel("L_WI")
    .setPosition(10,70)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0.25, 0.5)  //最小値と最大値
@@ -139,15 +139,15 @@ void setup(){
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Lrrの値を動かすスライダー
-  slider_Lrr = slider.addSlider("Lrr")
-   .setPosition(10,100)  //スライダーの位置
+  slider_Lrr = slider.addSlider("Lrr").setLabel("L_OD")
+   .setPosition(10,40)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setColorCaptionLabel(0)  //スライダーの文字の色
    .setRange(0.5,1.3)  //最小値と最大値(計算された値)
    .setValue(0.8)  //初期値
    ;
   //Lr：直径
-  slider_Lr = slider.addSlider("Lr")
+  slider_Lr = slider.addSlider("Lr").setLabel("L_R")
    .setPosition(width-120,130)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0, 30)  //最小値と最大値
@@ -155,7 +155,7 @@ void setup(){
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Lxの値を動かすスライダー
-  slider.addSlider("Lx")
+  slider.addSlider("Lx").setLabel("L_X")
    .setPosition(width-120,10)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-400, 400)  //最小値と最大値
@@ -163,7 +163,7 @@ void setup(){
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Lyの値を動かすスライダー
-  slider.addSlider("Ly")
+  slider.addSlider("Ly").setLabel("L_Y")
    .setPosition(width-120,40)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-height/2, height/2)  //最小値と最大値
@@ -173,23 +173,23 @@ void setup(){
    
   //右側の渦巻き
   //Rspiralの値を動かすスライダー
-  slider_Rspiral = slider.addSlider("Rspiral")
-   .setPosition(170,10)  //スライダーの位置
+  slider_Rspiral = slider.addSlider("Rspiral").setLabel("R_SP")
+   .setPosition(170,100)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(1,2)  //最小値と最大値
    .setValue(2)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Rbの値を動かすスライダー
-  slider_Rb = slider.addSlider("Rb")
-   .setPosition(170,40)  //スライダーの位置
+  slider_Rb = slider.addSlider("Rb").setLabel("R_ID")
+   .setPosition(170,10)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0,5)  //最小値と最大値
    .setValue(5)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Ratranslateの値を動かすスライダー
-  slider_Ratranslate = slider.addSlider("Ratranslate")
+  slider_Ratranslate = slider.addSlider("Ratranslate").setLabel("R_WI")
    .setPosition(170,70)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0.25, 0.5)  //最小値と最大値
@@ -197,15 +197,15 @@ void setup(){
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Rrrの値を動かすスライダー 
-  slider_Rrr = slider.addSlider("Rrr")
-   .setPosition(170,100)  //スライダーの位置
+  slider_Rrr = slider.addSlider("Rrr").setLabel("R_OD")
+   .setPosition(170,40)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setColorCaptionLabel(0)  //スライダーの文字の色
    .setRange(0.75,1.95)  //最小値と最大値(計算された値)
    .setValue(1.3)  //初期値
    ;
   //Rr：直径
-  slider_Rr = slider.addSlider("Rr")
+  slider_Rr = slider.addSlider("Rr").setLabel("R_R")
    .setPosition(width-120, 160)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0, 30)  //最小値と最大値
@@ -213,7 +213,7 @@ void setup(){
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Rxの値を動かすスライダー
-  slider_Rx = slider.addSlider("Rx")
+  slider_Rx = slider.addSlider("Rx").setLabel("R_X")
    .setPosition(width-120,70)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-400, 400)  //最小値と最大値
@@ -221,7 +221,7 @@ void setup(){
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //Ryの値を動かすスライダー
-  slider.addSlider("Ry")
+  slider.addSlider("Ry").setLabel("R_Y")
    .setPosition(width-120,100)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-height/2, height/2)  //最小値と最大値
@@ -237,7 +237,7 @@ void setup(){
   
   //葉
   //lblの値を動かすスライダー
-  slider_lbl = slider.addSlider("lbl")
+  slider_lbl = slider.addSlider("lbl").setLabel("A_MO")
    .setPosition(330,10)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(420,485)  //最小値と最大値
@@ -245,7 +245,7 @@ void setup(){
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //lbrの値を動かすスライダー
-  slider_lbr = slider.addSlider("lbr")
+  slider_lbr = slider.addSlider("lbr").setLabel("B_MO")
    .setPosition(490,10)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0,100)  //最小値と最大値
@@ -253,7 +253,7 @@ void setup(){
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //lpatternの値を動かすスライダー
-  slider_lpattern = slider.addSlider("lpattern")
+  slider_lpattern = slider.addSlider("lpattern").setLabel("A_VA")
    .setPosition(330,40)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0,3)  //最小値と最大値
@@ -261,7 +261,7 @@ void setup(){
    .setColorCaptionLabel(0)  //スライダーの文字の色
    ;
   //lpatternの値を動かすスライダー
-  slider_rpattern = slider.addSlider("rpattern")
+  slider_rpattern = slider.addSlider("rpattern").setLabel("B_VA")
    .setPosition(490,40)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0,3)  //最小値と最大値
