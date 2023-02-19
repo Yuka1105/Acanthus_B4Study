@@ -106,12 +106,47 @@ float RcirX25, RcirY25;
 int Lcount, Rcount;
 
 void setup(){
-  size(1000,800);
+  size(900,800);
   colorMode(RGB,255);
   background(255);
   
   //コントローラを生成
   slider = new ControlP5(this);
+  
+  //ボタンのフォント
+  PFont button_Font = createFont("Palatino",16,true);
+  ControlFont button_cf = new ControlFont(button_Font,16);
+  
+  //ボタンの色
+  color button_mouse_col = color(90,200,135);//マウス選択色
+  color button_back_col = color(175,195,185);//背景色
+  color button_click_col = color(80,170,120);//クリック色
+  
+  //UIの表示非表示ボタン
+  slider.addButton("button")
+     .setLabel("Controller  Show / Hide")
+     .setPosition(width-220,10)
+     .setSize(210,100)
+     .setColorCaptionLabel(0)  //スライダーの文字の色
+     .setFont(button_cf)
+     .setColorForeground(button_mouse_col)//マウス選択色
+     .setColorBackground(button_back_col)//背景色
+     .setColorActive(button_click_col)//クリック色
+     ;
+  slider.getController("button")
+      .getCaptionLabel()
+      .toUpperCase(false)
+      ;
+     
+  //スライダのフォント
+  PFont slider_Font = createFont("Palatino",11,true);
+  ControlFont slider_cf = new ControlFont(slider_Font,11);
+  
+  //スライダーの色
+  color slider_bar_col = color(80,170,120);//バー色
+  color slider_back_col = color(175,195,185);//背景色
+  color slider_mouse_col = color(90,200,135);//マウス選択色
+  
   
   //左側の渦巻き
   //Lspiralの値を動かすスライダー
@@ -121,6 +156,10 @@ void setup(){
    .setRange(1,2)  //最小値と最大値
    .setValue(2)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
+   .setFont(slider_cf)
+   .setColorForeground(slider_bar_col)//バー色
+   .setColorBackground(slider_back_col)//背景色
+   .setColorActive(slider_mouse_col)//マウス選択色
    ;
   //Lbの値を動かすスライダー
   slider_Lb = slider.addSlider("Lb").setLabel("L_ID")
@@ -129,6 +168,10 @@ void setup(){
    .setRange(0,5)  //最小値と最大値
    .setValue(2)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
+   .setFont(slider_cf)
+   .setColorForeground(slider_bar_col)//バー色
+   .setColorBackground(slider_back_col)//背景色
+   .setColorActive(slider_mouse_col)//マウス選択色
    ;
   //Latranslateの値を動かすスライダー
   slider_Latranslate = slider.addSlider("Latranslate").setLabel("L_WI")
@@ -137,6 +180,10 @@ void setup(){
    .setRange(0.25, 0.5)  //最小値と最大値
    .setValue(0.45)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
+   .setFont(slider_cf)
+   .setColorForeground(slider_bar_col)//バー色
+   .setColorBackground(slider_back_col)//背景色
+   .setColorActive(slider_mouse_col)//マウス選択色
    ;
   //Lrrの値を動かすスライダー
   slider_Lrr = slider.addSlider("Lrr").setLabel("L_OD")
@@ -145,30 +192,46 @@ void setup(){
    .setColorCaptionLabel(0)  //スライダーの文字の色
    .setRange(0.5,1.3)  //最小値と最大値(計算された値)
    .setValue(0.8)  //初期値
+   .setFont(slider_cf)
+   .setColorForeground(slider_bar_col)//バー色
+   .setColorBackground(slider_back_col)//背景色
+   .setColorActive(slider_mouse_col)//マウス選択色
    ;
   //Lr：直径
   slider_Lr = slider.addSlider("Lr").setLabel("L_R")
-   .setPosition(width-120,130)  //スライダーの位置
+   .setPosition(width-120+200,130)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0, 30)  //最小値と最大値
    .setValue(3)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
+   .setFont(slider_cf)
+   .setColorForeground(slider_bar_col)//バー色
+   .setColorBackground(slider_back_col)//背景色
+   .setColorActive(slider_mouse_col)//マウス選択色
    ;
   //Lxの値を動かすスライダー
   slider.addSlider("Lx").setLabel("L_X")
-   .setPosition(width-120,10)  //スライダーの位置
+   .setPosition(width-120+200,10)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-400, 400)  //最小値と最大値
    .setValue(-150)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
+   .setFont(slider_cf)
+   .setColorForeground(slider_bar_col)//バー色
+   .setColorBackground(slider_back_col)//背景色
+   .setColorActive(slider_mouse_col)//マウス選択色
    ;
   //Lyの値を動かすスライダー
   slider.addSlider("Ly").setLabel("L_Y")
-   .setPosition(width-120,40)  //スライダーの位置
+   .setPosition(width-120+200,40)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-height/2, height/2)  //最小値と最大値
    .setValue(-42)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
+   .setFont(slider_cf)
+   .setColorForeground(slider_bar_col)//バー色
+   .setColorBackground(slider_back_col)//背景色
+   .setColorActive(slider_mouse_col)//マウス選択色
    ;
    
   //右側の渦巻き
@@ -179,6 +242,10 @@ void setup(){
    .setRange(1,2)  //最小値と最大値
    .setValue(2)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
+   .setFont(slider_cf)
+   .setColorForeground(slider_bar_col)//バー色
+   .setColorBackground(slider_back_col)//背景色
+   .setColorActive(slider_mouse_col)//マウス選択色
    ;
   //Rbの値を動かすスライダー
   slider_Rb = slider.addSlider("Rb").setLabel("R_ID")
@@ -187,6 +254,10 @@ void setup(){
    .setRange(0,5)  //最小値と最大値
    .setValue(5)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
+   .setFont(slider_cf)
+   .setColorForeground(slider_bar_col)//バー色
+   .setColorBackground(slider_back_col)//背景色
+   .setColorActive(slider_mouse_col)//マウス選択色
    ;
   //Ratranslateの値を動かすスライダー
   slider_Ratranslate = slider.addSlider("Ratranslate").setLabel("R_WI")
@@ -195,6 +266,10 @@ void setup(){
    .setRange(0.25, 0.5)  //最小値と最大値
    .setValue(0.4)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
+   .setFont(slider_cf)
+   .setColorForeground(slider_bar_col)//バー色
+   .setColorBackground(slider_back_col)//背景色
+   .setColorActive(slider_mouse_col)//マウス選択色
    ;
   //Rrrの値を動かすスライダー 
   slider_Rrr = slider.addSlider("Rrr").setLabel("R_OD")
@@ -203,30 +278,46 @@ void setup(){
    .setColorCaptionLabel(0)  //スライダーの文字の色
    .setRange(0.75,1.95)  //最小値と最大値(計算された値)
    .setValue(1.3)  //初期値
+   .setFont(slider_cf)
+   .setColorForeground(slider_bar_col)//バー色
+   .setColorBackground(slider_back_col)//背景色
+   .setColorActive(slider_mouse_col)//マウス選択色
    ;
   //Rr：直径
   slider_Rr = slider.addSlider("Rr").setLabel("R_R")
-   .setPosition(width-120, 160)  //スライダーの位置
+   .setPosition(width-120+200, 160)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(0, 30)  //最小値と最大値
    .setValue(2.3)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
+   .setFont(slider_cf)
+   .setColorForeground(slider_bar_col)//バー色
+   .setColorBackground(slider_back_col)//背景色
+   .setColorActive(slider_mouse_col)//マウス選択色
    ;
   //Rxの値を動かすスライダー
   slider_Rx = slider.addSlider("Rx").setLabel("R_X")
-   .setPosition(width-120,70)  //スライダーの位置
+   .setPosition(width-120+200,70)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-400, 400)  //最小値と最大値
    .setValue(220)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
+   .setFont(slider_cf)
+   .setColorForeground(slider_bar_col)//バー色
+   .setColorBackground(slider_back_col)//背景色
+   .setColorActive(slider_mouse_col)//マウス選択色
    ;
   //Ryの値を動かすスライダー
   slider.addSlider("Ry").setLabel("R_Y")
-   .setPosition(width-120,100)  //スライダーの位置
+   .setPosition(width-120+200,100)  //スライダーの位置
    .setSize(100,20)  //スライダーのサイズ
    .setRange(-height/2, height/2)  //最小値と最大値
    .setValue(-42)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
+   .setFont(slider_cf)
+   .setColorForeground(slider_bar_col)//バー色
+   .setColorBackground(slider_back_col)//背景色
+   .setColorActive(slider_mouse_col)//マウス選択色
    ;
    
   //LmaxR, RmaxR
@@ -243,6 +334,10 @@ void setup(){
    .setRange(420,485)  //最小値と最大値
    .setValue(460)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
+   .setFont(slider_cf)
+   .setColorForeground(slider_bar_col)//バー色
+   .setColorBackground(slider_back_col)//背景色
+   .setColorActive(slider_mouse_col)//マウス選択色
    ;
   //lbrの値を動かすスライダー
   slider_lbr = slider.addSlider("lbr").setLabel("B_MO")
@@ -251,6 +346,10 @@ void setup(){
    .setRange(0,100)  //最小値と最大値
    .setValue(0)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
+   .setFont(slider_cf)
+   .setColorForeground(slider_bar_col)//バー色
+   .setColorBackground(slider_back_col)//背景色
+   .setColorActive(slider_mouse_col)//マウス選択色
    ;
   //lpatternの値を動かすスライダー
   slider_lpattern = slider.addSlider("lpattern").setLabel("A_VA")
@@ -259,6 +358,10 @@ void setup(){
    .setRange(0,3)  //最小値と最大値
    .setValue(2)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
+   .setFont(slider_cf)
+   .setColorForeground(slider_bar_col)//バー色
+   .setColorBackground(slider_back_col)//背景色
+   .setColorActive(slider_mouse_col)//マウス選択色
    ;
   //lpatternの値を動かすスライダー
   slider_rpattern = slider.addSlider("rpattern").setLabel("B_VA")
@@ -267,6 +370,10 @@ void setup(){
    .setRange(0,3)  //最小値と最大値
    .setValue(2)  //初期値
    .setColorCaptionLabel(0)  //スライダーの文字の色
+   .setFont(slider_cf)
+   .setColorForeground(slider_bar_col)//バー色
+   .setColorBackground(slider_back_col)//背景色
+   .setColorActive(slider_mouse_col)//マウス選択色
    ;
   
   //左側の渦巻き

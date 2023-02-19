@@ -9,3 +9,13 @@ void keyPressed(){
     }
   }
 }
+
+public void button(){
+  println("UI button click");
+  if(ui == true){
+      ui = false;
+    }
+    else{
+      ui = true;
+    }
+}
