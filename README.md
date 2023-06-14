@@ -1,5 +1,8 @@
-## 情報処理学会インタラクション2023インタラクティブ発表作品
+## リンク
+### 情報処理学会インタラクション2023インタラクティブ発表作品
 https://www.interaction-ipsj.org/proceedings/2023/data/bib/1P-60.html
+### 東京都立大学インダストリアルアート学科・学域 卒業・修了制作展2023Web展
+https://adorable-teal-526.notion.site/2023Web-103ba8f2a19e4413b7ec433d75d95b01?p=aa51ac0ae39046a0b1a9be4e8c659328&pm=c
 
 # 概要
 円盤型のコントローラを操作し、好みの形状のアカンサス模様を作ります。
