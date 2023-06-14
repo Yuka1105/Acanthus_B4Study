@@ -1,3 +1,6 @@
+# 情報処理学会　インタラクション2023 インタラクティブ発表作品
+https://www.interaction-ipsj.org/proceedings/2023/data/bib/1P-60.html
+
 # 概要
 円盤型のコントローラを操作し、好みの形状のアカンサス模様を作ります。
 
